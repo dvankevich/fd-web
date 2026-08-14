@@ -1,0 +1,8 @@
+:root {
+  --main-black: #050505;
+  --white: #ffffff;
+  --text-grey: rgba(5, 5, 5, 0.6);
+  --border-grey-12: rgba(5, 5, 5, 0.12);
+  --error-color: #db0000;
+  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
