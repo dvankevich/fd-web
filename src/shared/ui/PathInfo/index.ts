@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент PathInfo
-export {};
+export { PathInfo } from './PathInfo';
