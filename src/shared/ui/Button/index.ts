@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент Button
-export {};
+export { Button } from './Button';
