@@ -1,0 +1,18 @@
+.title {
+  margin-bottom: 16px;
+  color: var(--main-black);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .title {
+    margin-bottom: 20px;
+    font-size: 40px;
+    line-height: 1.1;
+    letter-spacing: -0.05em;
+  }
+}

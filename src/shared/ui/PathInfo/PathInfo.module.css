@@ -1,0 +1,29 @@
+.path {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding-top: 62px;
+}
+
+.text {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: -0.24px;
+  text-transform: uppercase;
+}
+
+.dark {
+  color: var(--main-black);
+}
+
+.grey {
+  color: rgba(5, 5, 5, 0.4);
+}
+
+@media (min-width: 768px) {
+  .path {
+    margin-bottom: 40px;
+    padding-top: 86px;
+  }
+}

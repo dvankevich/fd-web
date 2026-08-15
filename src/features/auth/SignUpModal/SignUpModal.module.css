@@ -1,0 +1,38 @@
+.wrapper {
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 40px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--main-black);
+}
+
+.note {
+  margin-bottom: 24px;
+  color: var(--text-grey);
+  font-size: 14px;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--text-grey);
+}
+
+.link {
+  color: var(--main-black);
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 32px;
+  }
+}
