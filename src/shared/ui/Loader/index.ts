@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент Loader
-export {};
+export { Loader } from './Loader';
