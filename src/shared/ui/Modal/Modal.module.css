@@ -1,0 +1,54 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 16px;
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 343px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 60px 30px;
+  border-radius: 30px;
+  background-color: var(--white);
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--main-black);
+  transition: transform var(--transition);
+}
+
+.closeButton:hover {
+  transform: scale(1.15);
+}
+
+.content {
+  /* контент модалки */
+}
+
+@media (min-width: 768px) {
+  .modal {
+    max-width: 561px;
+    padding: 80px;
+  }
+
+  .closeButton {
+    top: 20px;
+    right: 20px;
+  }
+}

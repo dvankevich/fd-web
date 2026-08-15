@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент Modal
-export {};
+export { Modal } from './Modal';
