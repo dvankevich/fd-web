@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент MainTitle
-export {};
+export { MainTitle } from './MainTitle';
