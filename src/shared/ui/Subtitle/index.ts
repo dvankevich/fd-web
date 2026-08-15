@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент Subtitle
-export {};
+export { Subtitle } from './Subtitle';
