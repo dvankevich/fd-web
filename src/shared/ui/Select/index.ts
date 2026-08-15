@@ -1,2 +1,2 @@
-// TODO: реалізувати компонент Select
-export {};
+export { Select } from './Select';
+export type { SelectOption } from './Select';
