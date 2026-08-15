@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент SignInModal
-export {};
+export { SignInModal } from './SignInModal';

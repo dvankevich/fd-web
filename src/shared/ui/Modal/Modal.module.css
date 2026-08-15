@@ -37,10 +37,6 @@
   transform: scale(1.15);
 }
 
-.content {
-  /* контент модалки */
-}
-
 @media (min-width: 768px) {
   .modal {
     max-width: 561px;

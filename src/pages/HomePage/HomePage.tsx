@@ -9,6 +9,8 @@ import {
   Subtitle,
   type SelectOption,
 } from '@shared/ui';
+import { SignInModal } from '@features/auth/SignInModal';
+import { SignUpModal } from '@features/auth/SignUpModal';
 
 const categoryOptions: SelectOption[] = [
   { value: 'beef', label: 'Beef' },
@@ -17,10 +19,14 @@ const categoryOptions: SelectOption[] = [
   { value: 'dessert', label: 'Dessert' },
 ];
 
+type ModalType = 'signin' | 'signup' | null;
+
 export default function HomePage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<ModalType>(null);
   const [showLoader, setShowLoader] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<SelectOption | null>(null);
+
+  const closeModal = () => setModalType(null);
 
   const handleShowLoader = () => {
     setShowLoader(true);
@@ -30,24 +36,23 @@ export default function HomePage() {
   return (
     <main>
       <div className="container" style={{ paddingBottom: 80 }}>
-        {/* PathInfo */}
         <PathInfo pageName="Home (demo)" />
-
-        {/* MainTitle + Subtitle */}
         <MainTitle text="UI Components Demo" />
-        <Subtitle text="Тимчасова сторінка для перевірки всіх shared UI-компонентів. Після перевірки цей код можна видалити." />
+        <Subtitle text="Тимчасова сторінка для перевірки shared UI + auth модалок." />
 
         {/* Buttons */}
         <section style={{ marginBottom: 40 }}>
-          <h3 style={{ marginBottom: 16, fontWeight: 700 }}>Buttons</h3>
+          <h3 style={{ marginBottom: 16, fontWeight: 700 }}>Buttons & Modals</h3>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-            <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-              Open Modal
+            <Button variant="primary" onClick={() => setModalType('signin')}>
+              Sign In Modal
             </Button>
-            <Button variant="secondary" onClick={handleShowLoader}>
+            <Button variant="secondary" onClick={() => setModalType('signup')}>
+              Sign Up Modal
+            </Button>
+            <Button variant="ghost" onClick={handleShowLoader}>
               Show Loader (2s)
             </Button>
-            <Button variant="ghost">Ghost Button</Button>
             <Button variant="primary" disabled>
               Disabled
             </Button>
@@ -70,34 +75,21 @@ export default function HomePage() {
           )}
         </section>
 
-        {/* Full width button */}
-        <section style={{ marginBottom: 40, maxWidth: 360 }}>
-          <Button fullWidth variant="secondary">
-            Full Width Button
-          </Button>
-        </section>
-
-        {/* Modal */}
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <h3
-            style={{
-              marginBottom: 16,
-              fontSize: 24,
-              fontWeight: 800,
-              textTransform: 'uppercase',
-            }}
-          >
-            Example Modal
-          </h3>
-          <p style={{ marginBottom: 24, color: 'var(--text-grey)' }}>
-            Закривається по кнопці, по backdrop і по клавіші Escape.
-          </p>
-          <Button fullWidth onClick={() => setIsModalOpen(false)}>
-            Close Modal
-          </Button>
+        {/* Auth Modals */}
+        <Modal isOpen={modalType === 'signin'} onClose={closeModal}>
+          <SignInModal
+            onClose={closeModal}
+            onSwitchToSignUp={() => setModalType('signup')}
+          />
         </Modal>
 
-        {/* Loader */}
+        <Modal isOpen={modalType === 'signup'} onClose={closeModal}>
+          <SignUpModal
+            onClose={closeModal}
+            onSwitchToSignIn={() => setModalType('signin')}
+          />
+        </Modal>
+
         {showLoader && <Loader />}
       </div>
     </main>
