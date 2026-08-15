@@ -57,9 +57,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.4
         version: 19.2.4(@types/react@19.2.18)
-      '@types/react-select':
-        specifier: ^5.0.1
-        version: 5.0.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@vitejs/plugin-react':
         specifier: ^6.0.5
         version: 6.0.5(vite@8.2.1(@types/node@24.13.3)(yaml@2.9.0))
@@ -506,10 +503,6 @@ packages:
     resolution: {integrity: sha512-Bsc+QHgp+P/F02XDzNCY9jnZNCUuLki36KT7VKrTXXLdHf+vHMNZnW1rVu5DNW/rCK+fya3DATySbLM4yhtKUw==}
     peerDependencies:
       '@types/react': ^19.2.0
-
-  '@types/react-select@5.0.1':
-    resolution: {integrity: sha512-h5Im0AP0dr4AVeHtrcvQrLV+gmPa7SA0AGdxl2jOhtwiE6KgXBFSogWw8az32/nusE6AQHlCOHQWjP1S/+oMWA==}
-    deprecated: This is a stub types definition. react-select provides its own type definitions, so you do not need this installed.
 
   '@types/react-transition-group@4.4.12':
     resolution: {integrity: sha512-8TV6R3h2j7a91c+1DXdJi3Syo69zzIZbz7Lg5tORM5LEJG7X/E6a1V3drRyBRZq7/utz7A+c4OgYLiLcYGHG6w==}
@@ -1796,15 +1789,6 @@ snapshots:
   '@types/react-dom@19.2.4(@types/react@19.2.18)':
     dependencies:
       '@types/react': 19.2.18
-
-  '@types/react-select@5.0.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
-    dependencies:
-      react-select: 5.10.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-    transitivePeerDependencies:
-      - '@types/react'
-      - react
-      - react-dom
-      - supports-color
 
   '@types/react-transition-group@4.4.12(@types/react@19.2.18)':
     dependencies:

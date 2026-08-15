@@ -1,6 +1,15 @@
-import type { StylesConfig } from 'react-select';
+import type { StylesConfig, GroupBase } from 'react-select';
 
-export const selectStyles: StylesConfig = {
+export type SelectOption = {
+  value: string;
+  label: string;
+};
+
+export const selectStyles: StylesConfig<
+  SelectOption,
+  false,
+  GroupBase<SelectOption>
+> = {
   control: (base, state) => ({
     ...base,
     padding: '11px 14px',

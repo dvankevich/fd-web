@@ -2,24 +2,17 @@ import ReactSelect, {
   type Props as ReactSelectProps,
   type GroupBase,
 } from 'react-select';
-import { selectStyles } from './selectStyles';
-
-export type SelectOption = {
-  value: string;
-  label: string;
-};
+import { selectStyles, type SelectOption } from './selectStyles';
 
 interface SelectProps
   extends Omit<
     ReactSelectProps<SelectOption, false, GroupBase<SelectOption>>,
     'styles'
-  > {
-  // можна додавати свої пропси за потреби
-}
+  > {}
 
 export function Select(props: SelectProps) {
   return (
-    <ReactSelect
+    <ReactSelect<SelectOption, false, GroupBase<SelectOption>>
       styles={selectStyles}
       isSearchable
       isClearable
@@ -28,3 +21,5 @@ export function Select(props: SelectProps) {
     />
   );
 }
+
+export type { SelectOption };
