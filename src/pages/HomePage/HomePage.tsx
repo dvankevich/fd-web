@@ -11,6 +11,7 @@ import {
 } from '@shared/ui';
 import { SignInModal } from '@features/auth/SignInModal';
 import { SignUpModal } from '@features/auth/SignUpModal';
+import { LogOutModal } from '@features/auth/LogOutModal';
 
 const categoryOptions: SelectOption[] = [
   { value: 'beef', label: 'Beef' },
@@ -26,6 +27,7 @@ export default function HomePage() {
   const [showLoader, setShowLoader] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<SelectOption | null>(null);
 
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   const closeModal = () => setModalType(null);
 
   const handleShowLoader = () => {
@@ -49,6 +51,9 @@ export default function HomePage() {
             </Button>
             <Button variant="secondary" onClick={() => setModalType('signup')}>
               Sign Up Modal
+            </Button>
+            <Button variant="ghost" onClick={() => setIsLogoutOpen(true)}>
+              Log Out Modal
             </Button>
             <Button variant="ghost" onClick={handleShowLoader}>
               Show Loader (2s)
@@ -88,6 +93,10 @@ export default function HomePage() {
             onClose={closeModal}
             onSwitchToSignIn={() => setModalType('signin')}
           />
+        </Modal>
+
+        <Modal isOpen={isLogoutOpen} onClose={() => setIsLogoutOpen(false)}>
+          <LogOutModal onClose={() => setIsLogoutOpen(false)} />
         </Modal>
 
         {showLoader && <Loader />}

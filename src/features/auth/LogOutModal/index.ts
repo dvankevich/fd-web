@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент LogOutModal
-export {};
+export { LogOutModal } from './LogOutModal';

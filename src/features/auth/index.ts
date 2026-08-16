@@ -9,3 +9,4 @@ export {
 } from './selectors';
 export { SignInModal } from './SignInModal';
 export { SignUpModal } from './SignUpModal';
+export { LogOutModal } from './LogOutModal';

@@ -55,6 +55,11 @@ export const logout = createAsyncThunk<void, void, { state: RootState }>(
   'auth/logout',
   async (_, { getState }) => {
     const token = getState().auth.refreshToken;
-    await authApi.logoutUser(token ?? undefined);
+    try {
+      await authApi.logoutUser(token ?? undefined);
+    } catch {
+      // ігноруємо помилку бекенду — клієнт все одно виходимо
+    }
   },
 );
+
