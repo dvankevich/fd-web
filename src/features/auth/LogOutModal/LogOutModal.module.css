@@ -1,0 +1,42 @@
+.wrapper {
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 16px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--main-black);
+}
+
+.text {
+  margin-bottom: 32px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--main-black);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .title {
+    margin-bottom: 20px;
+    font-size: 32px;
+  }
+
+  .text {
+    margin-bottom: 40px;
+  }
+
+  .actions {
+    gap: 20px;
+  }
+}

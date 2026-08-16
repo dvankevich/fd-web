@@ -1,4 +1,4 @@
-import { Button } from '@shared/ui/Button';
+import { SignUpForm } from '@features/auth/SignUpForm';
 import styles from './SignUpModal.module.css';
 
 interface SignUpModalProps {
@@ -11,12 +11,7 @@ export function SignUpModal({ onClose, onSwitchToSignIn }: SignUpModalProps) {
     <div className={styles.wrapper}>
       <h3 className={styles.title}>Sign Up</h3>
 
-      {/* Тимчасова заглушка форми */}
-      <p className={styles.note}>Тут буде SignUpForm (Formik + Yup)</p>
-
-      <Button fullWidth onClick={onClose}>
-        Create
-      </Button>
+      <SignUpForm onSuccess={onClose} />
 
       <p className={styles.footer}>
         I already have an account?{' '}

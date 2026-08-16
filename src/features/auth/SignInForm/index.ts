@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент SignInForm
-export {};
+export { SignInForm } from './SignInForm';
