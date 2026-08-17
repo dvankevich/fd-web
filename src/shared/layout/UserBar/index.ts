@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент UserBar
-export {};
+export { UserBar } from './UserBar';

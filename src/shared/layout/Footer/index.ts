@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент Footer
-export {};
+export { Footer } from './Footer';

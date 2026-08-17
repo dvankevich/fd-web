@@ -1,0 +1,29 @@
+.footer {
+  margin-top: auto;
+  padding-bottom: 16px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.1);
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0 0;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    padding-bottom: 32px;
+  }
+}

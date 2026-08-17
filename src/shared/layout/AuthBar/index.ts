@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент AuthBar
-export {};
+export { AuthBar } from './AuthBar';

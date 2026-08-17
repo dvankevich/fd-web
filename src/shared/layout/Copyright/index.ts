@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент Copyright
-export {};
+export { Copyright } from './Copyright';

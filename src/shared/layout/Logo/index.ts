@@ -1,2 +1,2 @@
-// TODO: реалізувати компонент Logo
-export {};
+export { Logo } from './Logo';
+

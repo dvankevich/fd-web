@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент NetworkLinks
-export {};
+export { NetworkLinks } from './NetworkLinks';

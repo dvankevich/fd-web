@@ -1,0 +1,28 @@
+.nav {
+  display: flex;
+  gap: 16px;
+}
+
+.link {
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: currentColor;
+  transition: border-color var(--transition);
+}
+
+.link:hover,
+.active {
+  border-color: rgba(5, 5, 5, 0.2);
+}
+
+@media (min-width: 768px) {
+  .nav {
+    gap: 26px;
+  }
+}
