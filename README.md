@@ -1,75 +1,66 @@
-# React + TypeScript + Vite
+# Foodies Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 + Vite + TypeScript + Redux Toolkit.
 
-Currently, two official plugins are available:
+## Вимоги
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js **20+**
+- **pnpm** (`npm i -g pnpm`)
 
-## React Compiler
+## Швидкий старт
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# 1. Клонувати репозиторій
+git clone <url-репозиторію>
+cd fd-web
 
-## Expanding the ESLint configuration
+# 2. Встановити залежності
+pnpm install
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+# 3. Налаштувати env
+cp .env.example .env
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+У `.env`:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```env
+VITE_API_URL=https://foodies-back-end.onrender.com/api
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 4. Запустити dev-сервер
+pnpm dev
+```
+
+Додаток відкриється на [http://localhost:5173](http://localhost:5173).
+
+## Корисні команди
+
+| Команда | Опис |
+|---------|------|
+| `pnpm dev` | dev-сервер |
+| `pnpm build` | production-збірка |
+| `pnpm preview` | перегляд збірки |
+| `pnpm lint` | ESLint |
+| `pnpm typecheck` | перевірка TypeScript |
+
+## Структура (скорочено)
 
 ```
+src/
+├── app/          # store, router, providers
+├── features/     # auth, recipes, user, categories…
+├── shared/       # ui, layout, api, styles
+└── pages/        # тонкі сторінки
+```
+
+## Git
+
+- Працюємо тільки в feature-гілках від `main`
+- Один PR ≈ одна логічна зміна
+
+## Нотатки
+
+- Токени зберігаються через `redux-persist` (localStorage)
+- Модалки рендеряться в `#modal` (`index.html`)
+- Path aliases: `@app`, `@features`, `@shared`, `@pages`
