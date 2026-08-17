@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент Header
-export {};
+export { Header } from './Header';

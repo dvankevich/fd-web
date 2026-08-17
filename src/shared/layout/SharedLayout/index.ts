@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент SharedLayout
-export {};
+export { SharedLayout } from './SharedLayout';

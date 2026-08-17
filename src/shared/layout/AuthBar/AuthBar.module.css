@@ -1,0 +1,47 @@
+.bar {
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.signIn,
+.signUp {
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.signIn {
+  color: var(--main-black);
+  background: transparent;
+}
+
+.signIn:hover {
+  background-color: var(--main-black);
+  color: var(--white);
+}
+
+.signUp {
+  color: var(--white);
+  background-color: rgba(5, 5, 5, 0.9);
+  border-radius: 30px;
+}
+
+.signUp:hover {
+  background-color: var(--main-black);
+}
+
+@media (min-width: 576px) {
+  .signIn,
+  .signUp {
+    padding: 14px 28px;
+  }
+}

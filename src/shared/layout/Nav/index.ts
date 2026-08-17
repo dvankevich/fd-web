@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент Nav
-export {};
+export { Nav } from './Nav';
