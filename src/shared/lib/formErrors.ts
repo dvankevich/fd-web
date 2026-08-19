@@ -19,15 +19,24 @@ export const applyFieldErrors = <Values extends object>({
   fields,
   values,
   setFieldError,
-}: ApplyFieldErrorsArgs<Values>): void => {
+}: ApplyFieldErrorsArgs<Values>): readonly string[] => {
   if (!fields) {
-    return;
+    return [];
   }
   const known = new Set(Object.keys(values));
+  const unplaced: string[] = [];
+
   Object.entries(fields).forEach(([field, messages]) => {
     const [message] = messages;
-    if (message && known.has(field)) {
-      setFieldError(field, message);
+    if (!message) {
+      return;
     }
+    if (known.has(field)) {
+      setFieldError(field, message);
+      return;
+    }
+    unplaced.push(message);
   });
+
+  return unplaced;
 };

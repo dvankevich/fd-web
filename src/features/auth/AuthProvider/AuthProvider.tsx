@@ -1,8 +1,8 @@
 import { useEffect, type ReactNode } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { apiClient } from '@shared/api/client';
 import { Loader } from '@shared/ui';
-import type { AppDispatch } from '@app/store';
+import type { AppDispatch, RootState } from '@app/store';
 import { attachAuthInterceptor } from '../interceptor';
 import { refresh } from '../operations';
 import { selectIsSessionRestored } from '../selectors';
@@ -14,10 +14,15 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const dispatch = useDispatch<AppDispatch>();
+  const store = useStore<RootState>();
   const isSessionRestored = useSelector(selectIsSessionRestored);
 
   useEffect(() => {
-    const detachInterceptor = attachAuthInterceptor({ client: apiClient, dispatch });
+    const detachInterceptor = attachAuthInterceptor({
+      client: apiClient,
+      dispatch,
+      getState: store.getState,
+    });
     const detachSessionSync = attachSessionSync({ dispatch });
 
     dispatch(refresh());
@@ -26,7 +31,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       detachInterceptor();
       detachSessionSync();
     };
-  }, [dispatch]);
+  }, [dispatch, store]);
 
   if (!isSessionRestored) {
     return <Loader />;

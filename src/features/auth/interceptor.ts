@@ -1,8 +1,9 @@
 import { isAxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
-import { MODAL_NAME, modalObserver } from '@shared/lib';
-import type { AppDispatch } from '@app/store';
+import { bearer } from '@shared/api/client';
+import { HTTP_STATUS, MODAL_NAME, modalObserver } from '@shared/lib';
+import type { AppDispatch, RootState } from '@app/store';
 import type { Nullable } from '@shared/types';
-import { AUTH_ENDPOINT, AUTH_STATUS } from './constants';
+import { AUTH_ENDPOINT } from './constants';
 import { refresh } from './operations';
 
 declare module 'axios' {
@@ -14,6 +15,7 @@ declare module 'axios' {
 interface AuthInterceptorOptions {
   client: AxiosInstance;
   dispatch: AppDispatch;
+  getState: () => RootState;
 }
 
 const NOT_RETRIED: string[] = [
@@ -50,9 +52,13 @@ const isRetriable = (request: InternalAxiosRequestConfig, client: AxiosInstance)
   return !NOT_RETRIED.some((endpoint) => target.pathname === `${basePath}${endpoint}`);
 };
 
-export function attachAuthInterceptor({ client, dispatch }: AuthInterceptorOptions): () => void {
+export function attachAuthInterceptor({
+  client,
+  dispatch,
+  getState,
+}: AuthInterceptorOptions): () => void {
   const interceptor = client.interceptors.response.use(undefined, async (error: unknown) => {
-    if (!isAxiosError(error) || error.response?.status !== AUTH_STATUS.unauthorized) {
+    if (!isAxiosError(error) || error.response?.status !== HTTP_STATUS.unauthorized) {
       throw error;
     }
 
@@ -61,14 +67,18 @@ export function attachAuthInterceptor({ client, dispatch }: AuthInterceptorOptio
       throw error;
     }
 
+    const hadSession = getState().auth.isLoggedIn;
     const result = await dispatch(refresh());
+
     if (!refresh.fulfilled.match(result)) {
-      modalObserver.open(MODAL_NAME.signIn);
+      if (hadSession) {
+        modalObserver.open(MODAL_NAME.signIn);
+      }
       throw error;
     }
 
     request.retriedAfterRefresh = true;
-    request.headers.Authorization = `Bearer ${result.payload.accessToken}`;
+    request.headers.Authorization = bearer(result.payload.accessToken);
 
     return client(request);
   });

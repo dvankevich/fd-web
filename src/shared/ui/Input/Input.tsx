@@ -4,16 +4,15 @@ import styles from './Input.module.css';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: ReactNode;
-  invalid?: boolean;
 }
 
 const PASSWORD_TYPE = 'password';
 
-export function Input({ type = 'text', error, invalid, className, ...rest }: InputProps) {
+export function Input({ type = 'text', error, className, ...rest }: InputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const errorId = useId();
   const isPassword = type === PASSWORD_TYPE;
-  const isInvalid = invalid ?? Boolean(error);
+  const isInvalid = Boolean(error);
   const inputType = isPassword && isPasswordVisible ? 'text' : type;
 
   return (

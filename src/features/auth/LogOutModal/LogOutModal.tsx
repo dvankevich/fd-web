@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '@shared/lib';
 import { Button } from '@shared/ui';
 import type { ModalContentProps } from '@shared/ui';
 import { persistor, type AppDispatch } from '@app/store';
@@ -17,7 +18,7 @@ export function LogOutModal({ onClose }: ModalContentProps) {
     try {
       await dispatch(logout());
       await persistor.purge();
-      navigate('/');
+      navigate(ROUTE.home);
     } finally {
       setIsPending(false);
       onClose();

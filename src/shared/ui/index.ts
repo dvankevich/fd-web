@@ -1,4 +1,5 @@
 export { Button } from './Button';
+export { ErrorBoundary } from './ErrorBoundary';
 export { FormError } from './FormError';
 export { FormField } from './FormField';
 export { Input } from './Input';

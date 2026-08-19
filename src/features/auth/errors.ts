@@ -1,11 +1,11 @@
 import { isAxiosError } from 'axios';
-import { isFieldErrors, isRecord, isString, type FieldErrors } from '@shared/lib';
+import { HTTP_STATUS, isFieldErrors, isRecord, isString, type FieldErrors } from '@shared/lib';
 import type { Optional } from '@shared/types';
-import { AUTH_STATUS } from './constants';
 
 export interface ApiError {
   message: string;
   fields: FieldErrors;
+  status: Optional<number>;
 }
 
 interface ApiErrorArgs {
@@ -20,6 +20,12 @@ interface ApiErrorBody {
 
 const NO_FIELDS: FieldErrors = {};
 
+export const apiError = (message: string): ApiError => ({
+  message,
+  fields: NO_FIELDS,
+  status: undefined,
+});
+
 const isApiErrorBody = (value: unknown): value is ApiErrorBody => {
   if (!isRecord(value)) {
     return false;
@@ -33,15 +39,15 @@ export const responseStatus = (error: unknown): Optional<number> =>
   isAxiosError(error) ? error.response?.status : undefined;
 
 export const isUnauthorized = (error: unknown): boolean =>
-  responseStatus(error) === AUTH_STATUS.unauthorized;
+  responseStatus(error) === HTTP_STATUS.unauthorized;
 
 export function toApiError({ error, fallback }: ApiErrorArgs): ApiError {
   const status = responseStatus(error);
   const data: unknown = isAxiosError(error) ? error.response?.data : undefined;
 
-  if (status === undefined || status >= AUTH_STATUS.serverError || !isApiErrorBody(data)) {
-    return { message: fallback, fields: NO_FIELDS };
+  if (status === undefined || status >= HTTP_STATUS.serverErrorMin || !isApiErrorBody(data)) {
+    return { message: fallback, fields: NO_FIELDS, status };
   }
 
-  return { message: data.error ?? fallback, fields: data.details ?? NO_FIELDS };
+  return { message: data.error ?? fallback, fields: data.details ?? NO_FIELDS, status };
 }

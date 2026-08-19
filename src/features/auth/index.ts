@@ -1,4 +1,4 @@
-export { authReducer, clearError } from './slice';
+export { authReducer, clearError, AUTH_PERSISTED_KEYS, type AuthState } from './slice';
 export { register, login, logout, refresh } from './operations';
 export {
   selectUser,

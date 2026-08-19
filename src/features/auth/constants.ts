@@ -1,3 +1,14 @@
+const SLICE_NAME = 'auth';
+const PERSIST_PREFIX = 'persist:';
+
+export const AUTH_SLICE = {
+  name: SLICE_NAME,
+  register: `${SLICE_NAME}/register`,
+  login: `${SLICE_NAME}/login`,
+  refresh: `${SLICE_NAME}/refresh`,
+  logout: `${SLICE_NAME}/logout`,
+} as const;
+
 export const AUTH_ENDPOINT = {
   register: '/auth/register',
   login: '/auth/login',
@@ -14,20 +25,15 @@ export const AUTH_MESSAGE = {
   noSession: 'No stored session',
 } as const;
 
-export const AUTH_STATUS = {
-  unauthorized: 401,
-  serverError: 500,
-} as const;
-
 export const AUTH_PERSIST = {
-  key: 'auth',
-  storageKey: 'persist:auth',
+  key: SLICE_NAME,
+  storageKey: `${PERSIST_PREFIX}${SLICE_NAME}`,
   lockName: 'foodies-session-refresh',
 } as const;
 
 export const AUTH_FIELD_LIMIT = {
-  nameMax: 100,
-  emailMax: 254,
-  passwordMin: 8,
+  nameMaxChars: 100,
+  emailMaxChars: 254,
+  passwordMinChars: 8,
   passwordMaxBytes: 72,
 } as const;

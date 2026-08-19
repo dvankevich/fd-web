@@ -10,6 +10,10 @@ export const ROUTE = {
 
 export type Route = ValueOf<typeof ROUTE>;
 
+export type ParamRoute = Extract<Route, `${string}:${string}`>;
+
+export type StaticRoute = Exclude<Route, ParamRoute | typeof ROUTE.notFound>;
+
 type PathParam<R extends string> = R extends `${string}:${infer Param}/${infer Rest}`
   ? Param | PathParam<Rest>
   : R extends `${string}:${infer Param}`
@@ -22,11 +26,21 @@ type PathArgs<R extends string> = [PathParam<R>] extends [never]
 
 const PARAM_PATTERN = /:([A-Za-z0-9_]+)/g;
 
-export const buildPath = <R extends Route>(route: R, ...args: PathArgs<R>): string => {
+export const buildPath = <R extends StaticRoute | ParamRoute>(
+  route: R,
+  ...args: PathArgs<R>
+): string => {
   const [params] = args;
   if (!params) {
     return route;
   }
+
   const values = new Map<string, string>(Object.entries(params));
-  return route.replace(PARAM_PATTERN, (token, name: string) => values.get(name) ?? token);
+  const path = route.replace(PARAM_PATTERN, (token, name: string) => values.get(name) ?? token);
+
+  if (path.includes(':')) {
+    throw new Error(`buildPath: unresolved parameter in ${route}`);
+  }
+
+  return path;
 };

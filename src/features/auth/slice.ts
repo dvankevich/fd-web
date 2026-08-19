@@ -1,11 +1,11 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { AuthResponse, Nullable, Optional, Tokens, User } from '@shared/types';
-import { hasFieldErrors } from '@shared/lib';
-import { AUTH_MESSAGE } from './constants';
+import { HTTP_STATUS } from '@shared/lib';
+import { AUTH_MESSAGE, AUTH_SLICE } from './constants';
 import type { ApiError } from './errors';
 import { login, logout, refresh, register } from './operations';
 
-interface AuthState {
+export interface AuthState {
   user: Nullable<User>;
   accessToken: Nullable<string>;
   refreshToken: Nullable<string>;
@@ -15,6 +15,17 @@ interface AuthState {
   isLoading: boolean;
   error: Nullable<string>;
 }
+
+export interface PersistedSession extends Tokens {
+  user: User;
+}
+
+export const AUTH_PERSISTED_KEYS = [
+  'accessToken',
+  'refreshToken',
+  'user',
+  'isLoggedIn',
+] as const satisfies readonly (keyof AuthState)[];
 
 const initialState: AuthState = {
   user: null,
@@ -50,10 +61,11 @@ const storeSession = (state: AuthState, { payload }: PayloadAction<AuthResponse>
 
 const failRequest = (state: AuthState, { payload }: PayloadAction<Optional<ApiError>>) => {
   state.isLoading = false;
-  state.error = hasFieldErrors(payload?.fields)
-    ? null
-    : (payload?.message ?? AUTH_MESSAGE.requestFailed);
+  state.error = payload?.message ?? AUTH_MESSAGE.requestFailed;
 };
+
+const isSessionRejected = (error: Optional<ApiError>): boolean =>
+  error?.status !== undefined && error.status < HTTP_STATUS.serverErrorMin;
 
 const storeTokens = (state: AuthState, tokens: Tokens) => {
   state.accessToken = tokens.accessToken;
@@ -62,18 +74,20 @@ const storeTokens = (state: AuthState, tokens: Tokens) => {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: AUTH_SLICE.name,
   initialState,
   reducers: {
     clearError(state) {
       state.error = null;
     },
-    sessionSynced(state, { payload }: PayloadAction<Nullable<Tokens>>) {
-      if (payload) {
-        storeTokens(state, payload);
+    sessionSynced(state, { payload }: PayloadAction<Nullable<PersistedSession>>) {
+      state.isRestored = true;
+      if (!payload) {
+        clearSession(state);
         return;
       }
-      clearSession(state);
+      storeTokens(state, payload);
+      state.user = payload.user;
     },
   },
   extraReducers: (builder) => {
@@ -94,10 +108,12 @@ const authSlice = createSlice({
         state.isRefreshing = false;
         state.isRestored = true;
       })
-      .addCase(refresh.rejected, (state) => {
-        clearSession(state);
+      .addCase(refresh.rejected, (state, { payload }) => {
         state.isRefreshing = false;
         state.isRestored = true;
+        if (isSessionRejected(payload) || !state.refreshToken) {
+          clearSession(state);
+        }
       })
 
       .addCase(logout.pending, (state) => {

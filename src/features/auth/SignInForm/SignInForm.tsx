@@ -1,22 +1,19 @@
 import { Formik, Form, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { applyFieldErrors } from '@shared/lib';
+import { applyFieldErrors, hasFieldErrors } from '@shared/lib';
 import { Button, FormError, FormField } from '@shared/ui';
 import type { AppDispatch } from '@app/store';
 import type { LoginPayload } from '@shared/types';
-import { AUTH_FIELD_LIMIT } from '../constants';
 import { login } from '../operations';
+import { clearError } from '../slice';
+import { AUTH_SCHEMA } from '../validation';
 import { selectAuthError, selectIsAuthLoading } from '../selectors';
 import styles from './SignInForm.module.css';
 
 const schema = Yup.object({
-  email: Yup.string()
-    .trim()
-    .email('Invalid email')
-    .max(AUTH_FIELD_LIMIT.emailMax, `Email must be at most ${AUTH_FIELD_LIMIT.emailMax} characters`)
-    .required('Email is required'),
-  password: Yup.string().required('Password is required'),
+  email: AUTH_SCHEMA.email,
+  password: AUTH_SCHEMA.currentPassword,
 });
 
 const initialValues: LoginPayload = {
@@ -45,7 +42,12 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
       return;
     }
 
-    applyFieldErrors({ fields: result.payload?.fields, values, setFieldError });
+    const fields = result.payload?.fields;
+    const unplaced = applyFieldErrors({ fields, values, setFieldError });
+
+    if (hasFieldErrors(fields) && unplaced.length === 0) {
+      dispatch(clearError());
+    }
   };
 
   return (

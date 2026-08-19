@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { MODAL_NAME } from '@shared/lib';
+import { MODAL_NAME, type ModalName } from '@shared/lib';
 import type { ModalComponent } from '@shared/ui';
 
 const SignInModal = lazy(() =>
@@ -18,4 +18,4 @@ export const AUTH_MODALS = {
   [MODAL_NAME.signIn]: SignInModal,
   [MODAL_NAME.signUp]: SignUpModal,
   [MODAL_NAME.logOut]: LogOutModal,
-} satisfies Partial<Record<string, ModalComponent>>;
+} satisfies Partial<Record<ModalName, ModalComponent>>;

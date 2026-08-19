@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-import { MODAL_NAME, ROUTE, modalObserver, type Route } from '@shared/lib';
+import { MODAL_NAME, ROUTE, modalObserver, type StaticRoute } from '@shared/lib';
 import { Loader } from '@shared/ui';
 import { selectIsLoggedIn, selectIsSessionRestored } from '../selectors';
 
 interface PrivateRouteProps {
-  redirectTo?: Route;
+  redirectTo?: StaticRoute;
 }
 
 export function PrivateRoute({ redirectTo = ROUTE.home }: PrivateRouteProps) {

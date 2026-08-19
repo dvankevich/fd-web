@@ -6,6 +6,7 @@ import {
   type ModalName,
   type ModalParams,
 } from '@shared/lib';
+import { ErrorBoundary } from '../ErrorBoundary';
 import { Loader } from '../Loader';
 import { Modal } from '../Modal';
 
@@ -36,9 +37,11 @@ function ModalHost({ name, content: Content }: ModalHostProps) {
 
   return (
     <Modal isOpen={Boolean(entry?.isOpen)} onClose={close}>
-      <Suspense fallback={<Loader />}>
-        <Content onClose={close} params={entry?.params} />
-      </Suspense>
+      <ErrorBoundary fallback={<p role="alert">This did not load. Close and try again.</p>}>
+        <Suspense fallback={<Loader />}>
+          <Content onClose={close} params={entry?.params} />
+        </Suspense>
+      </ErrorBoundary>
     </Modal>
   );
 }

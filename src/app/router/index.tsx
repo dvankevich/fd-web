@@ -1,22 +1,28 @@
 import { Suspense } from 'react';
-import { useRoutes } from 'react-router-dom';
+import { useRoutes, type RouteObject } from 'react-router-dom';
 import { SharedLayout } from '@shared/layout/SharedLayout';
 import { ROUTE } from '@shared/lib';
-import { Loader } from '@shared/ui';
+import { ErrorBoundary, Loader } from '@shared/ui';
 import { PrivateRoute } from '@features/auth';
 import { ACCESS, routesWithAccess } from './routes';
 
-export function AppRouter() {
-  const element = useRoutes([
-    {
-      path: ROUTE.home,
-      element: <SharedLayout />,
-      children: [
-        ...routesWithAccess(ACCESS.public),
-        { element: <PrivateRoute />, children: routesWithAccess(ACCESS.private) },
-      ],
-    },
-  ]);
+const ROUTE_TREE: RouteObject[] = [
+  {
+    path: ROUTE.home,
+    element: <SharedLayout />,
+    children: [
+      ...routesWithAccess(ACCESS.public),
+      { element: <PrivateRoute />, children: routesWithAccess(ACCESS.private) },
+    ],
+  },
+];
 
-  return <Suspense fallback={<Loader />}>{element}</Suspense>;
+export function AppRouter() {
+  const element = useRoutes(ROUTE_TREE);
+
+  return (
+    <ErrorBoundary fallback={<p role="alert">This page did not load. Reload to try again.</p>}>
+      <Suspense fallback={<Loader />}>{element}</Suspense>
+    </ErrorBoundary>
+  );
 }
