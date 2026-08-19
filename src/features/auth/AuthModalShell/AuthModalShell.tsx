@@ -1,7 +1,7 @@
 import { useEffect, type ReactNode } from 'react';
 import { useDispatch } from 'react-redux';
 import { modalObserver, type ModalName } from '@shared/lib';
-import type { AppDispatch } from '@app/store';
+import type { AppDispatch } from '@app/store/store';
 import { clearError } from '../slice';
 import styles from './AuthModalShell.module.css';
 

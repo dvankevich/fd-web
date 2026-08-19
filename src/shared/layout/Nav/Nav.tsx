@@ -12,18 +12,14 @@ export function Nav({ onNavigate, className = '' }: NavProps) {
       <NavLink
         to="/"
         end
-        className={({ isActive }) =>
-          `${styles.link} ${isActive ? styles.active : ''}`
-        }
+        className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
         onClick={onNavigate}
       >
         Home
       </NavLink>
       <NavLink
         to="/recipe/add"
-        className={({ isActive }) =>
-          `${styles.link} ${isActive ? styles.active : ''}`
-        }
+        className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
         onClick={onNavigate}
       >
         Add recipe

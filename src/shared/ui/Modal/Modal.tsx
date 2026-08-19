@@ -56,4 +56,3 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
     document.getElementById('modal') || document.body,
   );
 }
-

@@ -36,12 +36,12 @@ pnpm dev
 
 ## Корисні команди
 
-| Команда | Опис |
-|---------|------|
-| `pnpm dev` | dev-сервер |
-| `pnpm build` | production-збірка |
-| `pnpm preview` | перегляд збірки |
-| `pnpm lint` | ESLint |
+| Команда          | Опис                 |
+| ---------------- | -------------------- |
+| `pnpm dev`       | dev-сервер           |
+| `pnpm build`     | production-збірка    |
+| `pnpm preview`   | перегляд збірки      |
+| `pnpm lint`      | ESLint               |
 | `pnpm typecheck` | перевірка TypeScript |
 
 ## Структура (скорочено)

@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { applyFieldErrors, hasFieldErrors } from '@shared/lib';
 import { Button, FormError, FormField } from '@shared/ui';
-import type { AppDispatch } from '@app/store';
+import type { AppDispatch } from '@app/store/store';
 import type { LoginPayload } from '@shared/types';
 import { login } from '../operations';
 import { clearError } from '../slice';

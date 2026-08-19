@@ -10,7 +10,9 @@
   line-height: 1.43;
   letter-spacing: -0.017em;
   text-transform: uppercase;
-  transition: background-color var(--transition), color var(--transition),
+  transition:
+    background-color var(--transition),
+    color var(--transition),
     border-color var(--transition);
   cursor: pointer;
 }
