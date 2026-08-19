@@ -28,7 +28,7 @@ export function Categories({ onSelectCategory }: CategoriesProps) {
       <div id="categories-title" className="visually-hidden">
         Recipe categories
       </div>
-      <Subtitle text="Discover a world of culinary possibilities and enjoy recipes from every category." />
+      <Subtitle text="Discover a limitless world of culinary possibilities and enjoy exquisite recipes that combine taste, style and the warm atmosphere of the kitchen." />
       <CategoryList
         categories={categories}
         isLoading={status === 'idle' || status === 'loading'}
