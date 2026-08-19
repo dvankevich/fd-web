@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { MODAL_NAME, cn, modalObserver } from '@shared/lib';
+import { MODAL_NAME, ROUTE, buildPath, cn, modalObserver } from '@shared/lib';
 import { selectUser } from '@features/auth';
 import styles from './UserBar.module.css';
 
@@ -44,7 +44,11 @@ export function UserBar() {
 
       {open && (
         <div className={styles.dropdown}>
-          <Link to={`/user/${user.id}`} className={styles.item} onClick={() => setOpen(false)}>
+          <Link
+            to={buildPath(ROUTE.user, { id: user.id })}
+            className={styles.item}
+            onClick={() => setOpen(false)}
+          >
             Profile
           </Link>
           <button

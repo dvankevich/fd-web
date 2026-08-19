@@ -1,16 +1,15 @@
-import { useEffect, type ReactElement } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import { MODAL_NAME, modalObserver } from '@shared/lib';
+import { Navigate, Outlet } from 'react-router-dom';
+import { MODAL_NAME, ROUTE, modalObserver, type Route } from '@shared/lib';
 import { Loader } from '@shared/ui';
 import { selectIsLoggedIn, selectIsSessionRestored } from '../selectors';
 
 interface PrivateRouteProps {
-  children: ReactElement;
-  redirectTo?: string;
+  redirectTo?: Route;
 }
 
-export function PrivateRoute({ children, redirectTo = '/' }: PrivateRouteProps) {
+export function PrivateRoute({ redirectTo = ROUTE.home }: PrivateRouteProps) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isSessionRestored = useSelector(selectIsSessionRestored);
   const isGuest = isSessionRestored && !isLoggedIn;
@@ -29,5 +28,5 @@ export function PrivateRoute({ children, redirectTo = '/' }: PrivateRouteProps) 
     return <Navigate to={redirectTo} replace />;
   }
 
-  return children;
+  return <Outlet />;
 }
