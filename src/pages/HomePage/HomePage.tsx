@@ -12,6 +12,8 @@ import {
 import { SignInModal } from '@features/auth/SignInModal';
 import { SignUpModal } from '@features/auth/SignUpModal';
 import { LogOutModal } from '@features/auth/LogOutModal';
+import { Hero } from '@features/home/Hero';
+import { Testimonials } from '@features/testimonials';
 
 const categoryOptions: SelectOption[] = [
   { value: 'beef', label: 'Beef' },
@@ -37,12 +39,14 @@ export default function HomePage() {
 
   return (
     <main>
+      <Hero />
+      <Testimonials />
+
       <div className="container" style={{ paddingBottom: 80 }}>
         <PathInfo pageName="Home (demo)" />
         <MainTitle text="UI Components Demo" />
         <Subtitle text="Тимчасова сторінка для перевірки shared UI + auth модалок." />
 
-        {/* Buttons */}
         <section style={{ marginBottom: 40 }}>
           <h3 style={{ marginBottom: 16, fontWeight: 700 }}>Buttons & Modals</h3>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
@@ -64,7 +68,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Select */}
         <section style={{ marginBottom: 40, maxWidth: 360 }}>
           <h3 style={{ marginBottom: 16, fontWeight: 700 }}>Select</h3>
           <Select
@@ -80,19 +83,12 @@ export default function HomePage() {
           )}
         </section>
 
-        {/* Auth Modals */}
         <Modal isOpen={modalType === 'signin'} onClose={closeModal}>
-          <SignInModal
-            onClose={closeModal}
-            onSwitchToSignUp={() => setModalType('signup')}
-          />
+          <SignInModal onClose={closeModal} onSwitchToSignUp={() => setModalType('signup')} />
         </Modal>
 
         <Modal isOpen={modalType === 'signup'} onClose={closeModal}>
-          <SignUpModal
-            onClose={closeModal}
-            onSwitchToSignIn={() => setModalType('signin')}
-          />
+          <SignUpModal onClose={closeModal} onSwitchToSignIn={() => setModalType('signin')} />
         </Modal>
 
         <Modal isOpen={isLogoutOpen} onClose={() => setIsLogoutOpen(false)}>
