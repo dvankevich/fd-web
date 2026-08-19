@@ -1,4 +1,5 @@
 import { useState, type InputHTMLAttributes } from 'react';
+import { cn } from '@shared/lib';
 import styles from './Input.module.css';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -7,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const PASSWORD_TYPE = 'password';
 
-export function Input({ type = 'text', invalid = false, className = '', ...rest }: InputProps) {
+export function Input({ type = 'text', invalid = false, className, ...rest }: InputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const isPassword = type === PASSWORD_TYPE;
   const inputType = isPassword && isPasswordVisible ? 'text' : type;
@@ -18,7 +19,12 @@ export function Input({ type = 'text', invalid = false, className = '', ...rest 
         {...rest}
         type={inputType}
         aria-invalid={invalid}
-        className={`${styles.input} ${isPassword ? styles.withToggle : ''} ${invalid ? styles.invalid : ''} ${className}`}
+        className={cn(
+          styles.input,
+          isPassword && styles.withToggle,
+          invalid && styles.invalid,
+          className,
+        )}
       />
 
       {isPassword && (

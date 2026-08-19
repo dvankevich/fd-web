@@ -9,6 +9,7 @@ export {
   isString,
   isValueOf,
 } from './guards';
+export { cn, type ClassValue } from './classNames';
 export { createSubscription, type Subscription } from './createSubscription';
 export { MODAL_NAME, modalObserver, useModal, useOpenModals } from './modals';
 export type { ModalName, ModalEntry, ModalEvent } from './modals';

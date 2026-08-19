@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { MODAL_NAME, modalObserver } from '@shared/lib';
+import { MODAL_NAME, cn, modalObserver } from '@shared/lib';
 import { selectUser } from '@features/auth';
 import styles from './UserBar.module.css';
 
@@ -39,7 +39,7 @@ export function UserBar() {
           height={32}
         />
         <span className={styles.name}>{user.name}</span>
-        <span className={`${styles.arrow} ${open ? styles.arrowOpen : ''}`}>▾</span>
+        <span className={cn(styles.arrow, open && styles.arrowOpen)}>▾</span>
       </button>
 
       {open && (
