@@ -123,6 +123,11 @@
     grid-column: 1 / -1;
   }
 
+  .item:nth-last-child(2),
+  .allItem:last-child {
+    grid-column: auto;
+  }
+
   .card {
     height: 369px;
     border-radius: 30px;
@@ -165,6 +170,11 @@
   .allItem {
     flex-basis: calc(26.209677% - 10.484px);
   }
+
+  .item:nth-last-child(-n + 4) {
+    flex-basis: calc(25% - 15px);
+  }
+
   .card {
     height: 369px;
   }
