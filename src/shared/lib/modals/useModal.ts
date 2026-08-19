@@ -1,10 +1,11 @@
 import { useSyncExternalStore } from 'react';
+import type { Optional } from '@shared/types';
 import { modalObserver, type ModalEntry } from './modalObserver';
 import type { ModalName } from './modalNames';
 
 const NO_MODALS: readonly ModalName[] = [];
 
-export const useModal = (name: ModalName): ModalEntry | undefined =>
+export const useModal = (name: ModalName): Optional<ModalEntry> =>
   useSyncExternalStore(
     modalObserver.subscribe,
     () => modalObserver.find(name),

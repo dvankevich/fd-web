@@ -1,3 +1,5 @@
+import type { ValueOf } from '@shared/types';
+
 export const ROUTE = {
   home: '/',
   recipe: '/recipe/:id',
@@ -6,9 +8,25 @@ export const ROUTE = {
   notFound: '*',
 } as const;
 
-export type Route = (typeof ROUTE)[keyof typeof ROUTE];
+export type Route = ValueOf<typeof ROUTE>;
+
+type PathParam<R extends string> = R extends `${string}:${infer Param}/${infer Rest}`
+  ? Param | PathParam<Rest>
+  : R extends `${string}:${infer Param}`
+    ? Param
+    : never;
+
+type PathArgs<R extends string> = [PathParam<R>] extends [never]
+  ? []
+  : [params: Record<PathParam<R>, string>];
 
 const PARAM_PATTERN = /:([A-Za-z0-9_]+)/g;
 
-export const buildPath = (route: Route, params: Record<string, string> = {}): string =>
-  route.replace(PARAM_PATTERN, (token, name: string) => params[name] ?? token);
+export const buildPath = <R extends Route>(route: R, ...args: PathArgs<R>): string => {
+  const [params] = args;
+  if (!params) {
+    return route;
+  }
+  const values = new Map<string, string>(Object.entries(params));
+  return route.replace(PARAM_PATTERN, (token, name: string) => values.get(name) ?? token);
+};

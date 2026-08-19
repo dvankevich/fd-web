@@ -1,6 +1,7 @@
 import { isAxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
 import { MODAL_NAME, modalObserver } from '@shared/lib';
 import type { AppDispatch } from '@app/store';
+import type { Nullable } from '@shared/types';
 import { AUTH_ENDPOINT, AUTH_STATUS } from './constants';
 import { refresh } from './operations';
 
@@ -27,7 +28,7 @@ const ABSOLUTE_URL = /^([a-z][a-z\d+\-.]*:)?\/\//i;
 const joinUrl = (baseURL: string, url: string): string =>
   `${baseURL.replace(/\/+$/, '')}/${url.replace(/^\/+/, '')}`;
 
-const resolveUrl = (url: string, baseURL: string): URL | null => {
+const resolveUrl = (url: string, baseURL: string): Nullable<URL> => {
   try {
     return new URL(ABSOLUTE_URL.test(url) ? url : joinUrl(baseURL, url), window.location.origin);
   } catch {

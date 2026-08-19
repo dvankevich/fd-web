@@ -1,17 +1,17 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { AuthResponse, Tokens, User } from '@shared/types';
+import type { AuthResponse, Nullable, Optional, Tokens, User } from '@shared/types';
 import { AUTH_MESSAGE } from './constants';
 import { login, logout, refresh, register } from './operations';
 
 interface AuthState {
-  user: User | null;
-  accessToken: string | null;
-  refreshToken: string | null;
+  user: Nullable<User>;
+  accessToken: Nullable<string>;
+  refreshToken: Nullable<string>;
   isLoggedIn: boolean;
   isRefreshing: boolean;
   isRestored: boolean;
   isLoading: boolean;
-  error: string | null;
+  error: Nullable<string>;
 }
 
 const initialState: AuthState = {
@@ -46,7 +46,7 @@ const storeSession = (state: AuthState, { payload }: PayloadAction<AuthResponse>
   state.isLoading = false;
 };
 
-const failRequest = (state: AuthState, { payload }: PayloadAction<string | undefined>) => {
+const failRequest = (state: AuthState, { payload }: PayloadAction<Optional<string>>) => {
   state.isLoading = false;
   state.error = payload ?? AUTH_MESSAGE.requestFailed;
 };
@@ -64,7 +64,7 @@ const authSlice = createSlice({
     clearError(state) {
       state.error = null;
     },
-    sessionSynced(state, { payload }: PayloadAction<Tokens | null>) {
+    sessionSynced(state, { payload }: PayloadAction<Nullable<Tokens>>) {
       if (payload) {
         storeTokens(state, payload);
         return;

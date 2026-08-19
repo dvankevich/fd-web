@@ -1,11 +1,14 @@
 import { isAxiosError } from 'axios';
 import { isArrayOf, isRecord, isString } from '@shared/lib';
+import type { Optional } from '@shared/types';
 import { AUTH_STATUS } from './constants';
 
 interface ApiErrorBody {
   error?: string;
   details?: Record<string, string[]>;
 }
+
+type ErrorDetails = ApiErrorBody['details'];
 
 interface ApiErrorMessageArgs {
   error: unknown;
@@ -25,12 +28,12 @@ const isApiErrorBody = (value: unknown): value is ApiErrorBody => {
   return messageIsValid && detailsAreValid;
 };
 
-const detailMessages = (details: ApiErrorBody['details']): string =>
+const detailMessages = (details: ErrorDetails): string =>
   Object.values(details ?? {})
     .flat()
     .join('. ');
 
-export const responseStatus = (error: unknown): number | undefined =>
+export const responseStatus = (error: unknown): Optional<number> =>
   isAxiosError(error) ? error.response?.status : undefined;
 
 export const isUnauthorized = (error: unknown): boolean =>

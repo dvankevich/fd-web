@@ -1,7 +1,9 @@
+import type { ValueOf } from '@shared/types';
+
 export const MODAL_NAME = {
   signIn: 'sign-in',
   signUp: 'sign-up',
   logOut: 'log-out',
 } as const;
 
-export type ModalName = (typeof MODAL_NAME)[keyof typeof MODAL_NAME];
+export type ModalName = ValueOf<typeof MODAL_NAME>;

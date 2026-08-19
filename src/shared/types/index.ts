@@ -1,9 +1,13 @@
+import type { Nullable } from './common';
+
+export type { Nullable, Optional, Maybe, ValueOf, Paginated } from './common';
+
 // ===== Auth =====
 export interface User {
   id: string;
   name: string;
   email: string;
-  avatar: string | null;
+  avatar: Nullable<string>;
 }
 
 export interface AuthResponse {
@@ -50,22 +54,22 @@ export interface Area {
 export interface Ingredient {
   id: string;
   name: string;
-  description: string | null;
-  img: string | null;
+  description: Nullable<string>;
+  img: Nullable<string>;
 }
 
 // ===== Recipes  =====
 export interface RecipeListItem {
   id: string;
   title: string;
-  description: string | null;
-  thumb: string | null;
-  time: string | null;
+  description: Nullable<string>;
+  thumb: Nullable<string>;
+  time: Nullable<string>;
   category: Category;
   area: Area;
   owner: {
     id: string;
     name: string;
-    avatar: string | null;
+    avatar: Nullable<string>;
   };
 }

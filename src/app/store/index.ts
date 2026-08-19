@@ -10,10 +10,11 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { AUTH_PERSIST, authReducer } from '@features/auth';
+import type { Nullable } from '@shared/types';
 import { categoriesReducer } from '@features/categories/slice';
 
 const storage = {
-  getItem: (key: string): Promise<string | null> => {
+  getItem: (key: string): Promise<Nullable<string>> => {
     return Promise.resolve(localStorage.getItem(key));
   },
   setItem: (key: string, value: string): Promise<void> => {

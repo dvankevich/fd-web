@@ -1,6 +1,6 @@
 import { setAuthHeader } from '@shared/api/client';
 import { isNonEmptyString, isRecord, isString } from '@shared/lib';
-import type { Tokens } from '@shared/types';
+import type { Nullable, Tokens } from '@shared/types';
 import type { AppDispatch } from '@app/store';
 import { AUTH_PERSIST } from './constants';
 import { sessionRefresher } from './sessionRefresher';
@@ -10,7 +10,7 @@ interface SessionSyncOptions {
   dispatch: AppDispatch;
 }
 
-const parsePersistedField = (value: unknown): string | null => {
+const parsePersistedField = (value: unknown): Nullable<string> => {
   if (!isString(value)) {
     return null;
   }
@@ -22,7 +22,7 @@ const parsePersistedField = (value: unknown): string | null => {
   }
 };
 
-const parsePersistedTokens = (raw: string | null): Tokens | null => {
+const parsePersistedTokens = (raw: Nullable<string>): Nullable<Tokens> => {
   if (!isNonEmptyString(raw)) {
     return null;
   }

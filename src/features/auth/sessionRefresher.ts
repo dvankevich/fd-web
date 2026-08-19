@@ -1,6 +1,8 @@
-import type { Tokens } from '@shared/types';
+import type { Nullable, Tokens } from '@shared/types';
 import { refreshTokens } from './api';
 import { AUTH_PERSIST } from './constants';
+
+type ReadRefreshToken = () => Nullable<string>;
 
 interface SessionRefresherOptions {
   rotate: (refreshToken: string) => Promise<Tokens>;
@@ -16,14 +18,14 @@ const withSessionLock = <T>(run: () => Promise<T>): Promise<T> =>
 
 export class SessionRefresher {
   private readonly rotate: (refreshToken: string) => Promise<Tokens>;
-  private pending: Promise<Tokens | null> | null = null;
-  private rotated: RotatedToken | null = null;
+  private pending: Nullable<Promise<Nullable<Tokens>>> = null;
+  private rotated: Nullable<RotatedToken> = null;
 
   constructor({ rotate }: SessionRefresherOptions) {
     this.rotate = rotate;
   }
 
-  run(readRefreshToken: () => string | null): Promise<Tokens | null> {
+  run(readRefreshToken: ReadRefreshToken): Promise<Nullable<Tokens>> {
     if (!this.pending) {
       this.pending = this.rotateOnce(readRefreshToken).finally(() => {
         this.pending = null;
@@ -36,7 +38,7 @@ export class SessionRefresher {
     this.rotated = null;
   }
 
-  private rotateOnce(readRefreshToken: () => string | null): Promise<Tokens | null> {
+  private rotateOnce(readRefreshToken: ReadRefreshToken): Promise<Nullable<Tokens>> {
     return withSessionLock(async () => {
       const refreshToken = readRefreshToken();
       if (!refreshToken) {

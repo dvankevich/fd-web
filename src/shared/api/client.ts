@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { Nullable } from '@shared/types';
 
 const REQUEST_TIMEOUT_MS = 15000;
 
@@ -7,7 +8,7 @@ export const apiClient = axios.create({
   timeout: REQUEST_TIMEOUT_MS,
 });
 
-export function setAuthHeader(accessToken: string | null) {
+export function setAuthHeader(accessToken: Nullable<string>): void {
   if (accessToken) {
     apiClient.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   } else {

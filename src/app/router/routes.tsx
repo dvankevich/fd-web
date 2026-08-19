@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import type { RouteObject } from 'react-router-dom';
 import { ROUTE } from '@shared/lib';
+import type { ValueOf } from '@shared/types';
 
 const HomePage = lazy(() => import('@pages/HomePage'));
 const RecipePage = lazy(() => import('@pages/RecipePage'));
@@ -12,7 +13,7 @@ export const ACCESS = {
   private: 'private',
 } as const;
 
-export type Access = (typeof ACCESS)[keyof typeof ACCESS];
+export type Access = ValueOf<typeof ACCESS>;
 
 type AppRoute = RouteObject & { access: Access };
 

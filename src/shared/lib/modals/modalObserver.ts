@@ -1,24 +1,27 @@
+import type { Optional } from '@shared/types';
 import { createSubscription, type Subscription } from '../createSubscription';
 import { isBoolean, isRecord, isValueOf } from '../guards';
 import { MODAL_NAME, type ModalName } from './modalNames';
 
+export type ModalParams = Record<string, unknown>;
+
 export interface ModalEntry {
   isOpen: boolean;
-  params: Record<string, unknown>;
+  params: ModalParams;
 }
 
 export interface ModalEvent {
   name: ModalName;
-  entry: ModalEntry | undefined;
+  entry: Optional<ModalEntry>;
 }
 
 type ModalRegistry = Partial<Record<ModalName, ModalEntry>>;
 
 interface ModalObserver extends Pick<Subscription<ModalEvent>, 'subscribe' | 'unsubscribe'> {
-  open(name: ModalName, params?: Record<string, unknown>): void;
+  open(name: ModalName, params?: ModalParams): void;
   close(name: ModalName): void;
   closeAll(): void;
-  find(name: ModalName): ModalEntry | undefined;
+  find(name: ModalName): Optional<ModalEntry>;
   openNames(): readonly ModalName[];
 }
 
@@ -34,7 +37,7 @@ const createModalObserver = (): ModalObserver => {
 
   let openList: readonly ModalName[] = [];
 
-  const publish = (name: ModalName, entry: ModalEntry | undefined) => {
+  const publish = (name: ModalName, entry: Optional<ModalEntry>) => {
     const opened = MODAL_NAMES.filter((candidate) => registry[candidate]?.isOpen);
     const unchanged =
       opened.length === openList.length && opened.every((item, index) => item === openList[index]);

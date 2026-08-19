@@ -1,11 +1,17 @@
 import { Suspense, useCallback, type ComponentType } from 'react';
-import { modalObserver, useModal, useOpenModals, type ModalName } from '@shared/lib';
+import {
+  modalObserver,
+  useModal,
+  useOpenModals,
+  type ModalName,
+  type ModalParams,
+} from '@shared/lib';
 import { Loader } from '../Loader';
 import { Modal } from '../Modal';
 
 export interface ModalContentProps {
   onClose: () => void;
-  params?: Record<string, unknown>;
+  params?: ModalParams;
 }
 
 export type ModalComponent = ComponentType<ModalContentProps>;
