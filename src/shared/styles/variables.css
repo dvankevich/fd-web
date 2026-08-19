@@ -4,6 +4,9 @@
   --bp-tablet: 768px;
   --bp-desktop: 1440px;
 
+  /* ===== Typography ===== */
+  --font-main: 'Mulish', sans-serif;
+
   /* ===== Colors ===== */
   --main-black: #050505;
   --white: #ffffff;
