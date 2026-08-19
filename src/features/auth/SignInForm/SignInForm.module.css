@@ -3,22 +3,3 @@
   flex-direction: column;
   gap: 14px;
 }
-
-.field {
-  position: relative;
-}
-
-.error {
-  display: block;
-  margin-top: 4px;
-  margin-left: 8px;
-  font-size: 12px;
-  color: var(--error-color);
-}
-
-.serverError {
-  margin: 0;
-  font-size: 14px;
-  color: var(--error-color);
-  text-align: center;
-}

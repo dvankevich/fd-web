@@ -1,4 +1,6 @@
 export { Button } from './Button';
+export { FormError } from './FormError';
+export { FormField } from './FormField';
 export { Input } from './Input';
 export { Loader } from './Loader';
 export { MainTitle } from './MainTitle';

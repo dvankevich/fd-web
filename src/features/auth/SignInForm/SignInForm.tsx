@@ -1,7 +1,7 @@
-import { Formik, Form, Field, type FormikHelpers } from 'formik';
+import { Formik, Form, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Input } from '@shared/ui';
+import { Button, FormError, FormField } from '@shared/ui';
 import type { AppDispatch } from '@app/store';
 import type { LoginPayload } from '@shared/types';
 import { AUTH_FIELD_LIMIT } from '../constants';
@@ -46,41 +46,17 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
 
   return (
     <Formik initialValues={initialValues} validationSchema={schema} onSubmit={handleSubmit}>
-      {({ errors, touched, isSubmitting }) => (
+      {({ isSubmitting }) => (
         <Form className={styles.form} noValidate>
-          <div className={styles.field}>
-            <Field
-              as={Input}
-              name="email"
-              type="email"
-              placeholder="Email*"
-              autoComplete="email"
-              aria-label="Email"
-              invalid={Boolean(touched.email && errors.email)}
-            />
-            {touched.email && errors.email && <span className={styles.error}>{errors.email}</span>}
-          </div>
+          <FormField name="email" type="email" placeholder="Email*" autoComplete="email" />
+          <FormField
+            name="password"
+            type="password"
+            placeholder="Password*"
+            autoComplete="current-password"
+          />
 
-          <div className={styles.field}>
-            <Field
-              as={Input}
-              name="password"
-              type="password"
-              placeholder="Password*"
-              autoComplete="current-password"
-              aria-label="Password"
-              invalid={Boolean(touched.password && errors.password)}
-            />
-            {touched.password && errors.password && (
-              <span className={styles.error}>{errors.password}</span>
-            )}
-          </div>
-
-          {error && (
-            <p className={styles.serverError} role="alert">
-              {error}
-            </p>
-          )}
+          <FormError>{error}</FormError>
 
           <Button type="submit" fullWidth disabled={isLoading || isSubmitting}>
             {isLoading ? 'Signing in...' : 'Sign in'}
