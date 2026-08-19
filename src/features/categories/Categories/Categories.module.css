@@ -1,0 +1,19 @@
+.section {
+  padding-block: 64px 80px;
+}
+
+.title {
+  scroll-margin-top: 24px;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: 80px 100px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section {
+    padding-block: 100px 120px;
+  }
+}

@@ -1,0 +1,39 @@
+.recipes {
+  min-height: 60vh;
+  padding-block: 64px 80px;
+}
+
+.back {
+  margin-bottom: 32px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-bottom: 16px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+.notice {
+  color: var(--text-grey);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .recipes {
+    padding-block: 80px 100px;
+  }
+  .title {
+    font-size: 40px;
+    line-height: 1.1;
+    letter-spacing: -0.05em;
+  }
+}

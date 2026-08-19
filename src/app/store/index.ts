@@ -10,6 +10,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { AUTH_PERSIST, authReducer } from '@features/auth';
+import { categoriesReducer } from '@features/categories/slice';
 
 const storage = {
   getItem: (key: string): Promise<string | null> => {
@@ -33,6 +34,7 @@ const authPersistConfig = {
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
+  categories: categoriesReducer,
 });
 
 export const store = configureStore({
