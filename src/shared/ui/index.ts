@@ -1,4 +1,5 @@
 export { Button } from './Button';
+export { Input } from './Input';
 export { Loader } from './Loader';
 export { MainTitle } from './MainTitle';
 export { Modal } from './Modal';

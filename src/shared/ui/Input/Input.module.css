@@ -1,0 +1,45 @@
+.wrap {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 16px 18px;
+  border: 1px solid var(--main-black);
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--main-black);
+  background: transparent;
+  transition: border-color var(--transition);
+}
+
+.input::placeholder {
+  color: var(--text-grey);
+}
+
+.withToggle {
+  padding-right: 48px;
+}
+
+.invalid {
+  border-color: var(--error-color);
+}
+
+.toggle {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  display: flex;
+  padding: 0;
+  color: var(--main-black);
+  background: transparent;
+  border: none;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.toggle:hover {
+  color: var(--text-grey);
+}
