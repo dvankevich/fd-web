@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент Categories
-export {};
+export { Categories } from './Categories';

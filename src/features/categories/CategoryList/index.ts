@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент CategoryList
-export {};
+export { CategoryList } from './CategoryList';
