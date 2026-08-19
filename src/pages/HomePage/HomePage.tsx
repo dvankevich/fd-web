@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Categories, type Category } from '@features/categories';
+import { Hero } from '@features/home/Hero';
+import { Testimonials } from '@features/testimonials';
 import styles from './HomePage.module.css';
 
 export default function HomePage() {
@@ -15,6 +17,8 @@ export default function HomePage() {
 
   return (
     <main>
+      <Hero />
+
       <div className="container">
         {selectedCategory === undefined ? (
           <Categories onSelectCategory={showRecipes} />
@@ -30,6 +34,8 @@ export default function HomePage() {
           </section>
         )}
       </div>
+
+      <Testimonials />
     </main>
   );
 }

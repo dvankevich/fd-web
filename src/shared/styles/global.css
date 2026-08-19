@@ -1,6 +1,13 @@
 @import './variables.css';
 @import './reset.css';
 
+/* ===== Base Styles ===== */
+body {
+  font-family: var(--font-main);
+  color: var(--main-black);
+  background-color: var(--white);
+}
+
 /* ===== Container (mobile-first) ===== */
 .container {
   width: 100%;
