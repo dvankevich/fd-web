@@ -1,3 +1,4 @@
+import { Button } from '@shared/ui';
 import heroLarge1x from '../../../assets/hero-large-1x.png';
 import heroLarge2x from '../../../assets/hero-large-2x.png';
 import heroSmall1x from '../../../assets/hero-small-1x.png';
@@ -21,9 +22,9 @@ export const Hero = () => {
             Amazing recipes for beginners in the world of cooking, enveloping you in the aromas and
             tastes of various cuisines.
           </p>
-          <button className="hero-btn" onClick={handleAddRecipeClick}>
+          <Button className="hero-btn" onClick={handleAddRecipeClick}>
             ADD RECIPE
-          </button>
+          </Button>
         </div>
         <div className="hero-images">
           <img
