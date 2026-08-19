@@ -64,6 +64,7 @@ export interface RecipeListItem {
   title: string;
   description: Nullable<string>;
   thumb: Nullable<string>;
+  preview: Nullable<string>;
   time: Nullable<string>;
   category: Category;
   area: Area;
@@ -71,5 +72,23 @@ export interface RecipeListItem {
     id: string;
     name: string;
     avatar: Nullable<string>;
+  };
+}
+
+export interface RecipeIngredient {
+  id: string;
+  name: string;
+  img: Nullable<string>;
+  measure: string;
+}
+
+export interface Recipe extends RecipeListItem {
+  instructions: string;
+  ingredients: RecipeIngredient[];
+}
+
+export interface PopularRecipe extends RecipeListItem {
+  _count: {
+    favorites: number;
   };
 }

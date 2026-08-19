@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент RecipeCard
-export {};
+export { RecipeCard } from './RecipeCard';

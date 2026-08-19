@@ -12,6 +12,7 @@ import {
 import { AUTH_PERSIST, AUTH_PERSISTED_KEYS, authReducer } from '@features/auth';
 import type { Nullable } from '@shared/types';
 import { categoriesReducer } from '@features/categories/slice';
+import { recipesReducer } from '@features/recipes/slice';
 
 const storage = {
   getItem: (key: string): Promise<Nullable<string>> => {
@@ -36,6 +37,7 @@ const authPersistConfig = {
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
   categories: categoriesReducer,
+  recipes: recipesReducer,
 });
 
 export const store = configureStore({
