@@ -2,6 +2,8 @@ export { Button } from './Button';
 export { Loader } from './Loader';
 export { MainTitle } from './MainTitle';
 export { Modal } from './Modal';
+export { ModalRoot } from './ModalRoot';
+export type { ModalComponent, ModalComponents, ModalContentProps } from './ModalRoot';
 export { PathInfo } from './PathInfo';
 export { Select } from './Select';
 export type { SelectOption } from './Select';

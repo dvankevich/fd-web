@@ -9,7 +9,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { authReducer } from '@features/auth/slice';
+import { AUTH_PERSIST, authReducer } from '@features/auth';
 
 const storage = {
   getItem: (key: string): Promise<string | null> => {
@@ -26,7 +26,7 @@ const storage = {
 };
 
 const authPersistConfig = {
-  key: 'auth',
+  key: AUTH_PERSIST.key,
   storage,
   whitelist: ['accessToken', 'refreshToken', 'user', 'isLoggedIn'],
 };

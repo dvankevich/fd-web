@@ -1,23 +1,27 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@shared/ui/Button';
-import { logout } from '@features/auth/operations';
+import { Button } from '@shared/ui';
+import type { ModalContentProps } from '@shared/ui';
 import { persistor, type AppDispatch } from '@app/store';
+import { logout } from '../operations';
 import styles from './LogOutModal.module.css';
 
-interface LogOutModalProps {
-  onClose: () => void;
-}
-
-export function LogOutModal({ onClose }: LogOutModalProps) {
+export function LogOutModal({ onClose }: ModalContentProps) {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const [isPending, setIsPending] = useState(false);
 
   const handleLogout = async () => {
-    await dispatch(logout());
-    await persistor.purge(); // повністю чистимо persisted auth у localStorage
-    onClose();
-    navigate('/');
+    setIsPending(true);
+    try {
+      await dispatch(logout());
+      await persistor.purge();
+      navigate('/');
+    } finally {
+      setIsPending(false);
+      onClose();
+    }
   };
 
   return (
@@ -26,10 +30,10 @@ export function LogOutModal({ onClose }: LogOutModalProps) {
       <p className={styles.text}>You can always log back in at any time.</p>
 
       <div className={styles.actions}>
-        <Button fullWidth onClick={handleLogout}>
-          Log out
+        <Button fullWidth onClick={handleLogout} disabled={isPending}>
+          {isPending ? 'Logging out...' : 'Log out'}
         </Button>
-        <Button fullWidth variant="secondary" onClick={onClose}>
+        <Button fullWidth variant="secondary" onClick={onClose} disabled={isPending}>
           Cancel
         </Button>
       </div>

@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { SharedLayout } from '@shared/layout/SharedLayout';
-import { Loader } from '@shared/ui/Loader';
+import { Loader } from '@shared/ui';
+import { PrivateRoute } from '@features/auth';
 
 const HomePage = lazy(() => import('@pages/HomePage'));
 const RecipePage = lazy(() => import('@pages/RecipePage'));
@@ -15,8 +16,22 @@ export function AppRouter() {
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<HomePage />} />
           <Route path="recipe/:id" element={<RecipePage />} />
-          <Route path="recipe/add" element={<AddRecipePage />} />
-          <Route path="user/:id" element={<UserPage />} />
+          <Route
+            path="recipe/add"
+            element={
+              <PrivateRoute>
+                <AddRecipePage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="user/:id"
+            element={
+              <PrivateRoute>
+                <UserPage />
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<HomePage />} />
         </Route>
       </Routes>

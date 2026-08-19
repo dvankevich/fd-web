@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Modal } from '@shared/ui/Modal';
-import { LogOutModal } from '@features/auth/LogOutModal';
-import { selectUser } from '@features/auth/selectors';
+import { MODAL_NAME, modalObserver } from '@shared/lib';
+import { selectUser } from '@features/auth';
 import styles from './UserBar.module.css';
 
 const defaultAvatar =
@@ -15,7 +14,6 @@ const defaultAvatar =
 export function UserBar() {
   const user = useSelector(selectUser);
   const [open, setOpen] = useState(false);
-  const [logoutOpen, setLogoutOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,11 +30,7 @@ export function UserBar() {
 
   return (
     <div className={styles.wrap} ref={ref}>
-      <button
-        type="button"
-        className={styles.trigger}
-        onClick={() => setOpen((v) => !v)}
-      >
+      <button type="button" className={styles.trigger} onClick={() => setOpen((v) => !v)}>
         <img
           src={user.avatar || defaultAvatar}
           alt={user.name}
@@ -45,18 +39,12 @@ export function UserBar() {
           height={32}
         />
         <span className={styles.name}>{user.name}</span>
-        <span className={`${styles.arrow} ${open ? styles.arrowOpen : ''}`}>
-          ▾
-        </span>
+        <span className={`${styles.arrow} ${open ? styles.arrowOpen : ''}`}>▾</span>
       </button>
 
       {open && (
         <div className={styles.dropdown}>
-          <Link
-            to={`/user/${user.id}`}
-            className={styles.item}
-            onClick={() => setOpen(false)}
-          >
+          <Link to={`/user/${user.id}`} className={styles.item} onClick={() => setOpen(false)}>
             Profile
           </Link>
           <button
@@ -64,17 +52,13 @@ export function UserBar() {
             className={styles.item}
             onClick={() => {
               setOpen(false);
-              setLogoutOpen(true);
+              modalObserver.open(MODAL_NAME.logOut);
             }}
           >
             Log out
           </button>
         </div>
       )}
-
-      <Modal isOpen={logoutOpen} onClose={() => setLogoutOpen(false)}>
-        <LogOutModal onClose={() => setLogoutOpen(false)} />
-      </Modal>
     </div>
   );
 }

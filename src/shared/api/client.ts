@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+const REQUEST_TIMEOUT_MS = 15000;
+
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  timeout: REQUEST_TIMEOUT_MS,
 });
 
 export function setAuthHeader(accessToken: string | null) {
@@ -11,4 +14,3 @@ export function setAuthHeader(accessToken: string | null) {
     delete apiClient.defaults.headers.common.Authorization;
   }
 }
-

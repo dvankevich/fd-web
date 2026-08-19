@@ -1,12 +1,24 @@
-import { SignUpForm } from '@features/auth/SignUpForm';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { MODAL_NAME, modalObserver } from '@shared/lib';
+import type { ModalContentProps } from '@shared/ui';
+import type { AppDispatch } from '@app/store';
+import { SignUpForm } from '../SignUpForm';
+import { clearError } from '../slice';
 import styles from './SignUpModal.module.css';
 
-interface SignUpModalProps {
-  onClose: () => void;
-  onSwitchToSignIn?: () => void;
-}
+export function SignUpModal({ onClose }: ModalContentProps) {
+  const dispatch = useDispatch<AppDispatch>();
 
-export function SignUpModal({ onClose, onSwitchToSignIn }: SignUpModalProps) {
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+
+  const switchToSignIn = () => {
+    dispatch(clearError());
+    modalObserver.open(MODAL_NAME.signIn);
+  };
+
   return (
     <div className={styles.wrapper}>
       <h3 className={styles.title}>Sign Up</h3>
@@ -15,7 +27,7 @@ export function SignUpModal({ onClose, onSwitchToSignIn }: SignUpModalProps) {
 
       <p className={styles.footer}>
         I already have an account?{' '}
-        <button type="button" className={styles.link} onClick={onSwitchToSignIn}>
+        <button type="button" className={styles.link} onClick={switchToSignIn}>
           Sign in
         </button>
       </p>

@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент PrivateRoute
-export {};
+export { PrivateRoute } from './PrivateRoute';

@@ -3,15 +3,12 @@ import {
   Button,
   Loader,
   MainTitle,
-  Modal,
   PathInfo,
   Select,
   Subtitle,
   type SelectOption,
 } from '@shared/ui';
-import { SignInModal } from '@features/auth/SignInModal';
-import { SignUpModal } from '@features/auth/SignUpModal';
-import { LogOutModal } from '@features/auth/LogOutModal';
+import { MODAL_NAME, modalObserver } from '@shared/lib';
 import { Hero } from '@features/home/Hero';
 import { Testimonials } from '@features/testimonials';
 
@@ -22,15 +19,9 @@ const categoryOptions: SelectOption[] = [
   { value: 'dessert', label: 'Dessert' },
 ];
 
-type ModalType = 'signin' | 'signup' | null;
-
 export default function HomePage() {
-  const [modalType, setModalType] = useState<ModalType>(null);
   const [showLoader, setShowLoader] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<SelectOption | null>(null);
-
-  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
-  const closeModal = () => setModalType(null);
 
   const handleShowLoader = () => {
     setShowLoader(true);
@@ -50,13 +41,13 @@ export default function HomePage() {
         <section style={{ marginBottom: 40 }}>
           <h3 style={{ marginBottom: 16, fontWeight: 700 }}>Buttons & Modals</h3>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-            <Button variant="primary" onClick={() => setModalType('signin')}>
+            <Button variant="primary" onClick={() => modalObserver.open(MODAL_NAME.signIn)}>
               Sign In Modal
             </Button>
-            <Button variant="secondary" onClick={() => setModalType('signup')}>
+            <Button variant="secondary" onClick={() => modalObserver.open(MODAL_NAME.signUp)}>
               Sign Up Modal
             </Button>
-            <Button variant="ghost" onClick={() => setIsLogoutOpen(true)}>
+            <Button variant="ghost" onClick={() => modalObserver.open(MODAL_NAME.logOut)}>
               Log Out Modal
             </Button>
             <Button variant="ghost" onClick={handleShowLoader}>
@@ -82,18 +73,6 @@ export default function HomePage() {
             </p>
           )}
         </section>
-
-        <Modal isOpen={modalType === 'signin'} onClose={closeModal}>
-          <SignInModal onClose={closeModal} onSwitchToSignUp={() => setModalType('signup')} />
-        </Modal>
-
-        <Modal isOpen={modalType === 'signup'} onClose={closeModal}>
-          <SignUpModal onClose={closeModal} onSwitchToSignIn={() => setModalType('signin')} />
-        </Modal>
-
-        <Modal isOpen={isLogoutOpen} onClose={() => setIsLogoutOpen(false)}>
-          <LogOutModal onClose={() => setIsLogoutOpen(false)} />
-        </Modal>
 
         {showLoader && <Loader />}
       </div>
