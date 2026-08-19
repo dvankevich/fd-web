@@ -1,19 +1,19 @@
-import { Formik, Form, Field, type FormikHelpers } from 'formik';
+import { Formik, Form, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '@shared/ui/Button';
-import { login } from '@features/auth/operations';
-import {
-  selectIsAuthLoading,
-  selectAuthError,
-} from '@features/auth/selectors';
+import { applyFieldErrors, hasFieldErrors } from '@shared/lib';
+import { Button, FormError, FormField } from '@shared/ui';
 import type { AppDispatch } from '@app/store';
 import type { LoginPayload } from '@shared/types';
+import { login } from '../operations';
+import { clearError } from '../slice';
+import { AUTH_SCHEMA } from '../validation';
+import { selectAuthError, selectIsAuthLoading } from '../selectors';
 import styles from './SignInForm.module.css';
 
 const schema = Yup.object({
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().required('Password is required'),
+  email: AUTH_SCHEMA.email,
+  password: AUTH_SCHEMA.currentPassword,
 });
 
 const initialValues: LoginPayload = {
@@ -32,49 +32,37 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
 
   const handleSubmit = async (
     values: LoginPayload,
-    { setSubmitting }: FormikHelpers<LoginPayload>,
+    { setSubmitting, setFieldError }: FormikHelpers<LoginPayload>,
   ) => {
-    const result = await dispatch(login(values));
+    const result = await dispatch(login({ ...values, email: values.email.trim() }));
     setSubmitting(false);
 
     if (login.fulfilled.match(result)) {
       onSuccess?.();
+      return;
+    }
+
+    const fields = result.payload?.fields;
+    const unplaced = applyFieldErrors({ fields, values, setFieldError });
+
+    if (hasFieldErrors(fields) && unplaced.length === 0) {
+      dispatch(clearError());
     }
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={schema}
-      onSubmit={handleSubmit}
-    >
-      {({ errors, touched, isSubmitting }) => (
+    <Formik initialValues={initialValues} validationSchema={schema} onSubmit={handleSubmit}>
+      {({ isSubmitting }) => (
         <Form className={styles.form} noValidate>
-          <div className={styles.field}>
-            <Field
-              name="email"
-              type="email"
-              placeholder="Email*"
-              className={styles.input}
-            />
-            {touched.email && errors.email && (
-              <span className={styles.error}>{errors.email}</span>
-            )}
-          </div>
+          <FormField name="email" type="email" placeholder="Email*" autoComplete="email" />
+          <FormField
+            name="password"
+            type="password"
+            placeholder="Password*"
+            autoComplete="current-password"
+          />
 
-          <div className={styles.field}>
-            <Field
-              name="password"
-              type="password"
-              placeholder="Password*"
-              className={styles.input}
-            />
-            {touched.password && errors.password && (
-              <span className={styles.error}>{errors.password}</span>
-            )}
-          </div>
-
-          {error && <p className={styles.serverError}>{error}</p>}
+          <FormError>{error}</FormError>
 
           <Button type="submit" fullWidth disabled={isLoading || isSubmitting}>
             {isLoading ? 'Signing in...' : 'Sign in'}

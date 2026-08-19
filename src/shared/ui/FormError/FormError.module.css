@@ -1,0 +1,6 @@
+.error {
+  margin: 0;
+  font-size: 14px;
+  color: var(--error-color);
+  text-align: center;
+}

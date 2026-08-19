@@ -1,16 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { User } from '@shared/types';
-import { login, register, logout, refresh } from './operations';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { AuthResponse, Nullable, Optional, Tokens, User } from '@shared/types';
+import { HTTP_STATUS } from '@shared/lib';
+import { AUTH_MESSAGE, AUTH_SLICE } from './constants';
+import type { ApiError } from './errors';
+import { login, logout, refresh, register } from './operations';
 
-interface AuthState {
-  user: User | null;
-  accessToken: string | null;
-  refreshToken: string | null;
+export interface AuthState {
+  user: Nullable<User>;
+  accessToken: Nullable<string>;
+  refreshToken: Nullable<string>;
   isLoggedIn: boolean;
   isRefreshing: boolean;
+  isRestored: boolean;
   isLoading: boolean;
-  error: string | null;
+  error: Nullable<string>;
 }
+
+export interface PersistedSession extends Tokens {
+  user: User;
+}
+
+export const AUTH_PERSISTED_KEYS = [
+  'accessToken',
+  'refreshToken',
+  'user',
+  'isLoggedIn',
+] as const satisfies readonly (keyof AuthState)[];
 
 const initialState: AuthState = {
   user: null,
@@ -18,82 +33,96 @@ const initialState: AuthState = {
   refreshToken: null,
   isLoggedIn: false,
   isRefreshing: true,
+  isRestored: false,
   isLoading: false,
   error: null,
 };
 
+const clearSession = (state: AuthState) => {
+  state.user = null;
+  state.accessToken = null;
+  state.refreshToken = null;
+  state.isLoggedIn = false;
+  state.isLoading = false;
+};
+
+const startRequest = (state: AuthState) => {
+  state.isLoading = true;
+  state.error = null;
+};
+
+const storeSession = (state: AuthState, { payload }: PayloadAction<AuthResponse>) => {
+  state.user = payload.user;
+  state.accessToken = payload.accessToken;
+  state.refreshToken = payload.refreshToken;
+  state.isLoggedIn = true;
+  state.isLoading = false;
+};
+
+const failRequest = (state: AuthState, { payload }: PayloadAction<Optional<ApiError>>) => {
+  state.isLoading = false;
+  state.error = payload?.message ?? AUTH_MESSAGE.requestFailed;
+};
+
+const isSessionRejected = (error: Optional<ApiError>): boolean =>
+  error?.status !== undefined && error.status < HTTP_STATUS.serverErrorMin;
+
+const storeTokens = (state: AuthState, tokens: Tokens) => {
+  state.accessToken = tokens.accessToken;
+  state.refreshToken = tokens.refreshToken;
+  state.isLoggedIn = true;
+};
+
 const authSlice = createSlice({
-  name: 'auth',
+  name: AUTH_SLICE.name,
   initialState,
   reducers: {
     clearError(state) {
       state.error = null;
     },
+    sessionSynced(state, { payload }: PayloadAction<Nullable<PersistedSession>>) {
+      state.isRestored = true;
+      if (!payload) {
+        clearSession(state);
+        return;
+      }
+      storeTokens(state, payload);
+      state.user = payload.user;
+    },
   },
   extraReducers: (builder) => {
     builder
-      // register
-      .addCase(register.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-        state.isLoggedIn = true;
-        state.isLoading = false;
-      })
-      .addCase(register.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload ?? 'Register failed';
-      })
+      .addCase(register.pending, startRequest)
+      .addCase(register.fulfilled, storeSession)
+      .addCase(register.rejected, failRequest)
 
-      // login
-      .addCase(login.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-        state.isLoggedIn = true;
-        state.isLoading = false;
-      })
-      .addCase(login.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload ?? 'Login failed';
-      })
+      .addCase(login.pending, startRequest)
+      .addCase(login.fulfilled, storeSession)
+      .addCase(login.rejected, failRequest)
 
-      // refresh
       .addCase(refresh.pending, (state) => {
         state.isRefreshing = true;
       })
-      .addCase(refresh.fulfilled, (state, action) => {
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-        state.isLoggedIn = true;
+      .addCase(refresh.fulfilled, (state, { payload }) => {
+        storeTokens(state, payload);
         state.isRefreshing = false;
+        state.isRestored = true;
       })
-      .addCase(refresh.rejected, (state) => {
-        state.user = null;
-        state.accessToken = null;
-        state.refreshToken = null;
-        state.isLoggedIn = false;
+      .addCase(refresh.rejected, (state, { payload }) => {
         state.isRefreshing = false;
+        state.isRestored = true;
+        if (isSessionRejected(payload) || !state.refreshToken) {
+          clearSession(state);
+        }
       })
 
-      // logout
-      .addCase(logout.fulfilled, (state) => {
-        state.user = null;
-        state.accessToken = null;
-        state.refreshToken = null;
-        state.isLoggedIn = false;
-        state.isLoading = false;
-      });
+      .addCase(logout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logout.fulfilled, clearSession)
+      .addCase(logout.rejected, clearSession);
   },
 });
 
-export const { clearError } = authSlice.actions;
+export const { clearError, sessionSynced } = authSlice.actions;
 export const authReducer = authSlice.reducer;

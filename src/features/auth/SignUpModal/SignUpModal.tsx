@@ -1,24 +1,17 @@
-import { SignUpForm } from '@features/auth/SignUpForm';
-import styles from './SignUpModal.module.css';
+import { MODAL_NAME } from '@shared/lib';
+import type { ModalContentProps } from '@shared/ui';
+import { AuthModalShell } from '../AuthModalShell';
+import { SignUpForm } from '../SignUpForm';
 
-interface SignUpModalProps {
-  onClose: () => void;
-  onSwitchToSignIn?: () => void;
-}
-
-export function SignUpModal({ onClose, onSwitchToSignIn }: SignUpModalProps) {
+export function SignUpModal({ onClose }: ModalContentProps) {
   return (
-    <div className={styles.wrapper}>
-      <h3 className={styles.title}>Sign Up</h3>
-
+    <AuthModalShell
+      title="Sign Up"
+      question="I already have an account?"
+      actionLabel="Sign in"
+      switchTo={MODAL_NAME.signIn}
+    >
       <SignUpForm onSuccess={onClose} />
-
-      <p className={styles.footer}>
-        I already have an account?{' '}
-        <button type="button" className={styles.link} onClick={onSwitchToSignIn}>
-          Sign in
-        </button>
-      </p>
-    </div>
+    </AuthModalShell>
   );
 }

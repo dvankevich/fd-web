@@ -9,11 +9,12 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { authReducer } from '@features/auth/slice';
+import { AUTH_PERSIST, AUTH_PERSISTED_KEYS, authReducer } from '@features/auth';
+import type { Nullable } from '@shared/types';
 import { categoriesReducer } from '@features/categories/slice';
 
 const storage = {
-  getItem: (key: string): Promise<string | null> => {
+  getItem: (key: string): Promise<Nullable<string>> => {
     return Promise.resolve(localStorage.getItem(key));
   },
   setItem: (key: string, value: string): Promise<void> => {
@@ -27,9 +28,9 @@ const storage = {
 };
 
 const authPersistConfig = {
-  key: 'auth',
+  key: AUTH_PERSIST.key,
   storage,
-  whitelist: ['accessToken', 'refreshToken', 'user', 'isLoggedIn'],
+  whitelist: [...AUTH_PERSISTED_KEYS],
 };
 
 const rootReducer = combineReducers({

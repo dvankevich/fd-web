@@ -1,25 +1,28 @@
-import { lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Suspense } from 'react';
+import { useRoutes, type RouteObject } from 'react-router-dom';
 import { SharedLayout } from '@shared/layout/SharedLayout';
-import { Loader } from '@shared/ui/Loader';
+import { ROUTE } from '@shared/lib';
+import { ErrorBoundary, Loader } from '@shared/ui';
+import { PrivateRoute } from '@features/auth';
+import { ACCESS, routesWithAccess } from './routes';
 
-const HomePage = lazy(() => import('@pages/HomePage'));
-const RecipePage = lazy(() => import('@pages/RecipePage'));
-const AddRecipePage = lazy(() => import('@pages/AddRecipePage'));
-const UserPage = lazy(() => import('@pages/UserPage'));
+const ROUTE_TREE: RouteObject[] = [
+  {
+    path: ROUTE.home,
+    element: <SharedLayout />,
+    children: [
+      ...routesWithAccess(ACCESS.public),
+      { element: <PrivateRoute />, children: routesWithAccess(ACCESS.private) },
+    ],
+  },
+];
 
 export function AppRouter() {
+  const element = useRoutes(ROUTE_TREE);
+
   return (
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="recipe/:id" element={<RecipePage />} />
-          <Route path="recipe/add" element={<AddRecipePage />} />
-          <Route path="user/:id" element={<UserPage />} />
-          <Route path="*" element={<HomePage />} />
-        </Route>
-      </Routes>
-    </Suspense>
+    <ErrorBoundary fallback={<p role="alert">This page did not load. Reload to try again.</p>}>
+      <Suspense fallback={<Loader />}>{element}</Suspense>
+    </ErrorBoundary>
   );
 }

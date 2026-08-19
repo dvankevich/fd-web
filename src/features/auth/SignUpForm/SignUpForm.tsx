@@ -1,22 +1,20 @@
-import { Formik, Form, Field, type FormikHelpers } from 'formik';
+import { Formik, Form, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '@shared/ui/Button';
-import { register } from '@features/auth/operations';
-import {
-  selectIsAuthLoading,
-  selectAuthError,
-} from '@features/auth/selectors';
+import { applyFieldErrors, hasFieldErrors } from '@shared/lib';
+import { Button, FormError, FormField } from '@shared/ui';
 import type { AppDispatch } from '@app/store';
 import type { RegisterPayload } from '@shared/types';
+import { register } from '../operations';
+import { clearError } from '../slice';
+import { AUTH_SCHEMA } from '../validation';
+import { selectAuthError, selectIsAuthLoading } from '../selectors';
 import styles from '../SignInForm/SignInForm.module.css';
 
 const schema = Yup.object({
-  name: Yup.string().required('Name is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .required('Password is required'),
+  name: AUTH_SCHEMA.name,
+  email: AUTH_SCHEMA.email,
+  password: AUTH_SCHEMA.newPassword,
 });
 
 const initialValues: RegisterPayload = {
@@ -36,61 +34,40 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
 
   const handleSubmit = async (
     values: RegisterPayload,
-    { setSubmitting }: FormikHelpers<RegisterPayload>,
+    { setSubmitting, setFieldError }: FormikHelpers<RegisterPayload>,
   ) => {
-    const result = await dispatch(register(values));
+    const result = await dispatch(
+      register({ ...values, name: values.name.trim(), email: values.email.trim() }),
+    );
     setSubmitting(false);
 
     if (register.fulfilled.match(result)) {
       onSuccess?.();
+      return;
+    }
+
+    const fields = result.payload?.fields;
+    const unplaced = applyFieldErrors({ fields, values, setFieldError });
+
+    if (hasFieldErrors(fields) && unplaced.length === 0) {
+      dispatch(clearError());
     }
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={schema}
-      onSubmit={handleSubmit}
-    >
-      {({ errors, touched, isSubmitting }) => (
+    <Formik initialValues={initialValues} validationSchema={schema} onSubmit={handleSubmit}>
+      {({ isSubmitting }) => (
         <Form className={styles.form} noValidate>
-          <div className={styles.field}>
-            <Field
-              name="name"
-              type="text"
-              placeholder="Name*"
-              className={styles.input}
-            />
-            {touched.name && errors.name && (
-              <span className={styles.error}>{errors.name}</span>
-            )}
-          </div>
+          <FormField name="name" type="text" placeholder="Name*" autoComplete="name" />
+          <FormField name="email" type="email" placeholder="Email*" autoComplete="email" />
+          <FormField
+            name="password"
+            type="password"
+            placeholder="Password*"
+            autoComplete="new-password"
+          />
 
-          <div className={styles.field}>
-            <Field
-              name="email"
-              type="email"
-              placeholder="Email*"
-              className={styles.input}
-            />
-            {touched.email && errors.email && (
-              <span className={styles.error}>{errors.email}</span>
-            )}
-          </div>
-
-          <div className={styles.field}>
-            <Field
-              name="password"
-              type="password"
-              placeholder="Password*"
-              className={styles.input}
-            />
-            {touched.password && errors.password && (
-              <span className={styles.error}>{errors.password}</span>
-            )}
-          </div>
-
-          {error && <p className={styles.serverError}>{error}</p>}
+          <FormError>{error}</FormError>
 
           <Button type="submit" fullWidth disabled={isLoading || isSubmitting}>
             {isLoading ? 'Creating...' : 'Create'}

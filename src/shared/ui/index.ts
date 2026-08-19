@@ -1,7 +1,13 @@
 export { Button } from './Button';
+export { ErrorBoundary } from './ErrorBoundary';
+export { FormError } from './FormError';
+export { FormField } from './FormField';
+export { Input } from './Input';
 export { Loader } from './Loader';
 export { MainTitle } from './MainTitle';
 export { Modal } from './Modal';
+export { ModalRoot } from './ModalRoot';
+export type { ModalComponent, ModalComponents, ModalContentProps } from './ModalRoot';
 export { PathInfo } from './PathInfo';
 export { Select } from './Select';
 export type { SelectOption } from './Select';
