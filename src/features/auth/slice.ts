@@ -1,6 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { AuthResponse, Nullable, Optional, Tokens, User } from '@shared/types';
+import { hasFieldErrors } from '@shared/lib';
 import { AUTH_MESSAGE } from './constants';
+import type { ApiError } from './errors';
 import { login, logout, refresh, register } from './operations';
 
 interface AuthState {
@@ -46,9 +48,11 @@ const storeSession = (state: AuthState, { payload }: PayloadAction<AuthResponse>
   state.isLoading = false;
 };
 
-const failRequest = (state: AuthState, { payload }: PayloadAction<Optional<string>>) => {
+const failRequest = (state: AuthState, { payload }: PayloadAction<Optional<ApiError>>) => {
   state.isLoading = false;
-  state.error = payload ?? AUTH_MESSAGE.requestFailed;
+  state.error = hasFieldErrors(payload?.fields)
+    ? null
+    : (payload?.message ?? AUTH_MESSAGE.requestFailed);
 };
 
 const storeTokens = (state: AuthState, tokens: Tokens) => {

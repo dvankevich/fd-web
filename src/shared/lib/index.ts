@@ -11,6 +11,7 @@ export {
 } from './guards';
 export { cn, type ClassValue } from './classNames';
 export { createSubscription, type Subscription } from './createSubscription';
+export { applyFieldErrors, hasFieldErrors, isFieldErrors, type FieldErrors } from './formErrors';
 export { ROUTE, buildPath, type Route } from './routes';
 export { MODAL_NAME, modalObserver, useModal, useOpenModals } from './modals';
 export type { ModalName, ModalEntry, ModalEvent, ModalParams } from './modals';

@@ -1,37 +1,33 @@
 import { isAxiosError } from 'axios';
-import { isArrayOf, isRecord, isString } from '@shared/lib';
+import { isFieldErrors, isRecord, isString, type FieldErrors } from '@shared/lib';
 import type { Optional } from '@shared/types';
 import { AUTH_STATUS } from './constants';
 
-interface ApiErrorBody {
-  error?: string;
-  details?: Record<string, string[]>;
+export interface ApiError {
+  message: string;
+  fields: FieldErrors;
 }
 
-type ErrorDetails = ApiErrorBody['details'];
-
-interface ApiErrorMessageArgs {
+interface ApiErrorArgs {
   error: unknown;
   fallback: string;
 }
 
-const isStringArray = (value: unknown): value is string[] => isArrayOf(value, isString);
+interface ApiErrorBody {
+  error?: string;
+  details?: FieldErrors;
+}
+
+const NO_FIELDS: FieldErrors = {};
 
 const isApiErrorBody = (value: unknown): value is ApiErrorBody => {
   if (!isRecord(value)) {
     return false;
   }
   const messageIsValid = value.error === undefined || isString(value.error);
-  const detailsAreValid =
-    value.details === undefined ||
-    (isRecord(value.details) && Object.values(value.details).every(isStringArray));
+  const detailsAreValid = value.details === undefined || isFieldErrors(value.details);
   return messageIsValid && detailsAreValid;
 };
-
-const detailMessages = (details: ErrorDetails): string =>
-  Object.values(details ?? {})
-    .flat()
-    .join('. ');
 
 export const responseStatus = (error: unknown): Optional<number> =>
   isAxiosError(error) ? error.response?.status : undefined;
@@ -39,14 +35,13 @@ export const responseStatus = (error: unknown): Optional<number> =>
 export const isUnauthorized = (error: unknown): boolean =>
   responseStatus(error) === AUTH_STATUS.unauthorized;
 
-export function apiErrorMessage({ error, fallback }: ApiErrorMessageArgs): string {
+export function toApiError({ error, fallback }: ApiErrorArgs): ApiError {
   const status = responseStatus(error);
-  if (status === undefined || status >= AUTH_STATUS.serverError) {
-    return fallback;
-  }
   const data: unknown = isAxiosError(error) ? error.response?.data : undefined;
-  if (!isApiErrorBody(data)) {
-    return fallback;
+
+  if (status === undefined || status >= AUTH_STATUS.serverError || !isApiErrorBody(data)) {
+    return { message: fallback, fields: NO_FIELDS };
   }
-  return detailMessages(data.details) || data.error || fallback;
+
+  return { message: data.error ?? fallback, fields: data.details ?? NO_FIELDS };
 }

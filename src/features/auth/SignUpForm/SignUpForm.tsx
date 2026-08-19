@@ -1,6 +1,7 @@
 import { Formik, Form, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import { applyFieldErrors } from '@shared/lib';
 import { Button, FormError, FormField } from '@shared/ui';
 import type { AppDispatch } from '@app/store';
 import type { RegisterPayload } from '@shared/types';
@@ -51,7 +52,7 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
 
   const handleSubmit = async (
     values: RegisterPayload,
-    { setSubmitting }: FormikHelpers<RegisterPayload>,
+    { setSubmitting, setFieldError }: FormikHelpers<RegisterPayload>,
   ) => {
     const result = await dispatch(
       register({ ...values, name: values.name.trim(), email: values.email.trim() }),
@@ -60,7 +61,10 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
 
     if (register.fulfilled.match(result)) {
       onSuccess?.();
+      return;
     }
+
+    applyFieldErrors({ fields: result.payload?.fields, values, setFieldError });
   };
 
   return (
