@@ -24,7 +24,7 @@ cp .env.example .env
 У `.env`:
 
 ```env
-VITE_API_URL=https://foodies-back-end.onrender.com/api
+VITE_API_URL=https://foodies-api.fstk.run.place/api
 ```
 
 ```bash
