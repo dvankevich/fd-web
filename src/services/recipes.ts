@@ -2,22 +2,28 @@ import { apiClient } from '@shared/api/client';
 
 import type { Ingredient, Option } from '../types/recipe';
 
+const toNameOptions = (items: unknown[]): Option[] =>
+  items.map((item) => {
+    const name = typeof item === 'string' ? item : String((item as Record<string, unknown>).name);
+
+    return { _id: name, name };
+  });
+
 export const getCategories = async (): Promise<Option[]> => {
-  const { data } = await apiClient.get('/recipes/categories');
+  const { data } = await apiClient.get('/categories');
 
-  console.log('CATEGORIES RESPONSE:', data);
+  const categories = Array.isArray(data) ? data : (data.categories ?? []);
 
-  return Array.isArray(data) ? data : (data.categories ?? []);
+  return toNameOptions(categories);
 };
 
 export const getAreas = async (): Promise<Option[]> => {
-  const { data } = await apiClient.get('/recipes/areas');
+  const { data } = await apiClient.get('/areas');
 
-  console.log('AREAS RESPONSE:', data);
+  const areas = Array.isArray(data) ? data : (data.areas ?? []);
 
-  return Array.isArray(data) ? data : (data.areas ?? []);
+  return toNameOptions(areas);
 };
-
 export const getIngredients = async (): Promise<Ingredient[]> => {
   const { data } = await apiClient.get('/ingredients');
 

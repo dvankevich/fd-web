@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent } from 'react';
 import css from '../../../pages/AddRecipePage/AddRecipePage.module.css';
+import cameraIcon from '../../../assets/camera.svg';
 
 type Props = {
   file: File | null;
@@ -43,7 +44,7 @@ export default function ImageUploader({ file: _file, error, onChange }: Props) {
           <img src={preview} alt="Recipe preview" />
         ) : (
           <>
-            <span className={css.camera}>▣</span>
+            <img className={css.cameraIcon} src={cameraIcon} alt="" />
             <span className={css.uploadText}>Upload a photo</span>
           </>
         )}

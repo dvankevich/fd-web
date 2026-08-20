@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Form, Formik, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-
-import { createRecipe, getIngredients } from '../../../services/recipes';
+import trashIcon from '../../../assets/trash.svg';
+import { createRecipe, getIngredients, getAreas, getCategories } from '../../../services/recipes';
 
 import type { Ingredient, Option, RecipeFormValues } from '../../../types/recipe';
 
@@ -19,32 +19,10 @@ const initialValues: RecipeFormValues = {
   description: '',
   category: '',
   area: '',
-  time: 10,
+  time: 1,
   ingredients: [],
   instructions: '',
 };
-
-const categoryOptions: Option[] = [
-  { _id: 'Beef', name: 'Beef' },
-  { _id: 'Breakfast', name: 'Breakfast' },
-  { _id: 'Desserts', name: 'Desserts' },
-  { _id: 'Lamb', name: 'Lamb' },
-  { _id: 'Miscellaneous', name: 'Miscellaneous' },
-  { _id: 'Pasta', name: 'Pasta' },
-  { _id: 'Pork', name: 'Pork' },
-  { _id: 'Seafood', name: 'Seafood' },
-  { _id: 'Side', name: 'Side' },
-  { _id: 'Starter', name: 'Starter' },
-];
-
-const areaOptions: Option[] = [
-  { _id: 'French', name: 'French' },
-  { _id: 'Spanish', name: 'Spanish' },
-  { _id: 'Italian', name: 'Italian' },
-  { _id: 'English', name: 'English' },
-  { _id: 'Norwegian', name: 'Norwegian' },
-  { _id: 'Ukrainian', name: 'Ukrainian' },
-];
 
 const validationSchema = Yup.object({
   image: Yup.mixed<File>().required('Upload a photo'),
@@ -78,12 +56,23 @@ export default function AddRecipeForm() {
   const [notification, setNotification] = useState('');
   const [isLoadingIngredients, setIsLoadingIngredients] = useState(true);
 
+  const [categoryOptions, setCategoryOptions] = useState<Option[]>([]);
+  const [areaOptions, setAreaOptions] = useState<Option[]>([]);
+  const [isLoadingOptions, setIsLoadingOptions] = useState(true);
+
   useEffect(() => {
     let isMounted = true;
 
     const loadIngredients = async () => {
       try {
         setIsLoadingIngredients(true);
+        setIsLoadingOptions(true);
+
+        const [ingredientsData, categoriesData, areasData] = await Promise.all([
+          getIngredients(),
+          getCategories(),
+          getAreas(),
+        ]);
 
         const data = await getIngredients();
 
@@ -92,6 +81,9 @@ export default function AddRecipeForm() {
         if (!isMounted) {
           return;
         }
+        setIngredients(ingredientsData);
+        setCategoryOptions(categoriesData);
+        setAreaOptions(areasData);
 
         if (!Array.isArray(data)) {
           setIngredients([]);
@@ -110,6 +102,7 @@ export default function AddRecipeForm() {
       } finally {
         if (isMounted) {
           setIsLoadingIngredients(false);
+          setIsLoadingOptions(false);
         }
       }
     };
@@ -150,7 +143,10 @@ export default function AddRecipeForm() {
 
         return;
       }
-
+      console.log('SELECTED VALUES:', {
+        category: values.category,
+        area: values.area,
+      });
       const formData = new FormData();
 
       if (values.image instanceof File) {
@@ -424,11 +420,12 @@ export default function AddRecipeForm() {
                       label="CATEGORY"
                       value={values.category}
                       options={categoryOptions}
-                      placeholder="Select a category"
-                      onChange={(value) => {
-                        setFieldValue('category', value);
+                      placeholder={isLoadingOptions ? 'Loading categories...' : 'Select a category'}
+                      onChange={(id) => {
+                        const selected = categoryOptions.find((item) => item._id === id);
 
-                        setFieldTouched('category', true);
+                        setFieldValue('category', selected?.name ?? '');
+                        setFieldTouched('category', true, false);
                       }}
                       error={touched.category ? errors.category : undefined}
                     />
@@ -448,7 +445,7 @@ export default function AddRecipeForm() {
 
                         <button
                           type="button"
-                          onClick={() => setFieldValue('time', values.time + 1)}
+                          onClick={() => setFieldValue('time', values.time + 5)}
                         >
                           +
                         </button>
@@ -464,11 +461,12 @@ export default function AddRecipeForm() {
                     label="AREA"
                     value={values.area}
                     options={areaOptions}
-                    placeholder="Area"
-                    onChange={(value) => {
-                      setFieldValue('area', value);
+                    placeholder={isLoadingOptions ? 'Loading areas...' : 'Select an area'}
+                    onChange={(id) => {
+                      const selected = areaOptions.find((item) => item._id === id);
 
-                      setFieldTouched('area', true);
+                      setFieldValue('area', selected?.name ?? '');
+                      setFieldTouched('area', true, false);
                     }}
                     error={touched.area ? errors.area : undefined}
                   />
@@ -559,7 +557,7 @@ export default function AddRecipeForm() {
                       aria-label="Reset form"
                       onClick={reset}
                     >
-                      🗑
+                      <img className={css.resetIcon} src={trashIcon} alt="" />
                     </button>
 
                     <button

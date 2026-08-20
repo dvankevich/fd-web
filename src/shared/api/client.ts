@@ -6,7 +6,7 @@ const REQUEST_TIMEOUT = 15 * TIME_MS.second;
 const AUTH_SCHEME = 'Bearer';
 
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'https://foodies-api.fstk.run.place/api',
   timeout: REQUEST_TIMEOUT,
 });
 

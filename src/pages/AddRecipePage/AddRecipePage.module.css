@@ -33,7 +33,7 @@
     cursor: pointer;
 }
 
-.photoBox img {
+.photoBox img:not(.cameraIcon) {
     width: 100%;
     height: 404px;
     object-fit: cover;
@@ -42,6 +42,15 @@
 .camera {
     color: #bdbdbd;
     font-size: 35px;
+
+}
+
+.cameraIcon {
+    justify-self: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    opacity: 0.55;
 }
 
 .uploadText {
@@ -285,6 +294,11 @@
 
 .resetButton {
     font-size: 18px;
+}
+
+.resetIcon {
+    width: 20px;
+    height: 20px;
 }
 
 .publishButton {
