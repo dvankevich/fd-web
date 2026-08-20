@@ -1,5 +1,13 @@
 import { isAxiosError } from 'axios';
-import { HTTP_STATUS, isFieldErrors, isRecord, isString, type FieldErrors } from '@shared/lib';
+import {
+  HTTP_STATUS,
+  isFieldErrors,
+  isNetworkError,
+  isRecord,
+  isString,
+  networkErrorMessage,
+  type FieldErrors,
+} from '@shared/lib';
 import type { Optional } from '@shared/types';
 
 export interface ApiError {
@@ -42,12 +50,28 @@ export const isUnauthorized = (error: unknown): boolean =>
   responseStatus(error) === HTTP_STATUS.unauthorized;
 
 export function toApiError({ error, fallback }: ApiErrorArgs): ApiError {
+  if (isNetworkError(error)) {
+    return {
+      message: networkErrorMessage,
+      fields: NO_FIELDS,
+      status: undefined,
+    };
+  }
+
   const status = responseStatus(error);
   const data: unknown = isAxiosError(error) ? error.response?.data : undefined;
 
-  if (status === undefined || status >= HTTP_STATUS.serverErrorMin || !isApiErrorBody(data)) {
+  if (
+    status === undefined ||
+    status >= HTTP_STATUS.serverErrorMin ||
+    !isApiErrorBody(data)
+  ) {
     return { message: fallback, fields: NO_FIELDS, status };
   }
 
-  return { message: data.error ?? fallback, fields: data.details ?? NO_FIELDS, status };
+  return {
+    message: data.error ?? fallback,
+    fields: data.details ?? NO_FIELDS,
+    status,
+  };
 }
