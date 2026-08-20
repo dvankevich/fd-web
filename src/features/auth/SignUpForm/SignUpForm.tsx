@@ -10,6 +10,7 @@ import { clearError } from '../slice';
 import { AUTH_SCHEMA } from '../validation';
 import { selectAuthError, selectIsAuthLoading } from '../selectors';
 import styles from '../SignInForm/SignInForm.module.css';
+import { notify } from '@shared/lib';
 
 const schema = Yup.object({
   name: AUTH_SCHEMA.name,
@@ -42,6 +43,7 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
     setSubmitting(false);
 
     if (register.fulfilled.match(result)) {
+      notify.success('Account created!');
       onSuccess?.();
       return;
     }
@@ -51,7 +53,15 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
 
     if (hasFieldErrors(fields) && unplaced.length === 0) {
       dispatch(clearError());
+      return;
     }
+
+    const message =
+      result.payload?.message ??
+      (typeof result.payload === 'string' ? result.payload : null) ??
+      'Registration failed';
+
+    notify.error(message);
   };
 
   return (

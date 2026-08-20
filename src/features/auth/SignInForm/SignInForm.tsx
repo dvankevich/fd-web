@@ -47,7 +47,6 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
     const fields = result.payload?.fields;
     const unplaced = applyFieldErrors({ fields, values, setFieldError });
 
-    // Помилки полів уже показані біля інпутів — глобальний error у store прибираємо
     if (hasFieldErrors(fields) && unplaced.length === 0) {
       dispatch(clearError());
       return;
