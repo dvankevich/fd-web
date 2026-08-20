@@ -23,4 +23,8 @@
   --container-padding-mobile: 16px;
   --container-padding-tablet: 32px;
   --container-padding-desktop: 80px;
+
+  --toastify-color-success: #050505;
+  --toastify-color-error: #db0000;
+  --toastify-font-family: 'Mulish', sans-serif;
 }

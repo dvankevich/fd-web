@@ -10,6 +10,7 @@ import { clearError } from '../slice';
 import { AUTH_SCHEMA } from '../validation';
 import { selectAuthError, selectIsAuthLoading } from '../selectors';
 import styles from './SignInForm.module.css';
+import { notify } from '@shared/lib';
 
 const schema = Yup.object({
   email: AUTH_SCHEMA.email,
@@ -38,6 +39,7 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
     setSubmitting(false);
 
     if (login.fulfilled.match(result)) {
+      notify.success('Welcome back!');
       onSuccess?.();
       return;
     }
@@ -47,7 +49,16 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
 
     if (hasFieldErrors(fields) && unplaced.length === 0) {
       dispatch(clearError());
+      return;
     }
+
+    // Немає field-errors або частина не розклалась по полях — показуємо toast
+    const message =
+      result.payload?.message ??
+      (typeof result.payload === 'string' ? result.payload : null) ??
+      'Login failed';
+
+    notify.error(message);
   };
 
   return (

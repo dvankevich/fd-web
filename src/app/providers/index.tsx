@@ -7,6 +7,8 @@ import { APP_MODALS } from '@app/modals';
 import { AuthProvider } from '@features/auth';
 import { Loader, ModalRoot } from '@shared/ui';
 import InitialDataLoader from '@shared/lib/InitialDataLoader';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -20,6 +22,7 @@ export function AppProviders({ children }: AppProvidersProps) {
           <BrowserRouter>
             <AuthProvider>{children}</AuthProvider>
             <ModalRoot modals={APP_MODALS} />
+            <ToastContainer theme="light" newestOnTop />
           </BrowserRouter>
         </InitialDataLoader>
       </PersistGate>
