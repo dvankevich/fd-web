@@ -5,19 +5,13 @@ export type SelectOption = {
   label: string;
 };
 
-export const selectStyles: StylesConfig<
-  SelectOption,
-  false,
-  GroupBase<SelectOption>
-> = {
+export const selectStyles: StylesConfig<SelectOption, false, GroupBase<SelectOption>> = {
   control: (base, state) => ({
     ...base,
     padding: '11px 14px',
     borderRadius: '30px',
     background: 'transparent',
-    border: state.isFocused
-      ? '1px solid rgba(5, 5, 5, 0.2)'
-      : '1px solid rgba(5, 5, 5, 0.12)',
+    border: state.isFocused ? '1px solid rgba(5, 5, 5, 0.2)' : '1px solid rgba(5, 5, 5, 0.12)',
     boxShadow: 'none',
     minHeight: 'auto',
     cursor: 'pointer',
@@ -81,8 +75,7 @@ export const selectStyles: StylesConfig<
     padding: '6px 18px',
     fontSize: '14px',
     color: 'var(--main-black)',
-    backgroundColor:
-      state.isSelected || state.isFocused ? 'rgba(5, 5, 5, 0.1)' : 'transparent',
+    backgroundColor: state.isSelected || state.isFocused ? 'rgba(5, 5, 5, 0.1)' : 'transparent',
     cursor: 'pointer',
     '&:active': {
       backgroundColor: 'rgba(5, 5, 5, 0.1)',

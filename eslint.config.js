@@ -7,15 +7,7 @@ import prettier from 'eslint-plugin-prettier';
 export default tseslint.config(
   // 1. Глобальні ігнори
   {
-    ignores: [
-      'dist',
-      'node_modules',
-      'coverage',
-      'build',
-      '*.config.js',
-      '*.config.ts',
-      'public',
-    ],
+    ignores: ['dist', 'node_modules', 'coverage', 'build', '*.config.js', '*.config.ts', 'public'],
   },
 
   // 2. Основна конфігурація для всього src/
@@ -34,10 +26,7 @@ export default tseslint.config(
     rules: {
       // React
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 
       // Prettier
       'prettier/prettier': 'error',
@@ -66,11 +55,7 @@ export default tseslint.config(
 
   // 3. Послаблення правил для entry-файлів і сторів
   {
-    files: [
-      'src/main.tsx',
-      'src/app/**/*.{ts,tsx}',
-      'src/shared/api/**/*.{ts,tsx}',
-    ],
+    files: ['src/main.tsx', 'src/app/**/*.{ts,tsx}', 'src/shared/api/**/*.{ts,tsx}'],
     rules: {
       'react-refresh/only-export-components': 'off',
     },

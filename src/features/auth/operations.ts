@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setAuthHeader } from '@shared/api/client';
 import type { AuthResponse, LoginPayload, RegisterPayload, Tokens } from '@shared/types';
-import type { RootState } from '@app/store';
+import type { RootState } from '@app/store/store';
 import * as authApi from './api';
 import { AUTH_MESSAGE, AUTH_SLICE } from './constants';
 import { apiError, isUnauthorized, toApiError, type ApiError } from './errors';

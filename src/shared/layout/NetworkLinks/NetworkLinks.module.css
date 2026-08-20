@@ -15,7 +15,9 @@
   font-weight: 700;
   text-transform: uppercase;
   color: var(--main-black);
-  transition: background-color var(--transition), color var(--transition);
+  transition:
+    background-color var(--transition),
+    color var(--transition);
 }
 
 .link:hover {

@@ -1,7 +1,7 @@
 import { setAuthHeader } from '@shared/api/client';
 import { isNonEmptyString, isRecord, isString } from '@shared/lib';
 import type { Nullable, User } from '@shared/types';
-import type { AppDispatch } from '@app/store';
+import type { AppDispatch } from '@app/store/store';
 import { AUTH_PERSIST } from './constants';
 import { sessionRefresher } from './sessionRefresher';
 import { sessionSynced, type PersistedSession } from './slice';
