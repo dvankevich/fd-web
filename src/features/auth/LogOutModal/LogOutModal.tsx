@@ -8,6 +8,7 @@ import type { AppDispatch } from '@app/store/store';
 import { persistor } from '@app/store/store';
 import { logout } from '../operations';
 import styles from './LogOutModal.module.css';
+import { notify } from '@shared/lib';
 
 export function LogOutModal({ onClose }: ModalContentProps) {
   const dispatch = useDispatch<AppDispatch>();
@@ -19,6 +20,11 @@ export function LogOutModal({ onClose }: ModalContentProps) {
     try {
       await dispatch(logout());
       await persistor.purge();
+      notify.success('You have been logged out');
+      navigate(ROUTE.home);
+    } catch {
+      // За ТЗ клієнт все одно виходить; можна м’який info замість error
+      notify.info('Session cleared on this device');
       navigate(ROUTE.home);
     } finally {
       setIsPending(false);
