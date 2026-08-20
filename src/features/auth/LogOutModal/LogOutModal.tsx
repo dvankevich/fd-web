@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@shared/lib';
 import { Button } from '@shared/ui';
 import type { ModalContentProps } from '@shared/ui';
-import { persistor, type AppDispatch } from '@app/store';
+import type { AppDispatch } from '@app/store/store';
+import { persistor } from '@app/store/store';
 import { logout } from '../operations';
 import styles from './LogOutModal.module.css';
 

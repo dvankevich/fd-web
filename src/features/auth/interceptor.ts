@@ -1,7 +1,7 @@
 import { isAxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
 import { bearer } from '@shared/api/client';
 import { HTTP_STATUS, MODAL_NAME, modalObserver } from '@shared/lib';
-import type { AppDispatch, RootState } from '@app/store';
+import type { AppDispatch, RootState } from '@app/store/store';
 import type { Nullable } from '@shared/types';
 import { AUTH_ENDPOINT } from './constants';
 import { refresh } from './operations';

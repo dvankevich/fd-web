@@ -20,16 +20,16 @@
 
 ## 2. Зони відповідальності
 
-| Зона | Хто чіпає |
-|------|-----------|
-| `features/auth/` | Dev 2 (+ TL) |
-| `features/categories/` | Dev 3 |
-| `features/recipes/` (list/card/filters) | Dev 4 |
-| `features/recipes/` (detail/popular) | Dev 5 |
-| `features/recipes/AddRecipeForm` | Dev 6 |
-| `features/user/` | Dev 7 |
-| `features/home/`, `testimonials/` | Dev 8 |
-| `shared/`, `app/` | **тільки TL** або після узгодження |
+| Зона                                    | Хто чіпає                          |
+| --------------------------------------- | ---------------------------------- |
+| `features/auth/`                        | Dev 2 (+ TL)                       |
+| `features/categories/`                  | Dev 3                              |
+| `features/recipes/` (list/card/filters) | Dev 4                              |
+| `features/recipes/` (detail/popular)    | Dev 5                              |
+| `features/recipes/AddRecipeForm`        | Dev 6                              |
+| `features/user/`                        | Dev 7                              |
+| `features/home/`, `testimonials/`       | Dev 8                              |
+| `shared/`, `app/`                       | **тільки TL** або після узгодження |
 
 Чужу папку в PR не змінюємо без домовленості.
 
@@ -90,12 +90,12 @@ git merge origin/main
 
 ## 6. Що найчастіше конфліктує
 
-| Місце | Як уникнути |
-|-------|-------------|
-| `pages/HomePage.tsx` | Інтеграцію секцій узгоджувати; готові блоки експортувати з фіч |
-| `shared/types`, `shared/api` | Зміни через TL або окремий узгоджений PR |
-| `features/*/index.ts` | Лише ре-експорт свого публічного API |
-| `pnpm-lock.yaml` | Нові пакети — окремим PR, не «заодно» з фічею |
+| Місце                        | Як уникнути                                                    |
+| ---------------------------- | -------------------------------------------------------------- |
+| `pages/HomePage.tsx`         | Інтеграцію секцій узгоджувати; готові блоки експортувати з фіч |
+| `shared/types`, `shared/api` | Зміни через TL або окремий узгоджений PR                       |
+| `features/*/index.ts`        | Лише ре-експорт свого публічного API                           |
+| `pnpm-lock.yaml`             | Нові пакети — окремим PR, не «заодно» з фічею                  |
 
 ---
 

@@ -42,9 +42,7 @@ export function Header() {
 
       {/* Mobile menu */}
       {isLoggedIn && (
-        <div
-          className={`${styles.mobileMenu} ${menuOpen ? styles.mobileOpen : ''}`}
-        >
+        <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileOpen : ''}`}>
           <div className={styles.mobileTop}>
             <Logo />
             <button
