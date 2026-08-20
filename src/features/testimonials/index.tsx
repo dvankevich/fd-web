@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import './index.css';
 
 interface Testimonial {
   _id: string;
@@ -57,6 +58,7 @@ export const Testimonials = () => {
   return (
     <section className="testimonials-section">
       <div className="container">
+        <p className="testimonials-subtitle">What our customer say</p>
         <h2 className="testimonials-title">TESTIMONIALS</h2>
 
         {testimonials.length > 0 && (
@@ -69,11 +71,15 @@ export const Testimonials = () => {
               delay: 3000,
               disableOnInteraction: false,
             }}
+            className="testimonials-slider"
           >
             {testimonials.map((item) => (
               <SwiperSlide key={item._id}>
                 <div className="testimonial-card">
-                  <p className="testimonial-text">"{item.testimonial}"</p>
+                  <svg className="testimonial-quote-icon" aria-hidden="true">
+                    <use href="/icons.svg#icon-quote"></use>
+                  </svg>
+                  <p className="testimonial-text">{item.testimonial}</p>
                   <p className="testimonial-author">{item.owner.name}</p>
                 </div>
               </SwiperSlide>
