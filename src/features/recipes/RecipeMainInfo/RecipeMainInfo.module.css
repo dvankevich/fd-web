@@ -1,0 +1,163 @@
+.section {
+  display: grid;
+  gap: 32px;
+  margin-bottom: 64px;
+}
+
+.image {
+  width: 100%;
+  height: 318px;
+  border-radius: 30px;
+  object-fit: cover;
+  background: rgba(5, 5, 5, 0.05);
+}
+
+.details {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.title {
+  color: var(--main-black);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.33;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  padding: 10px;
+  border: 1px solid var(--light-grey);
+  border-radius: 20px;
+  color: var(--light-grey);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.29;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  color: var(--secondary-black);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+}
+
+.author {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 12px;
+}
+
+.author:focus-visible {
+  outline: 2px solid var(--main-black);
+  outline-offset: 4px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(5, 5, 5, 0.05);
+}
+
+.createdBy,
+.authorName {
+  display: block;
+  letter-spacing: -0.02em;
+}
+
+.createdBy {
+  margin-bottom: 0;
+  color: var(--light-grey);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.authorName {
+  color: var(--secondary-black);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.43;
+}
+
+@media (min-width: 768px) {
+  .section {
+    gap: 40px;
+    margin-bottom: 100px;
+  }
+
+  .image {
+    height: 400px;
+    border-radius: 30px;
+  }
+
+  .details {
+    gap: 40px;
+  }
+
+  .title {
+    font-size: 24px;
+    line-height: 1.17;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .author {
+    gap: 16px;
+  }
+
+  .avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .createdBy {
+    margin-bottom: 4px;
+    font-size: 14px;
+    line-height: 1.43;
+  }
+
+  .authorName {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section {
+    grid-template-columns: 551px minmax(0, 1fr);
+    align-items: start;
+    gap: 80px;
+    margin-bottom: 120px;
+  }
+
+  .image {
+    width: 551px;
+    height: 400px;
+  }
+}

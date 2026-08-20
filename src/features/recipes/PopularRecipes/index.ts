@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент PopularRecipes
-export {};
+export { PopularRecipes } from './PopularRecipes';

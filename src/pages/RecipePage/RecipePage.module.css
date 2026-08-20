@@ -1,0 +1,21 @@
+.error {
+  display: grid;
+  min-height: 420px;
+  place-items: center;
+  align-content: center;
+  gap: 16px;
+  padding-bottom: 80px;
+  text-align: center;
+}
+
+.error h1 {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.14;
+  text-transform: uppercase;
+}
+
+.error p {
+  margin-bottom: 8px;
+  color: var(--text-grey);
+}

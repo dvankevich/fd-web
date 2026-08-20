@@ -14,6 +14,7 @@ import { AUTH_PERSIST, AUTH_PERSISTED_KEYS, authReducer } from '@features/auth';
 import { categoriesReducer } from '@features/categories';
 import { areasReducer } from '@features/areas';
 import { ingredientsReducer } from '@features/ingredients';
+import { recipesReducer } from '@features/recipes/slice';
 
 const customStorage = {
   getItem: (key: string) =>
@@ -58,6 +59,7 @@ export const rootReducer = combineReducers({
   categories: persistReducer(categoriesPersistConfig, categoriesReducer),
   areas: persistReducer(areasPersistConfig, areasReducer),
   ingredients: persistReducer(ingredientsPersistConfig, ingredientsReducer),
+  recipes: recipesReducer,
 });
 
 export const store = configureStore({

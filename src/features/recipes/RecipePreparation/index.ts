@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент RecipePreparation
-export {};
+export { RecipePreparation } from './RecipePreparation';

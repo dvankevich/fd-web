@@ -8,8 +8,8 @@
 .text {
   font-size: 12px;
   font-weight: 700;
-  line-height: 18px;
-  letter-spacing: -0.24px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .grey {
-  color: rgba(5, 5, 5, 0.4);
+  color: var(--light-grey);
 }
 
 @media (min-width: 768px) {
