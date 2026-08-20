@@ -1,6 +1,6 @@
 import { isAxiosError } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { RootState } from '@app/store';
+import type { RootState } from '@app/store/store';
 import { addRecipeToFavorites, getFavoriteRecipeIds, removeRecipeFromFavorites } from './api';
 
 interface FavoriteIdsPayload {

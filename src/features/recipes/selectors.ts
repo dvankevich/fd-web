@@ -1,4 +1,4 @@
-import type { RootState } from '@app/store';
+import type { RootState } from '@app/store/store';
 
 export const selectFavoriteIds = (state: RootState): string[] => state.recipes.favoriteIds;
 

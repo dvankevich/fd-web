@@ -59,6 +59,7 @@ export const rootReducer = combineReducers({
   categories: persistReducer(categoriesPersistConfig, categoriesReducer),
   areas: persistReducer(areasPersistConfig, areasReducer),
   ingredients: persistReducer(ingredientsPersistConfig, ingredientsReducer),
+  recipes: recipesReducer,
 });
 
 export const store = configureStore({
