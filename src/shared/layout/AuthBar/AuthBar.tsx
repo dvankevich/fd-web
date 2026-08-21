@@ -7,6 +7,7 @@ export function AuthBar() {
       <button
         type="button"
         className={styles.signIn}
+        data-testid="auth-sign-in"
         onClick={() => modalObserver.open(MODAL_NAME.signIn)}
       >
         Sign in
@@ -14,6 +15,7 @@ export function AuthBar() {
       <button
         type="button"
         className={styles.signUp}
+        data-testid="auth-sign-up"
         onClick={() => modalObserver.open(MODAL_NAME.signUp)}
       >
         Sign up

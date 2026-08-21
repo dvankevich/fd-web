@@ -65,9 +65,10 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
     <Formik initialValues={initialValues} validationSchema={schema} onSubmit={handleSubmit}>
       {({ isSubmitting }) => (
         <Form className={styles.form} noValidate>
-          <FormField name="email" type="email" placeholder="Email*" autoComplete="email" />
+          <FormField name="email" data-testid="auth-email" type="email" placeholder="Email*" autoComplete="email" />
           <FormField
             name="password"
+            data-testid="auth-password"
             type="password"
             placeholder="Password*"
             autoComplete="current-password"
@@ -75,7 +76,7 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
 
           <FormError>{error}</FormError>
 
-          <Button type="submit" fullWidth disabled={isLoading || isSubmitting}>
+          <Button type="submit" fullWidth data-testid="sign-in-submit" disabled={isLoading || isSubmitting}>
             {isLoading ? 'Signing in...' : 'Sign in'}
           </Button>
         </Form>
