@@ -31,3 +31,4 @@ tsconfig.app.tsbuildinfo
 /blob-report/
 /playwright/.cache/
 /e2e/.auth/
+.env.e2e
