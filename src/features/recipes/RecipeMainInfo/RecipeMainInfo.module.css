@@ -81,6 +81,10 @@
   background: rgba(5, 5, 5, 0.05);
 }
 
+.authorInfo {
+  text-align: left;
+}
+
 .createdBy,
 .authorName {
   display: block;
