@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент RecipeFilters
-export {};
+export { RecipeFilters } from './RecipeFilters';

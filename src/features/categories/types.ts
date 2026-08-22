@@ -6,7 +6,7 @@ export interface Category {
 }
 
 export interface CategoryResponse {
-  _id: string;
+  id: string;
   name: string;
   image: string;
   description: string;

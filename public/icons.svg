@@ -22,9 +22,19 @@
 </symbol>
 
 <!-- Arrow-up-right -->
-<symbol id="icon-arrow-up-right" viewBox="0 0 18 18">
-<path d="M5.25 12.75L12.75 5.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M5.25 5.25H12.75V12.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<symbol id="icon-arrow-up-right" viewBox="0 0 32 32">
+<path fill="currentColor" d="M8.778 8.184a1.09 1.09 0 0 0-.608.613l-.003.007a1.4 1.4 0 0 0 .228 1.437l-.002-.002c.11.1.237.185.375.248l.009.004.266.126h5.216c2.867.002 5.214.02 5.214.042s-2.511 2.549-5.581 5.615c-6.055 6.049-5.837 5.811-5.837 6.403 0 .33.17.752.378.944.36.33.986.428 1.435.226.188-.084 1.483-1.349 5.845-5.707 3.081-3.081 5.621-5.601 5.643-5.601.02 0 .038 2.347.04 5.215v5.216l.124.268c.422.908 1.715.968 2.247.108l.162-.26.016-6.995c.012-4.988-.002-7.051-.044-7.197a1.43 1.43 0 0 0-.659-.735l-.008-.004c-.202-.092-.554-.096-7.203-.096l-6.989-.002-.266.126z"/>
+</symbol>
+
+<!-- Arrow-left -->
+<symbol id="icon-arrow-left" viewBox="0 0 18 18">
+<path d="M14.3029 9.0005L3.6963 8.99935" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.99902 14.3032L3.6963 8.99935L9.00017 3.69662" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+
+<!-- Chevron-down -->
+<symbol id="icon-chevron-down" viewBox="0 0 32 32">
+<path fill="currentColor" d="M6.868 10.869a1.6 1.6 0 0 1 2.263 0L16 17.738l6.869-6.869a1.6 1.6 0 1 1 2.263 2.263l-8 8a1.6 1.6 0 0 1-2.263 0l-8-8a1.6 1.6 0 0 1 0-2.263z"/>
 </symbol>
 
 <!-- Burger Menu (Align Justify) -->

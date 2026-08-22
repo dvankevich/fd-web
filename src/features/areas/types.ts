@@ -4,6 +4,6 @@ export interface Areas {
 }
 
 export interface AreasResponse {
-  _id: string;
+  id: string;
   name: string;
 }

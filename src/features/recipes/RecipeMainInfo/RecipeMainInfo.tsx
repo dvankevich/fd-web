@@ -26,7 +26,7 @@ export const RecipeMainInfo = ({ recipe, children }: RecipeMainInfoProps) => {
         width="50"
         height="50"
       />
-      <span>
+      <span className={styles.authorInfo}>
         <span className={styles.createdBy}>Created by:</span>
         <strong className={styles.authorName}>{recipe.owner.name}</strong>
       </span>

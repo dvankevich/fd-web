@@ -9,6 +9,15 @@ interface PopularRecipesOptions {
   signal?: AbortSignal;
 }
 
+export interface GetRecipesParams {
+  category?: string;
+  area?: string;
+  ingredient?: string;
+  page: number;
+  limit: number;
+  signal?: AbortSignal;
+}
+
 const recipeEndpoint = (id: string): string => `${RECIPES_ENDPOINT}/${encodeURIComponent(id)}`;
 
 const favoriteEndpoint = (id: string): string => `${recipeEndpoint(id)}/favorite`;
@@ -28,6 +37,18 @@ const getFavoritePage = async (
 
 export const getRecipe = async (id: string, signal?: AbortSignal): Promise<Recipe> => {
   const { data } = await apiClient.get<Recipe>(recipeEndpoint(id), { signal });
+  return data;
+};
+
+export const getRecipes = async ({
+  signal,
+  ...params
+}: GetRecipesParams): Promise<Paginated<RecipeListItem>> => {
+  const { data } = await apiClient.get<Paginated<RecipeListItem>>(RECIPES_ENDPOINT, {
+    params,
+    signal,
+  });
+
   return data;
 };
 

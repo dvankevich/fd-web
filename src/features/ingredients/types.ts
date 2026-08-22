@@ -1,13 +1,15 @@
+import type { Nullable } from '@shared/types';
+
 export interface Ingredients {
   id: string;
   name: string;
-  description: string;
+  description: Nullable<string>;
   img: string;
 }
 
 export interface IngredientsResponse {
-  _id: string;
+  id: string;
   name: string;
-  description: string;
+  description: Nullable<string>;
   img: string;
 }

@@ -1,8 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import type { RootState } from '@app/store/store';
 import type { Category } from './types';
 import * as categoriesApi from './api';
 
-export const fetchCategories = createAsyncThunk<Category[], void, { rejectValue: string }>(
+export const fetchCategories = createAsyncThunk<
+  Category[],
+  void,
+  { rejectValue: string; state: RootState }
+>(
   'categories/fetchAll',
   async (_, { rejectWithValue }) => {
     try {
@@ -14,5 +19,8 @@ export const fetchCategories = createAsyncThunk<Category[], void, { rejectValue:
 
       return rejectWithValue(message);
     }
+  },
+  {
+    condition: (_, { getState }) => getState().categories.status !== 'loading',
   },
 );

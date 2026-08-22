@@ -1,8 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import type { RootState } from '@app/store/store';
 import type { Areas } from './types';
 import * as areasApi from './api';
 
-export const fetchAreas = createAsyncThunk<Areas[], void, { rejectValue: string }>(
+export const fetchAreas = createAsyncThunk<
+  Areas[],
+  void,
+  { rejectValue: string; state: RootState }
+>(
   'areas/fetchAll',
   async (_, { rejectWithValue }) => {
     try {
@@ -14,5 +19,8 @@ export const fetchAreas = createAsyncThunk<Areas[], void, { rejectValue: string 
 
       return rejectWithValue(message);
     }
+  },
+  {
+    condition: (_, { getState }) => getState().areas.status !== 'loading',
   },
 );
