@@ -6,7 +6,7 @@
   display: block;
   margin-bottom: 16px;
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: 20px;
   background: rgba(5, 5, 5, 0.05);
 }
 
@@ -167,13 +167,5 @@
   .actionButton svg {
     width: 18px;
     height: 18px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .card,
-  .imageLink,
-  .image {
-    width: 305px;
   }
 }

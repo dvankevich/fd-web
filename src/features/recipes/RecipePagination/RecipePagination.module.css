@@ -1,0 +1,85 @@
+.pagination {
+  display: flex;
+  max-width: 100%;
+  justify-content: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-inline: 6px;
+}
+
+.page,
+.control,
+.ellipsis {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--secondary-black);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: 0.012em;
+}
+
+.page,
+.control {
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    background-color var(--transition),
+    opacity var(--transition);
+}
+
+.page:hover:not(:disabled),
+.page:focus-visible,
+.control:hover:not(:disabled),
+.control:focus-visible {
+  background: rgba(5, 5, 5, 0.06);
+}
+
+.page:disabled,
+.control:disabled {
+  cursor: default;
+}
+
+.control:disabled {
+  opacity: 0.3;
+}
+
+.control svg {
+  transition: transform var(--transition);
+}
+
+.previousIcon {
+  transform: rotate(90deg);
+}
+
+.nextIcon {
+  transform: rotate(-90deg);
+}
+
+.control:hover:not(:disabled) .previousIcon,
+.control:focus-visible .previousIcon {
+  transform: translateX(-2px) rotate(90deg);
+}
+
+.control:hover:not(:disabled) .nextIcon,
+.control:focus-visible .nextIcon {
+  transform: translateX(2px) rotate(-90deg);
+}
+
+.page[aria-current='page'] {
+  border: 1px solid var(--light-grey);
+}
+
+.mobileHidden {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .mobileHidden {
+    display: grid;
+  }
+}

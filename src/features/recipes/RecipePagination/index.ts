@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент RecipePagination
-export {};
+export { RecipePagination } from './RecipePagination';

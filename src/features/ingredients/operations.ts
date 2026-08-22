@@ -1,8 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import type { RootState } from '@app/store/store';
 import type { Ingredients } from './types';
 import * as ingredientsApi from './api';
 
-export const fetchIngredients = createAsyncThunk<Ingredients[], void, { rejectValue: string }>(
+export const fetchIngredients = createAsyncThunk<
+  Ingredients[],
+  void,
+  { rejectValue: string; state: RootState }
+>(
   'ingredients/fetchAll',
   async (_, { rejectWithValue }) => {
     try {
@@ -14,5 +19,8 @@ export const fetchIngredients = createAsyncThunk<Ingredients[], void, { rejectVa
 
       return rejectWithValue(message);
     }
+  },
+  {
+    condition: (_, { getState }) => getState().ingredients.status !== 'loading',
   },
 );

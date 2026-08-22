@@ -14,10 +14,11 @@ interface RecipeCardProps {
 export const RecipeCard = ({ recipe }: RecipeCardProps) => {
   const { isFavorite, isDisabled, toggle } = useRecipeFavorite(recipe.id);
   const openAuthorProfile = useAuthorProfile(recipe.owner.id);
+  const recipePath = buildPath(ROUTE.recipe, { id: recipe.id });
 
   return (
     <article className={styles.card}>
-      <Link className={styles.imageLink} to={buildPath(ROUTE.recipe, { id: recipe.id })}>
+      <Link className={styles.imageLink} to={recipePath}>
         <img
           className={styles.image}
           src={recipe.preview ?? recipe.thumb ?? recipePlaceholder}
@@ -27,10 +28,12 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
       </Link>
 
       <h3 className={styles.title}>
-        <Link to={buildPath(ROUTE.recipe, { id: recipe.id })}>{recipe.title}</Link>
+        <Link to={recipePath}>{recipe.title}</Link>
       </h3>
 
-      <p className={styles.description}>{recipe.description ?? ''}</p>
+      <p className={styles.description}>
+        {recipe.description && <Link to={recipePath}>{recipe.description}</Link>}
+      </p>
 
       <div className={styles.footer}>
         <button className={styles.author} type="button" onClick={openAuthorProfile}>
@@ -66,7 +69,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
             </span>
           </button>
 
-          <Link className={styles.actionButton} to={buildPath(ROUTE.recipe, { id: recipe.id })}>
+          <Link className={styles.actionButton} to={recipePath}>
             <svg width="18" height="18" aria-hidden="true">
               <use href="/icons.svg#icon-arrow-up-right" />
             </svg>
