@@ -2,6 +2,7 @@ import type { ValueOf } from '@shared/types';
 
 export const ROUTE = {
   home: '/',
+  recipes: '/recipes',
   recipe: '/recipe/:id',
   addRecipe: '/recipe/add',
   user: '/user/:id',
