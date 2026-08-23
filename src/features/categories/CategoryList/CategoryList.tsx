@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { ROUTE } from '@shared/lib';
 import type { Category } from '../types';
 import styles from './CategoryList.module.css';
 
@@ -5,15 +7,9 @@ interface CategoryListProps {
   categories: Category[];
   isLoading?: boolean;
   error?: string | null;
-  onSelectCategory?: (category: Category | null) => void;
 }
 
-export function CategoryList({
-  categories,
-  isLoading = false,
-  error = null,
-  onSelectCategory,
-}: CategoryListProps) {
+export function CategoryList({ categories, isLoading = false, error = null }: CategoryListProps) {
   if (isLoading) {
     return (
       <div className={styles.status} role="status">
@@ -34,10 +30,9 @@ export function CategoryList({
     <ul className={styles.list}>
       {categories.map((category) => (
         <li className={styles.item} key={category.id}>
-          <button
+          <Link
             className={styles.card}
-            type="button"
-            onClick={() => onSelectCategory?.(category)}
+            to={`${ROUTE.recipes}?category=${encodeURIComponent(category.name)}`}
             aria-label={`View ${category.name} recipes`}
           >
             <img className={styles.image} src={category.image} alt="" loading="lazy" />
@@ -50,17 +45,13 @@ export function CategoryList({
                 ↗
               </span>
             </span>
-          </button>
+          </Link>
         </li>
       ))}
       <li className={`${styles.item} ${styles.allItem}`}>
-        <button
-          className={`${styles.card} ${styles.allCard}`}
-          type="button"
-          onClick={() => onSelectCategory?.(null)}
-        >
+        <Link className={`${styles.card} ${styles.allCard}`} to={ROUTE.recipes}>
           <span className={styles.allLabel}>All categories</span>
-        </button>
+        </Link>
       </li>
     </ul>
   );
