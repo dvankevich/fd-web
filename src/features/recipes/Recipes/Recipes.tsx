@@ -3,6 +3,7 @@ import { isAxiosError } from 'axios';
 import type { Category } from '@features/categories';
 import type { Paginated, RecipeListItem } from '@shared/types';
 import { MainTitle, Subtitle } from '@shared/ui';
+import sprite from '@/assets/icons.svg';
 import { getRecipes } from '../api';
 import { RecipeFilters } from '../RecipeFilters';
 import { RecipeList } from '../RecipeList';
@@ -151,7 +152,7 @@ export function Recipes({ category, onBack }: RecipesProps) {
       <div className={styles.heading}>
         <button className={styles.back} type="button" onClick={onBack}>
           <svg width="18" height="18" aria-hidden="true">
-            <use href="/icons.svg#icon-arrow-left" />
+            <use href={`${sprite}#icon-arrow-left`} />
           </svg>
           Back
         </button>

@@ -3,6 +3,7 @@ import { buildPath, cn, ROUTE } from '@shared/lib';
 import type { RecipeListItem } from '@shared/types';
 import recipePlaceholder from '@/assets/recipe-placeholder.svg';
 import userPlaceholder from '@/assets/user-placeholder.svg';
+import sprite from '@/assets/icons.svg';
 import { useAuthorProfile } from '../useAuthorProfile';
 import { useRecipeFavorite } from '../useRecipeFavorite';
 import styles from './RecipeCard.module.css';
@@ -60,7 +61,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
             aria-pressed={isFavorite}
           >
             <svg width="18" height="18" aria-hidden="true">
-              <use href="/icons.svg#icon-heart" />
+              <use href={`${sprite}#icon-heart`} />
             </svg>
             <span className="visually-hidden">
               {isFavorite
@@ -71,7 +72,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
 
           <Link className={styles.actionButton} to={recipePath}>
             <svg width="18" height="18" aria-hidden="true">
-              <use href="/icons.svg#icon-arrow-up-right" />
+              <use href={`${sprite}#icon-arrow-up-right`} />
             </svg>
             <span className="visually-hidden">Open {recipe.title}</span>
           </Link>

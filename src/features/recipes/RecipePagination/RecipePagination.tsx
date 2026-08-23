@@ -1,3 +1,4 @@
+import sprite from '@/assets/icons.svg';
 import styles from './RecipePagination.module.css';
 
 interface RecipePaginationProps {
@@ -55,7 +56,7 @@ export function RecipePagination({ page, total, limit, onChange }: RecipePaginat
         onClick={() => onChange(page - 1)}
       >
         <svg className={styles.previousIcon} width="18" height="18" aria-hidden="true">
-          <use href="/icons.svg#icon-chevron-down" />
+          <use href={`${sprite}#icon-chevron-down`} />
         </svg>
         <span className="visually-hidden">Previous page</span>
       </button>
@@ -94,7 +95,7 @@ export function RecipePagination({ page, total, limit, onChange }: RecipePaginat
         onClick={() => onChange(page + 1)}
       >
         <svg className={styles.nextIcon} width="18" height="18" aria-hidden="true">
-          <use href="/icons.svg#icon-chevron-down" />
+          <use href={`${sprite}#icon-chevron-down`} />
         </svg>
         <span className="visually-hidden">Next page</span>
       </button>

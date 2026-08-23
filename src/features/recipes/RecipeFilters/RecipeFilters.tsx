@@ -4,6 +4,7 @@ import { components, type DropdownIndicatorProps, type GroupBase } from 'react-s
 import { selectAreas, selectAreasStatus } from '@features/areas';
 import { selectIngredients, selectIngredientsStatus } from '@features/ingredients';
 import { Select, type SelectOption } from '@shared/ui';
+import sprite from '@/assets/icons.svg';
 import styles from './RecipeFilters.module.css';
 
 const DropdownIndicator = (
@@ -11,7 +12,7 @@ const DropdownIndicator = (
 ) => (
   <components.DropdownIndicator {...props}>
     <svg width="18" height="18" aria-hidden="true">
-      <use href="/icons.svg#icon-chevron-down" />
+      <use href={`${sprite}#icon-chevron-down`} />
     </svg>
   </components.DropdownIndicator>
 );
