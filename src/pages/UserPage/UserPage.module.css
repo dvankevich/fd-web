@@ -1,0 +1,49 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.pagination {
+  margin-top: 40px;
+}
+
+.error {
+  margin-top: 24px;
+  color: var(--error-color);
+}
+
+/* tablet: картка профілю центрована з обмеженою шириною */
+@media (min-width: 768px) and (max-width: 1439px) {
+  .side {
+    width: 100%;
+    max-width: 400px;
+    margin-inline: auto;
+  }
+}
+
+/* desktop: дві колонки */
+@media (min-width: 1440px) {
+  .layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 80px;
+  }
+
+  .side {
+    width: 360px;
+    flex: none;
+  }
+}

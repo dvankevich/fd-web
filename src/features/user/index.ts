@@ -10,3 +10,5 @@ export {
 } from './selectors';
 export { TAB_KEYS } from './types';
 export type { TabKey, UserProfile, UserCardData } from './types';
+
+export { UserInfo } from './UserInfo';
