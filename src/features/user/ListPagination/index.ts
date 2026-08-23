@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент ListPagination
-export {};
+export { ListPagination } from './ListPagination';

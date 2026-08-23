@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент ListItems
-export {};
+export { ListItems } from './ListItems';
