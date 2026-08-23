@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import sprite from '@/assets/icons.svg';
 import './index.css';
 
 interface Testimonial {
@@ -77,7 +78,7 @@ export const Testimonials = () => {
               <SwiperSlide key={item._id}>
                 <div className="testimonial-card">
                   <svg className="testimonial-quote-icon" aria-hidden="true">
-                    <use href="/icons.svg#icon-quote"></use>
+                    <use href={`${sprite}#icon-quote`}></use>
                   </svg>
                   <p className="testimonial-text">{item.testimonial}</p>
                   <p className="testimonial-author">{item.owner.name}</p>
