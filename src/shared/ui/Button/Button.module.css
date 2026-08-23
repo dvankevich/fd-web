@@ -57,6 +57,17 @@
   color: var(--white);
 }
 
+.onDark {
+  background-color: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.onDark:hover:not(:disabled) {
+  background-color: var(--white);
+  color: var(--main-black);
+}
+
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
