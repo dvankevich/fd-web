@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент UserInfo
-export {};
+export { UserInfo } from './UserInfo';

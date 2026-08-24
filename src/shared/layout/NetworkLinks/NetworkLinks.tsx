@@ -1,27 +1,28 @@
+import sprite from '@/assets/icons.svg';
 import styles from './NetworkLinks.module.css';
 
 const links = [
   {
     href: 'https://www.facebook.com/goITclub/',
     label: 'Facebook',
-    icon: 'f',
+    icon: 'icon-facebook',
   },
   {
     href: 'https://www.instagram.com/goitclub/',
     label: 'Instagram',
-    icon: 'in',
+    icon: 'icon-instagram',
   },
   {
     href: 'https://www.youtube.com/c/GoIT',
     label: 'YouTube',
-    icon: 'yt',
+    icon: 'icon-youtube',
   },
 ];
 
 export function NetworkLinks() {
   return (
     <ul className={styles.list}>
-      {links.map((link) => (
+      {links.map(link => (
         <li key={link.href}>
           <a
             href={link.href}
@@ -30,7 +31,9 @@ export function NetworkLinks() {
             className={styles.link}
             aria-label={link.label}
           >
-            {link.icon}
+            <svg className={styles.icon} aria-hidden="true">
+              <use href={`${sprite}#${link.icon}`} />
+            </svg>
           </a>
         </li>
       ))}

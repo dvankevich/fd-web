@@ -9,6 +9,7 @@ import { Loader, ModalRoot } from '@shared/ui';
 import InitialDataLoader from '@shared/lib/InitialDataLoader';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '@shared/styles/toastify.css';
 
 interface AppProvidersProps {
   children: ReactNode;

@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент TabsList
-export {};
+export { TabsList } from './TabsList';

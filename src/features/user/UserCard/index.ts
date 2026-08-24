@@ -1,2 +1,1 @@
-// TODO: реалізувати компонент UserCard
-export {};
+export { UserCard } from './UserCard';

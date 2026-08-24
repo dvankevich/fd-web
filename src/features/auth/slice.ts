@@ -89,6 +89,9 @@ const authSlice = createSlice({
       storeTokens(state, payload);
       state.user = payload.user;
     },
+    avatarUpdated(state, { payload }: PayloadAction<string>) {
+      if (state.user) state.user.avatar = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -124,5 +127,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearError, sessionSynced } = authSlice.actions;
+export const { clearError, sessionSynced, avatarUpdated } = authSlice.actions;
 export const authReducer = authSlice.reducer;
