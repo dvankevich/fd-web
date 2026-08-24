@@ -1,3 +1,4 @@
+import sprite from '@/assets/icons.svg';
 import styles from './NetworkLinks.module.css';
 
 const links = [
@@ -30,8 +31,8 @@ export function NetworkLinks() {
             className={styles.link}
             aria-label={link.label}
           >
-            <svg className={styles.icon}>
-              <use href={`/src/assets/icons.svg#${link.icon}`} />
+            <svg className={styles.icon} aria-hidden="true">
+              <use href={`${sprite}#${link.icon}`} />
             </svg>
           </a>
         </li>
