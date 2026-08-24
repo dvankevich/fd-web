@@ -1,0 +1,127 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-grey-12);
+}
+
+.avatarLink {
+  flex: none;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--light-grey);
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.count {
+  font-size: 14px;
+  line-height: 1.28;
+  color: var(--text-grey);
+}
+
+.followBtn {
+  margin-top: 2px;
+  padding: 8px 18px;
+  border: 1px solid var(--border-grey-12);
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--main-black);
+  cursor: pointer;
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.followBtn:hover:not(:disabled),
+.followBtn:focus-visible:not(:disabled) {
+  background-color: var(--main-black);
+  color: var(--white);
+}
+
+.followBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.recipes {
+  display: none;
+}
+
+.recipeThumb {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  object-fit: cover;
+  background-color: var(--light-grey);
+}
+
+.arrow {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-grey-12);
+  border-radius: 50%;
+  color: var(--main-black);
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.arrow:hover,
+.arrow:focus-visible {
+  background-color: var(--main-black);
+  color: var(--white);
+}
+
+@media (min-width: 768px) {
+  .card {
+    gap: 20px;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .info {
+    flex: none;
+    width: 160px;
+  }
+
+  .recipes {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .recipeThumb {
+    width: 100px;
+    height: 100px;
+  }
+}
