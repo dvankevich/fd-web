@@ -11,6 +11,9 @@ export function Footer() {
           <Logo />
           <NetworkLinks />
         </div>
+
+        <div className={styles.divider} />
+
         <div className={styles.bottom}>
           <Copyright />
         </div>
