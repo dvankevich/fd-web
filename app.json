@@ -1,0 +1,15 @@
+{
+  "healthchecks": {
+    "web": [
+      {
+        "type": "startup",
+        "name": "check-web-response",
+        "path": "/",
+        "status": 200,
+        "attempts": 5,
+        "wait": 3,
+        "timeout": 5
+      }
+    ]
+  }
+}
