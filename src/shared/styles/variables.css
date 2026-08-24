@@ -24,7 +24,34 @@
   --container-padding-tablet: 32px;
   --container-padding-desktop: 80px;
 
-  --toastify-color-success: #050505;
-  --toastify-color-error: #db0000;
-  --toastify-font-family: 'Mulish', sans-serif;
+
+  /* ===== Toastify styles ===== */
+  --toastify-font-family: var(--font-main);
+  --toastify-z-index: 10000;
+
+  --toastify-toast-width: 320px;
+  --toastify-toast-min-height: 56px;
+  --toastify-toast-bd-radius: 12px;
+  --toastify-toast-padding: 14px 16px;
+
+  --toastify-color-light: var(--white);
+  --toastify-color-dark: var(--main-black);
+
+  --toastify-text-color-light: var(--main-black);
+  --toastify-text-color-dark: var(--white);
+
+  --toastify-color-success: var(--main-black);
+  --toastify-color-error: var(--error-color);
+  --toastify-color-info: var(--secondary-black);
+  --toastify-color-warning: #c47d00;
+
+  --toastify-icon-color-success: var(--main-black);
+  --toastify-icon-color-error: var(--error-color);
+  --toastify-icon-color-info: var(--secondary-black);
+
+  --toastify-color-progress-success: var(--main-black);
+  --toastify-color-progress-error: var(--error-color);
+  --toastify-color-progress-info: var(--secondary-black);
+
+  --toastify-color-progress-light: var(--border-grey-12);
 }

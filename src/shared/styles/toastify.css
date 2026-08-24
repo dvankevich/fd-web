@@ -1,0 +1,81 @@
+.Toastify__toast {
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(5, 5, 5, 0.12);
+  border: 1px solid var(--border-grey-12);
+}
+
+.Toastify__toast-body {
+  margin: 0;
+  padding: 0;
+  color: var(--main-black);
+}
+
+.Toastify__toast--success {
+  background: var(--white);
+  color: var(--main-black);
+  --toastify-color-success: #050505;
+  --toastify-icon-color-success: #050505;
+  --toastify-color-progress-success: #050505;
+}
+
+.Toastify__toast--info {
+  background: var(--white);
+  color: var(--main-black);
+  --toastify-color-info: #050505;
+  --toastify-icon-color-info: #050505;
+  --toastify-color-progress-info: #050505;
+}
+
+.Toastify__toast--error {
+  background: var(--white);
+  color: var(--main-black);
+  border-color: rgba(219, 0, 0, 0.25);
+  --toastify-color-error: #db0000;
+  --toastify-icon-color-error: #db0000;
+  --toastify-color-progress-error: #db0000;
+}
+
+.Toastify__toast--success .Toastify__toast-icon svg,
+.Toastify__toast--info .Toastify__toast-icon svg {
+  fill: #050505;
+  color: #050505;
+}
+
+.Toastify__toast--error .Toastify__toast-icon svg {
+  fill: #db0000;
+  color: #db0000;
+}
+
+.Toastify__toast--success .Toastify__progress-bar,
+.Toastify__toast--success .Toastify__progress-bar--success,
+.Toastify__toast--success .Toastify__progress-bar-theme--light,
+.Toastify__toast--info .Toastify__progress-bar,
+.Toastify__toast--info .Toastify__progress-bar--info,
+.Toastify__toast--info .Toastify__progress-bar-theme--light {
+  background: #050505 !important;
+}
+
+.Toastify__toast--error .Toastify__progress-bar,
+.Toastify__toast--error .Toastify__progress-bar--error,
+.Toastify__toast--error .Toastify__progress-bar-theme--light {
+  background: #db0000 !important;
+}
+
+.Toastify__close-button {
+  color: var(--main-black);
+  opacity: 0.45;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}
+
+.Toastify__toast-icon {
+  width: 18px;
+  margin-inline-end: 10px;
+}
