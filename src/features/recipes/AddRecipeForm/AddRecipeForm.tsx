@@ -27,9 +27,13 @@ const initialValues: RecipeFormValues = {
 const validationSchema = Yup.object({
   image: Yup.mixed<File>().required('Upload a photo'),
 
-  title: Yup.string().trim().required('Enter recipe name'),
+  title: Yup.string().trim().required('Enter recipe name').min(5, 'Minimin 10 characters'),
 
-  description: Yup.string().trim().required('Enter description').max(200, 'Maximum 200 characters'),
+  description: Yup.string()
+    .trim()
+    .required('Enter description')
+    .min(10, 'Minimin 10 characters')
+    .max(200, 'Maximum 200 characters'),
 
   category: Yup.string().required('Select category'),
 
@@ -44,6 +48,7 @@ const validationSchema = Yup.object({
   instructions: Yup.string()
     .trim()
     .required('Enter recipe preparation')
+    .min(10, 'Minimin 10 characters')
     .max(1000, 'Maximum 1000 characters'),
 });
 
@@ -75,8 +80,6 @@ export default function AddRecipeForm() {
         ]);
 
         const data = await getIngredients();
-
-        console.log('INGREDIENTS FROM API:', data);
 
         if (!isMounted) {
           return;
@@ -143,10 +146,7 @@ export default function AddRecipeForm() {
 
         return;
       }
-      console.log('SELECTED VALUES:', {
-        category: values.category,
-        area: values.area,
-      });
+
       const formData = new FormData();
 
       if (values.image instanceof File) {
@@ -167,27 +167,11 @@ export default function AddRecipeForm() {
 
       formData.append('ingredients', JSON.stringify(ingredientsPayload));
 
-      console.log('========== FORM DATA ==========');
-
-      for (const [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
-
-      console.log('INGREDIENTS PAYLOAD:', ingredientsPayload);
-
-      console.log('VALUES INGREDIENTS:', values.ingredients);
-
-      console.log('===============================');
-
       const recipe = await createRecipe(formData);
-
-      console.log('RECIPE CREATED:', recipe);
 
       const recipeId = recipe?.id;
 
       if (!recipeId) {
-        console.error('API RESPONSE DOES NOT CONTAIN RECIPE ID:', recipe);
-
         throw new Error('Recipe ID was not returned by API');
       }
 
@@ -240,6 +224,7 @@ export default function AddRecipeForm() {
           values,
           errors,
           touched,
+          submitCount,
           handleBlur,
           handleChange,
           setFieldTouched,
@@ -247,6 +232,8 @@ export default function AddRecipeForm() {
           resetForm,
           isSubmitting,
         }) => {
+          const hasError = (name: keyof RecipeFormValues) =>
+            Boolean(errors[name] && (touched[name] || submitCount > 0));
           /* 
              ADD INGREDIENT
            */
@@ -263,10 +250,6 @@ export default function AddRecipeForm() {
 
               return;
             }
-
-            console.log('SELECTED INGREDIENT ID:', ingredientId);
-
-            console.log('AVAILABLE INGREDIENTS:', ingredients);
 
             const ingredient = ingredients.find(
               (item) => String(item._id) === String(ingredientId),
@@ -308,8 +291,6 @@ export default function AddRecipeForm() {
               image: ingredient.img ?? '',
               measure: measure.trim(),
             };
-
-            console.log('ADDING INGREDIENT:', newIngredient);
 
             setFieldValue('ingredients', [...values.ingredients, newIngredient], true);
 
@@ -378,10 +359,16 @@ export default function AddRecipeForm() {
                       placeholder="Enter recipe name"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className={touched.title && errors.title ? css.invalidLine : ''}
+                      aria-invalid={hasError('title')}
+                      aria-describedby="title-error"
+                      className={hasError('title') ? css.invalidLine : ''}
                     />
 
-                    {touched.title && errors.title && <p className={css.error}>{errors.title}</p>}
+                    {hasError('title') && (
+                      <p id="title-error" className={css.error} role="alert">
+                        {errors.title}
+                      </p>
+                    )}
                   </label>
 
                   {/* 
@@ -389,7 +376,11 @@ export default function AddRecipeForm() {
                    */}
 
                   <label className={css.textField}>
-                    <span className={css.inputLine}>
+                    <span
+                      className={`${css.inputLine} ${
+                        hasError('description') ? css.invalidLine : ''
+                      }`}
+                    >
                       <input
                         name="description"
                         value={values.description}
@@ -397,17 +388,17 @@ export default function AddRecipeForm() {
                         placeholder="Enter a description of the dish"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={touched.description && errors.description ? css.invalidLine : ''}
+                        aria-invalid={hasError('description')}
+                        aria-describedby="description-error"
                       />
 
-                      <em>
-                        {values.description.length}
-                        /200
-                      </em>
+                      <em>{values.description.length}/200</em>
                     </span>
 
-                    {touched.description && errors.description && (
-                      <p className={css.error}>{errors.description}</p>
+                    {hasError('description') && (
+                      <p id="description-error" className={css.error} role="alert">
+                        {errors.description}
+                      </p>
                     )}
                   </label>
 
@@ -522,7 +513,11 @@ export default function AddRecipeForm() {
                   <label className={css.textField}>
                     <span className={css.label}>RECIPE PREPARATION</span>
 
-                    <span className={css.inputLine}>
+                    <span
+                      className={`${css.inputLine} ${
+                        hasError('instructions') ? css.invalidLine : ''
+                      }`}
+                    >
                       <textarea
                         name="instructions"
                         value={values.instructions}
@@ -530,19 +525,17 @@ export default function AddRecipeForm() {
                         placeholder="Enter recipe"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={
-                          touched.instructions && errors.instructions ? css.invalidLine : ''
-                        }
+                        aria-invalid={hasError('instructions')}
+                        aria-describedby="instructions-error"
                       />
 
-                      <em>
-                        {values.instructions.length}
-                        /1000
-                      </em>
+                      <em>{values.instructions.length}/1000</em>
                     </span>
 
-                    {touched.instructions && errors.instructions && (
-                      <p className={css.error}>{errors.instructions}</p>
+                    {hasError('instructions') && (
+                      <p id="instructions-error" className={css.error} role="alert">
+                        {errors.instructions}
+                      </p>
                     )}
                   </label>
 

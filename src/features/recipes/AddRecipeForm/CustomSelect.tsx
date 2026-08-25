@@ -46,9 +46,6 @@ export default function CustomSelect({
   const handleSelect = (option: Option) => {
     const id = String(option._id);
 
-    console.log('SELECT OPTION:', option);
-    console.log('SELECTED ID:', id);
-
     onChange(id);
 
     setIsOpen(false);
