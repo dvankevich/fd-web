@@ -37,20 +37,23 @@ export function CategoryList({ categories, isLoading = false, error = null }: Ca
             aria-label={`View ${category.name} recipes`}
           >
             <picture>
-              {/* Desktop: від 1440px -> 590x369 */}
+              {/* Desktop: від 1440px -> 590x369 (1x), 1180x738 (2x) */}
               <source
                 media="(min-width: 1440px)"
-                srcSet={getScaledCloudinaryUrl(category.image, { width: 590, height: 369 })}
+                srcSet={`${getScaledCloudinaryUrl(category.image, { width: 590, height: 369, dpr: 1 })} 1x, ${getScaledCloudinaryUrl(category.image, { width: 590, height: 369, dpr: 2 })} 2x`}
               />
-              {/* Tablet: від 768px до 1439px -> 704x369 */}
+              {/* Tablet: від 768px до 1439px -> 704x369 (1x), 1408x738 (2x) */}
               <source
                 media="(min-width: 768px)"
-                srcSet={getScaledCloudinaryUrl(category.image, { width: 704, height: 369 })}
+                srcSet={`${getScaledCloudinaryUrl(category.image, { width: 704, height: 369, dpr: 1 })} 1x, ${getScaledCloudinaryUrl(category.image, { width: 704, height: 369, dpr: 2 })} 2x`}
               />
-              {/* Mobile (за замовчуванням): до 767px -> 343x250 */}
+              {/* Mobile (за замовчуванням): до 767px -> 343x250 (1x), 686x500 (2x) */}
               <img
                 className={styles.image}
-                src={getScaledCloudinaryUrl(category.image, { width: 343, height: 250 })}
+                // src (fallback) — версія 1x
+                src={getScaledCloudinaryUrl(category.image, { width: 343, height: 250, dpr: 1 })}
+                // srcSet — вибір для браузера на мобільних пристроях
+                srcSet={`${getScaledCloudinaryUrl(category.image, { width: 343, height: 250, dpr: 1 })} 1x, ${getScaledCloudinaryUrl(category.image, { width: 343, height: 250, dpr: 2 })} 2x`}
                 alt=""
                 loading="lazy"
                 width={343}
