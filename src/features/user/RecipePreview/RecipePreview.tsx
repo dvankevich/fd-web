@@ -4,6 +4,7 @@ import type { RecipeListItem } from '@shared/types';
 import recipePlaceholder from '@/assets/recipe-placeholder.svg';
 import trashIcon from '@/assets/trash.svg';
 import styles from './RecipePreview.module.css';
+import sprite from '@/assets/icons.svg';
 
 interface RecipePreviewProps {
   recipe: RecipeListItem;
@@ -36,7 +37,7 @@ export const RecipePreview = ({ recipe, deletable, deleting, onDelete }: RecipeP
       <div className={styles.actions}>
         <Link className={styles.iconBtn} to={path} aria-label={`Open ${recipe.title}`}>
           <svg width="18" height="18" aria-hidden="true">
-            <use href="/icons.svg#icon-arrow-up-right" />
+            <use href={`${sprite}#icon-arrow-up-right`} />
           </svg>
         </Link>
         {deletable && (
