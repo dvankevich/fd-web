@@ -27,7 +27,7 @@ export const getAreas = async (): Promise<Option[]> => {
 export const getIngredients = async (): Promise<Ingredient[]> => {
   const { data } = await apiClient.get('/ingredients');
 
-  console.log('INGREDIENTS RESPONSE:', data);
+  // console.log('INGREDIENTS RESPONSE:', data);
 
   const ingredients = Array.isArray(data) ? data : (data.ingredients ?? []);
 
@@ -40,11 +40,11 @@ export const getIngredients = async (): Promise<Ingredient[]> => {
 
 export const createRecipe = async (formData: FormData): Promise<{ id: string }> => {
   try {
-    console.log('POST /recipes');
+    // console.log('POST /recipes');
 
     const { data } = await apiClient.post('/recipes', formData);
 
-    console.log('CREATE RECIPE RESPONSE:', data);
+    // console.log('CREATE RECIPE RESPONSE:', data);
 
     if (!data?.id) {
       throw new Error('Recipe ID was not returned by API');

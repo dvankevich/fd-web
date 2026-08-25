@@ -67,7 +67,7 @@
 
 .nameLabel {
     color: #b7b7b7;
-    font-size: 23px;
+    font-size: 24px;
 }
 
 .textField {
@@ -377,4 +377,22 @@
     .nameLabel {
         font-size: 20px;
     }
+}
+
+/*  */
+.invalidLine {
+    border-color: #dc0000;
+}
+
+.invalidLine input,
+.invalidLine textarea,
+.invalidLine em {
+    color: #dc0000;
+}
+
+.error {
+    margin: 6px 0 0;
+    color: #dc0000;
+    font-size: 12px;
+    line-height: 1.3;
 }
