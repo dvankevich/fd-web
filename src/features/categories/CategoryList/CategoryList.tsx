@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ROUTE } from '@shared/lib';
-import { getScaledCloudinaryUrl } from '@shared/lib/cloudinary'; // Імпортуємо утиліту
+import { getScaledCloudinaryUrl } from '@shared/lib/cloudinary';
 import type { Category } from '../types';
 import styles from './CategoryList.module.css';
 
@@ -36,13 +36,19 @@ export function CategoryList({ categories, isLoading = false, error = null }: Ca
             to={`${ROUTE.recipes}?category=${encodeURIComponent(category.name)}`}
             aria-label={`View ${category.name} recipes`}
           >
-            {/* Застосовуємо трансформацію Cloudinary */}
-            <img
-              className={styles.image}
-              src={getScaledCloudinaryUrl(category.image, 369)}
-              alt=""
-              loading="lazy"
-            />
+            <picture>
+              <source
+                media="(max-width: 767px)"
+                srcSet={getScaledCloudinaryUrl(category.image, { height: 250, quality: 75 })}
+              />
+              <img
+                className={styles.image}
+                src={getScaledCloudinaryUrl(category.image, { height: 369, quality: 75 })}
+                alt=""
+                loading="lazy"
+              />
+            </picture>
+
             <span className={styles.overlay} aria-hidden="true" />
             <span className={styles.meta}>
               <span className={styles.label}>
