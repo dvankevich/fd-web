@@ -1,29 +1,22 @@
 interface CloudinaryOptions {
-  height?: number;
-  width?: number;
+  width: number;
+  height: number;
   quality?: string | number;
 }
 
 export function getScaledCloudinaryUrl(
   url: string,
-  options: CloudinaryOptions = {}
+  options: CloudinaryOptions
 ): string {
   if (!url || !url.includes('/upload/')) {
     return url;
   }
 
-  const { height, width, quality = 75 } = options;
+  const { width, height, quality = 'auto:eco' } = options;
 
-  const transformations: string[] = [
-    'c_limit',
-    'f_auto',
-    `q_${quality}`,
-  ];
+  // c_fill,g_auto — точне кадрування за шириною та висотою
+  // q_auto:eco — максимальна оптимізація розміру для зеленої зони PageSpeed
+  const transformation = `c_fill,g_auto,w_${width},h_${height},f_auto,q_${quality}`;
 
-  if (height) transformations.push(`h_${height}`);
-  if (width) transformations.push(`w_${width}`);
-
-  const transformationString = transformations.join(',');
-
-  return url.replace('/upload/', `/upload/${transformationString}/`);
+  return url.replace('/upload/', `/upload/${transformation}/`);
 }

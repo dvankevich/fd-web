@@ -37,15 +37,24 @@ export function CategoryList({ categories, isLoading = false, error = null }: Ca
             aria-label={`View ${category.name} recipes`}
           >
             <picture>
+              {/* Desktop: від 1440px -> 590x369 */}
               <source
-                media="(max-width: 767px)"
-                srcSet={getScaledCloudinaryUrl(category.image, { height: 250, quality: 75 })}
+                media="(min-width: 1440px)"
+                srcSet={getScaledCloudinaryUrl(category.image, { width: 590, height: 369 })}
               />
+              {/* Tablet: від 768px до 1439px -> 704x369 */}
+              <source
+                media="(min-width: 768px)"
+                srcSet={getScaledCloudinaryUrl(category.image, { width: 704, height: 369 })}
+              />
+              {/* Mobile (за замовчуванням): до 767px -> 343x250 */}
               <img
                 className={styles.image}
-                src={getScaledCloudinaryUrl(category.image, { height: 369, quality: 75 })}
+                src={getScaledCloudinaryUrl(category.image, { width: 343, height: 250 })}
                 alt=""
                 loading="lazy"
+                width={343}
+                height={250}
               />
             </picture>
 
