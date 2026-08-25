@@ -3,7 +3,7 @@ export function getScaledCloudinaryUrl(url: string, maxHeight = 369): string {
     return url;
   }
 
-  const transformation = `c_limit,h_${maxHeight},f_auto,q_auto`;
+  const transformation = `c_limit,h_${maxHeight},f_auto,q_75`;
 
   return url.replace('/upload/', `/upload/${transformation}/`);
 }
