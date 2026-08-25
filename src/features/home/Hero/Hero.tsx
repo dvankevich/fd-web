@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import { Button } from '@shared/ui';
 import { MODAL_NAME, modalObserver } from '@shared/lib';
 import { selectIsLoggedIn } from '../../auth/selectors';
-import heroLarge1x from '../../../assets/hero-large-1x.png';
-import heroLarge2x from '../../../assets/hero-large-2x.png';
-import heroSmall1x from '../../../assets/hero-small-1x.png';
-import heroSmall2x from '../../../assets/hero-small-2x.png';
+import heroLarge1x from '../../../assets/hero-large-1x.webp';
+import heroLarge2x from '../../../assets/hero-large-2x.webp';
+import heroSmall1x from '../../../assets/hero-small-1x.webp';
+import heroSmall2x from '../../../assets/hero-small-2x.webp';
 import styles from './Hero.module.css';
 
 export const Hero = () => {
