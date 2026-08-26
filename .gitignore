@@ -23,7 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .env
-tsconfig.app.tsbuildinfo
+*.tsbuildinfo
 
 # Playwright
 /test-results/
