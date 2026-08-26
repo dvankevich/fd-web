@@ -38,12 +38,16 @@ export const Hero = () => {
               className={styles.imageSm}
               src={heroSmall1x}
               srcSet={`${heroSmall1x} 1x, ${heroSmall2x} 2x`}
+              width={77}
+              height={70}
               alt=""
             />
             <img
               className={styles.imageLarge}
               src={heroLarge1x}
               srcSet={`${heroLarge1x} 1x, ${heroLarge2x} 2x`}
+              width={190}
+              height={172}
               alt=""
             />
           </div>
