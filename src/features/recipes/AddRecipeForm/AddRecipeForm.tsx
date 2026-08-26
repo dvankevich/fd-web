@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FieldLabel, FormError } from '@shared/ui';
-import trashIcon from '../../../assets/trash.svg';
+import sprite from '@/assets/icons.svg';
 import { createRecipe, getIngredients, getAreas, getCategories } from '../../../services/recipes';
 
 import type { Ingredient, Option, RecipeFormValues } from '../../../types/recipe';
@@ -190,7 +190,9 @@ export default function AddRecipeForm() {
           <span>{notification}</span>
 
           <button type="button" aria-label="Close notification" onClick={() => setNotification('')}>
-            ×
+            <svg width="20" height="20" aria-hidden="true">
+              <use href={`${sprite}#icon-close`} />
+            </svg>
           </button>
         </div>
       )}
@@ -396,18 +398,24 @@ export default function AddRecipeForm() {
                       <div className={css.time}>
                         <button
                           type="button"
+                          aria-label="Decrease cooking time"
                           onClick={() => setFieldValue('time', Math.max(1, values.time - 1))}
                         >
-                          −
+                          <svg width="24" height="24" aria-hidden="true">
+                            <use href={`${sprite}#icon-minus`} />
+                          </svg>
                         </button>
 
                         <span>{values.time} min</span>
 
                         <button
                           type="button"
+                          aria-label="Increase cooking time"
                           onClick={() => setFieldValue('time', values.time + 5)}
                         >
-                          +
+                          <svg width="24" height="24" aria-hidden="true">
+                            <use href={`${sprite}#icon-plus`} />
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -461,7 +469,10 @@ export default function AddRecipeForm() {
                       onClick={addIngredient}
                       disabled={isLoadingIngredients || !ingredientId || !measure.trim()}
                     >
-                      ADD INGREDIENT <span>＋</span>
+                      ADD INGREDIENT
+                      <svg width="20" height="20" aria-hidden="true">
+                        <use href={`${sprite}#icon-plus`} />
+                      </svg>
                     </button>
 
                     <FormError variant="compact">
@@ -519,7 +530,9 @@ export default function AddRecipeForm() {
                       aria-label="Reset form"
                       onClick={reset}
                     >
-                      <img className={css.resetIcon} src={trashIcon} alt="" />
+                      <svg className={css.resetIcon} aria-hidden="true">
+                        <use href={`${sprite}#icon-trash`} />
+                      </svg>
                     </button>
 
                     <button

@@ -32,7 +32,9 @@
 }
 
 .arrow {
-  font-size: 12px;
+  width: 14px;
+  height: 14px;
+  flex: none;
   transition: transform var(--transition);
 }
 

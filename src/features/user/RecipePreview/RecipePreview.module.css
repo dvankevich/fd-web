@@ -68,11 +68,6 @@
   color: var(--white);
 }
 
-.iconBtn:hover:not(:disabled) img,
-.iconBtn:focus-visible:not(:disabled) img {
-  filter: invert(1);
-}
-
 .iconBtn:disabled {
   opacity: 0.5;
   cursor: default;

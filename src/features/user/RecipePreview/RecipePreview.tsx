@@ -2,9 +2,8 @@ import { Link } from 'react-router-dom';
 import { buildPath, ROUTE } from '@shared/lib';
 import type { RecipeListItem } from '@shared/types';
 import recipePlaceholder from '@/assets/recipe-placeholder.svg';
-import trashIcon from '@/assets/trash.svg';
-import styles from './RecipePreview.module.css';
 import sprite from '@/assets/icons.svg';
+import styles from './RecipePreview.module.css';
 
 interface RecipePreviewProps {
   recipe: RecipeListItem;
@@ -48,7 +47,9 @@ export const RecipePreview = ({ recipe, deletable, deleting, onDelete }: RecipeP
             onClick={() => onDelete?.(recipe.id)}
             aria-label={`Delete ${recipe.title}`}
           >
-            <img src={trashIcon} alt="" width="18" height="18" />
+            <svg width="18" height="18" aria-hidden="true">
+              <use href={`${sprite}#icon-trash`} />
+            </svg>
           </button>
         )}
       </div>

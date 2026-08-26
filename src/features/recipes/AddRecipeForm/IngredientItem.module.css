@@ -20,6 +20,7 @@
   display: grid;
   place-items: center;
   background: #ddd;
+  color: #888;
 }
 
 .ingredientItem > span:not(.imagePlaceholder) {
@@ -29,6 +30,6 @@
 .ingredientItem button {
   border: 0;
   background: transparent;
-  font-size: 25px;
+  color: #111;
   cursor: pointer;
 }

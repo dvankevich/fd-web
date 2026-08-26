@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@shared/lib';
 import { FieldLabel, FormError } from '@shared/ui';
+import sprite from '@/assets/icons.svg';
 import type { Option } from '../../../types/recipe';
 import css from './CustomSelect.module.css';
 
@@ -61,7 +62,9 @@ export default function CustomSelect({
       >
         <span className={!selected ? css.placeholder : ''}>{selected?.name ?? placeholder}</span>
 
-        <span>{isOpen ? '⌃' : '⌄'}</span>
+        <svg className={cn(css.chevron, isOpen && css.chevronOpen)} aria-hidden="true">
+          <use href={`${sprite}#icon-chevron-down`} />
+        </svg>
       </button>
 
       {isOpen && (

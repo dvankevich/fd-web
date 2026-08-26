@@ -123,6 +123,9 @@
 }
 
 .addButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
   width: max-content;
   padding: 15px 28px;
   border: 1px solid #111;
@@ -131,11 +134,6 @@
   font: inherit;
   font-weight: 600;
   cursor: pointer;
-}
-
-.addButton span {
-  margin-left: 9px;
-  font-size: 21px;
 }
 
 .ingredientList {
@@ -205,10 +203,11 @@
 }
 
 .notification button {
+  display: grid;
+  place-items: center;
   border: 0;
   background: transparent;
   color: #fff;
-  font-size: 22px;
   cursor: pointer;
 }
 

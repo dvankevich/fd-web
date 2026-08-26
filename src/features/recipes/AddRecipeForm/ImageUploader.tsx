@@ -1,7 +1,7 @@
 import { useEffect, useState, type ChangeEvent } from 'react';
 import { cn } from '@shared/lib';
 import { FormError } from '@shared/ui';
-import cameraIcon from '../../../assets/camera.svg';
+import sprite from '@/assets/icons.svg';
 import css from './ImageUploader.module.css';
 
 type Props = {
@@ -46,7 +46,9 @@ export default function ImageUploader({ file, error, onChange }: Props) {
           <img src={preview} alt="Recipe preview" />
         ) : (
           <>
-            <img className={css.cameraIcon} src={cameraIcon} alt="" />
+            <svg className={css.cameraIcon} aria-hidden="true">
+              <use href={`${sprite}#icon-camera`} />
+            </svg>
             <span className={css.uploadText}>Upload a photo</span>
           </>
         )}

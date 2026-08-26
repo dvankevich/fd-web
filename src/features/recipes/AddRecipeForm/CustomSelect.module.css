@@ -23,6 +23,17 @@
   color: #b8b8b8;
 }
 
+.chevron {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  transition: transform var(--transition);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
 .options {
   position: absolute;
   z-index: 5;
