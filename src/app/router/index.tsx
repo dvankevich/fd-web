@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { useRoutes, type RouteObject } from 'react-router-dom';
-import { SharedLayout } from '@shared/layout/SharedLayout';
+import { SharedLayout } from '@app/layout/SharedLayout';
 import { ROUTE } from '@shared/lib';
 import { ErrorBoundary } from '@shared/ui';
 import { PrivateRoute } from '@features/auth';
@@ -26,4 +26,3 @@ export function AppRouter() {
     </ErrorBoundary>
   );
 }
-

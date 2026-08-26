@@ -1,0 +1,33 @@
+.photoBox {
+  display: grid;
+  min-height: 404px;
+  place-content: center;
+  gap: 17px;
+  overflow: hidden;
+  border: 1px dashed #bcbcbc;
+  border-radius: 24px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.photoBox img:not(.cameraIcon) {
+  width: 100%;
+  height: 404px;
+  object-fit: cover;
+}
+
+.cameraIcon {
+  justify-self: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  opacity: 0.55;
+}
+
+.uploadText {
+  text-decoration: underline;
+}
+
+.invalid {
+  border-color: #d83d3d !important;
+}

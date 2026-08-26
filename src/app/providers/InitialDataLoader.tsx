@@ -7,7 +7,7 @@ import { fetchIngredients, selectIngredients } from '@features/ingredients';
 const hasValidItems = (items: Array<{ id: string }>): boolean =>
   items.length > 0 && items.every(({ id }) => Boolean(id));
 
-function InitialDataLoader({ children }: { children: ReactNode }) {
+export function InitialDataLoader({ children }: { children: ReactNode }) {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(selectCategories);
   const areas = useAppSelector(selectAreas);
@@ -24,5 +24,3 @@ function InitialDataLoader({ children }: { children: ReactNode }) {
 
   return children;
 }
-
-export default InitialDataLoader;

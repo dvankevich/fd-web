@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Form, Formik, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { FieldLabel, FormError } from '@shared/ui';
 import trashIcon from '../../../assets/trash.svg';
 import { createRecipe, getIngredients, getAreas, getCategories } from '../../../services/recipes';
 
@@ -11,7 +13,7 @@ import CustomSelect from './CustomSelect';
 import ImageUploader from './ImageUploader';
 import IngredientItem from './IngredientItem';
 
-import css from '../../../pages/AddRecipePage/AddRecipePage.module.css';
+import css from './AddRecipeForm.module.css';
 
 const initialValues: RecipeFormValues = {
   image: null,
@@ -79,25 +81,13 @@ export default function AddRecipeForm() {
           getAreas(),
         ]);
 
-        const data = await getIngredients();
-
         if (!isMounted) {
           return;
         }
         setIngredients(ingredientsData);
         setCategoryOptions(categoriesData);
         setAreaOptions(areasData);
-
-        if (!Array.isArray(data)) {
-          setIngredients([]);
-          setNotification('Could not load ingredients.');
-          return;
-        }
-
-        setIngredients(data);
-      } catch (error) {
-        console.error('FAILED TO LOAD INGREDIENTS:', error);
-
+      } catch {
         if (isMounted) {
           setIngredients([]);
           setNotification('Could not load ingredients.');
@@ -140,10 +130,7 @@ export default function AddRecipeForm() {
       );
 
       if (invalidIngredient) {
-        console.error('INVALID INGREDIENT PAYLOAD:', ingredientsPayload);
-
         setNotification('One or more ingredients have an invalid ID.');
-
         return;
       }
 
@@ -168,7 +155,6 @@ export default function AddRecipeForm() {
       formData.append('ingredients', JSON.stringify(ingredientsPayload));
 
       const recipe = await createRecipe(formData);
-
       const recipeId = recipe?.id;
 
       if (!recipeId) {
@@ -176,20 +162,14 @@ export default function AddRecipeForm() {
       }
 
       navigate(`/recipe/${recipeId}`);
-    } catch (error: any) {
-      console.error('CREATE RECIPE FAILED:', error);
+    } catch (error: unknown) {
+      const apiError = isAxiosError<{ error?: unknown }>(error)
+        ? error.response?.data.error
+        : undefined;
 
-      const apiError = error?.response?.data?.error;
-
-      const apiDetails = error?.response?.data?.details;
-
-      console.error('API ERROR:', apiError);
-
-      console.error('API DETAILS:', apiDetails);
-
-      if (apiError) {
+      if (typeof apiError === 'string') {
         setNotification(apiError);
-      } else if (error?.message) {
+      } else if (error instanceof Error) {
         setNotification(error.message);
       } else {
         setNotification('Could not publish recipe. Please try again.');
@@ -256,11 +236,6 @@ export default function AddRecipeForm() {
             );
 
             if (!ingredient) {
-              console.error('INGREDIENT NOT FOUND:', {
-                ingredientId,
-                ingredients,
-              });
-
               setNotification('Selected ingredient was not found.');
 
               return;
@@ -268,8 +243,6 @@ export default function AddRecipeForm() {
             const ingredientDbId = String(ingredient._id);
 
             if (!ingredientDbId || ingredientDbId === 'undefined' || ingredientDbId === 'null') {
-              console.error('INVALID INGREDIENT ID:', ingredient);
-
               setNotification('Selected ingredient has an invalid ID.');
 
               return;
@@ -364,11 +337,9 @@ export default function AddRecipeForm() {
                       className={hasError('title') ? css.invalidLine : ''}
                     />
 
-                    {hasError('title') && (
-                      <p id="title-error" className={css.error} role="alert">
-                        {errors.title}
-                      </p>
-                    )}
+                    <FormError id="title-error" as="span" variant="compact">
+                      {hasError('title') ? errors.title : undefined}
+                    </FormError>
                   </label>
 
                   {/* 
@@ -395,11 +366,9 @@ export default function AddRecipeForm() {
                       <em>{values.description.length}/200</em>
                     </span>
 
-                    {hasError('description') && (
-                      <p id="description-error" className={css.error} role="alert">
-                        {errors.description}
-                      </p>
-                    )}
+                    <FormError id="description-error" as="span" variant="compact">
+                      {hasError('description') ? errors.description : undefined}
+                    </FormError>
                   </label>
 
                   {/* 
@@ -422,7 +391,7 @@ export default function AddRecipeForm() {
                     />
 
                     <div>
-                      <p className={css.label}>COOKING TIME</p>
+                      <FieldLabel>COOKING TIME</FieldLabel>
 
                       <div className={css.time}>
                         <button
@@ -495,9 +464,11 @@ export default function AddRecipeForm() {
                       ADD INGREDIENT <span>＋</span>
                     </button>
 
-                    {touched.ingredients && typeof errors.ingredients === 'string' && (
-                      <p className={css.error}>{errors.ingredients}</p>
-                    )}
+                    <FormError variant="compact">
+                      {touched.ingredients && typeof errors.ingredients === 'string'
+                        ? errors.ingredients
+                        : undefined}
+                    </FormError>
 
                     <ul className={css.ingredientList}>
                       {values.ingredients.map((item) => (
@@ -511,7 +482,7 @@ export default function AddRecipeForm() {
                    */}
 
                   <label className={css.textField}>
-                    <span className={css.label}>RECIPE PREPARATION</span>
+                    <FieldLabel as="span">RECIPE PREPARATION</FieldLabel>
 
                     <span
                       className={`${css.inputLine} ${
@@ -532,11 +503,9 @@ export default function AddRecipeForm() {
                       <em>{values.instructions.length}/1000</em>
                     </span>
 
-                    {hasError('instructions') && (
-                      <p id="instructions-error" className={css.error} role="alert">
-                        {errors.instructions}
-                      </p>
-                    )}
+                    <FormError id="instructions-error" as="span" variant="compact">
+                      {hasError('instructions') ? errors.instructions : undefined}
+                    </FormError>
                   </label>
 
                   {/* 

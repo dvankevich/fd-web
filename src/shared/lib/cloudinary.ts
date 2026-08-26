@@ -5,10 +5,7 @@ interface CloudinaryOptions {
   dpr?: number | string; // Додаємо DPR параметр
 }
 
-export function getScaledCloudinaryUrl(
-  url: string,
-  options: CloudinaryOptions
-): string {
+export function getScaledCloudinaryUrl(url: string, options: CloudinaryOptions): string {
   if (!url || !url.includes('/upload/')) {
     return url;
   }

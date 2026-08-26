@@ -6,10 +6,10 @@ import { store, persistor } from '@app/store/store';
 import { APP_MODALS } from '@app/modals';
 import { AuthProvider } from '@features/auth';
 import { ModalRoot } from '@shared/ui';
-import InitialDataLoader from '@shared/lib/InitialDataLoader';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@shared/styles/toastify.css';
+import { InitialDataLoader } from './InitialDataLoader';
 
 interface AppProvidersProps {
   children: ReactNode;

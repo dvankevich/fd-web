@@ -1,6 +1,6 @@
-import { Logo } from '@shared/layout/Logo';
-import { NetworkLinks } from '@shared/layout/NetworkLinks';
-import { Copyright } from '@shared/layout/Copyright';
+import { Logo } from '@app/layout/Logo';
+import { NetworkLinks } from '@app/layout/NetworkLinks';
+import { Copyright } from '@app/layout/Copyright';
 import styles from './Footer.module.css';
 
 export function Footer() {
