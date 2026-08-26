@@ -5,6 +5,7 @@ import { Nav } from '@app/layout/Nav';
 import { AuthBar } from '@app/layout/AuthBar';
 import { UserBar } from '@app/layout/UserBar';
 import { selectIsLoggedIn } from '@features/auth/selectors';
+import sprite from '@/assets/icons.svg';
 import styles from './Header.module.css';
 
 export function Header() {
@@ -34,7 +35,9 @@ export function Header() {
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
             >
-              ☰
+              <svg width="28" height="28" aria-hidden="true">
+                <use href={`${sprite}#icon-burger`} />
+              </svg>
             </button>
           )}
         </div>
@@ -51,7 +54,9 @@ export function Header() {
               onClick={closeMenu}
               aria-label="Close menu"
             >
-              ✕
+              <svg width="24" height="24" aria-hidden="true">
+                <use href={`${sprite}#icon-close`} />
+              </svg>
             </button>
           </div>
           <Nav className={styles.mobileNav} onNavigate={closeMenu} />

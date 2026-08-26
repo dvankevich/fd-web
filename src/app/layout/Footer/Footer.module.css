@@ -28,7 +28,7 @@
   height: 1px;
   margin: 40px auto 0;
 
-  background-color: #e8e8e8;
+  background-color: var(--divider-grey);
 }
 
 .bottom {

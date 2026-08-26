@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
 
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--divider-grey);
   border-radius: 100px;
 
   color: var(--main-black);
