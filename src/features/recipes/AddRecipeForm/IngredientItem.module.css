@@ -1,0 +1,35 @@
+.ingredientItem {
+  display: grid;
+  grid-template-columns: 46px 1fr auto 28px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 10px;
+  background: #f4f4f4;
+}
+
+.ingredientItem img,
+.imagePlaceholder {
+  width: 46px;
+  height: 46px;
+  border-radius: 7px;
+  object-fit: cover;
+}
+
+.imagePlaceholder {
+  display: grid;
+  place-items: center;
+  background: #ddd;
+  color: #888;
+}
+
+.ingredientItem > span:not(.imagePlaceholder) {
+  color: #666;
+}
+
+.ingredientItem button {
+  border: 0;
+  background: transparent;
+  color: var(--form-text-color);
+  cursor: pointer;
+}

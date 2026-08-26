@@ -2,9 +2,7 @@ export {
   isArray,
   isArrayOf,
   isBoolean,
-  isDefined,
   isNonEmptyString,
-  isNumber,
   isRecord,
   isString,
   isValueOf,
@@ -18,4 +16,3 @@ export { TIME_MS } from './time';
 export { MODAL_NAME, modalObserver, useModal, useOpenModals } from './modals';
 export type { ModalName, ModalEntry, ModalEvent, ModalParams } from './modals';
 export { notify } from './notify';
-

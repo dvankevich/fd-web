@@ -1,6 +1,8 @@
-import { useState, type ChangeEvent } from 'react';
-import css from '../../../pages/AddRecipePage/AddRecipePage.module.css';
-import cameraIcon from '../../../assets/camera.svg';
+import { useEffect, useState, type ChangeEvent } from 'react';
+import { cn } from '@shared/lib';
+import { FormError } from '@shared/ui';
+import sprite from '@/assets/icons.svg';
+import css from './ImageUploader.module.css';
 
 type Props = {
   file: File | null;
@@ -8,43 +10,45 @@ type Props = {
   onChange: (file: File | null) => void;
 };
 
-export default function ImageUploader({ file: _file, error, onChange }: Props) {
-  const [preview, setPreview] = useState('');
+export default function ImageUploader({ file, error, onChange }: Props) {
+  const [previewUrl, setPreviewUrl] = useState('');
+  const preview = file ? previewUrl : '';
+
+  useEffect(
+    () => () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    },
+    [previewUrl],
+  );
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0] ?? null;
 
-    if (preview) {
-      URL.revokeObjectURL(preview);
-    }
-
     if (selectedFile) {
       const url = URL.createObjectURL(selectedFile);
-      setPreview(url);
+      setPreviewUrl(url);
     } else {
-      setPreview('');
+      setPreviewUrl('');
     }
 
     onChange(selectedFile);
   };
 
   const handleRemove = () => {
-    if (preview) {
-      URL.revokeObjectURL(preview);
-    }
-
-    setPreview('');
+    setPreviewUrl('');
     onChange(null);
   };
 
   return (
     <div>
-      <label className={`${css.photoBox} ${error ? css.invalid : ''}`}>
+      <label className={cn(css.photoBox, error && css.invalid)}>
         {preview ? (
           <img src={preview} alt="Recipe preview" />
         ) : (
           <>
-            <img className={css.cameraIcon} src={cameraIcon} alt="" />
+            <svg className={css.cameraIcon} aria-hidden="true">
+              <use href={`${sprite}#icon-camera`} />
+            </svg>
             <span className={css.uploadText}>Upload a photo</span>
           </>
         )}
@@ -63,7 +67,7 @@ export default function ImageUploader({ file: _file, error, onChange }: Props) {
         </button>
       )}
 
-      {error && <p className={css.error}>{error}</p>}
+      <FormError variant="compact">{error}</FormError>
     </div>
   );
 }

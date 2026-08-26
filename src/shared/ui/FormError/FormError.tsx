@@ -1,18 +1,27 @@
 import type { ReactNode } from 'react';
+import { cn } from '@shared/lib';
 import styles from './FormError.module.css';
 
 interface FormErrorProps {
   children?: ReactNode;
+  variant?: 'default' | 'compact';
+  as?: 'p' | 'span';
+  id?: string;
 }
 
-export function FormError({ children }: FormErrorProps) {
+export function FormError({
+  children,
+  variant = 'default',
+  as: ErrorText = 'p',
+  id,
+}: FormErrorProps) {
   if (!children) {
     return null;
   }
 
   return (
-    <p className={styles.error} role="alert">
+    <ErrorText id={id} className={cn(styles.error, styles[variant])} role="alert">
       {children}
-    </p>
+    </ErrorText>
   );
 }

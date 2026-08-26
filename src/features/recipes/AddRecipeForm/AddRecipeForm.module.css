@@ -1,0 +1,234 @@
+.form {
+  margin-top: 42px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(350px, 560px) minmax(450px, 1fr);
+  gap: 80px;
+}
+
+.fields {
+  display: grid;
+  align-content: start;
+  gap: 42px;
+}
+
+.nameLabel {
+  display: block;
+  margin: 0 0 14px;
+  color: #b7b7b7;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.textField {
+  display: grid;
+  gap: 10px;
+}
+
+.textField input,
+.textField textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0 0 15px;
+  border: 0;
+  border-bottom: 1px solid var(--input-border-grey);
+  outline: 0;
+  color: var(--form-text-color);
+  font: inherit;
+}
+
+.textField textarea {
+  height: 60px;
+  min-height: 50px;
+  box-sizing: border-box;
+  padding: 25px 58px 10px 0;
+  resize: none;
+}
+
+.inputLine {
+  position: relative;
+  display: block;
+}
+
+.inputLine input,
+.inputLine textarea {
+  padding-right: 58px;
+}
+
+.inputLine em {
+  position: absolute;
+  right: 0;
+  bottom: 15px;
+  color: var(--placeholder-grey);
+  font-size: 14px;
+  font-style: normal;
+}
+
+.categoryRow {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) auto;
+  gap: 22px;
+}
+
+.time {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+
+.time button,
+.resetButton {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  border: 1px solid var(--input-border-grey);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--form-text-color);
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.time span {
+  min-width: 49px;
+  color: #aaa;
+}
+
+.ingredients {
+  display: grid;
+  gap: 16px;
+}
+
+.ingredients h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.ingredientControls {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) minmax(160px, 0.85fr);
+  gap: 20px;
+}
+
+.ingredientControls > input {
+  height: 56px;
+  border: 0;
+  border-bottom: 1px solid var(--input-border-grey);
+  outline: 0;
+  font: inherit;
+}
+
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  width: max-content;
+  padding: 15px 28px;
+  border: 1px solid var(--form-text-color);
+  border-radius: 28px;
+  background: var(--white);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ingredientList {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.resetButton {
+  font-size: 18px;
+}
+
+.resetIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.publishButton {
+  min-width: 150px;
+  height: 56px;
+  border: 0;
+  border-radius: 28px;
+  background: var(--action-black);
+  color: var(--white);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.publishButton:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.invalidLine {
+  border-color: var(--form-error-color) !important;
+}
+
+.invalidLine input,
+.invalidLine textarea,
+.invalidLine em {
+  color: var(--form-error-color);
+}
+
+.notification {
+  position: fixed;
+  z-index: 20;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 360px;
+  padding: 15px 18px;
+  border-radius: 10px;
+  background: var(--action-black);
+  color: var(--white);
+  box-shadow: 0 8px 25px rgb(0 0 0 / 20%);
+}
+
+.notification button {
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .fields {
+    gap: 30px;
+  }
+
+  .categoryRow,
+  .ingredientControls {
+    grid-template-columns: 1fr;
+  }
+
+  .nameLabel {
+    font-size: 20px;
+  }
+}

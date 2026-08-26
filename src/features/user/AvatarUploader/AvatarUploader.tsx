@@ -2,6 +2,7 @@ import { useRef, useState, type ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '@app/store/store';
 import { notify } from '@shared/lib';
+import sprite from '@/assets/icons.svg';
 import userPlaceholder from '@/assets/user-placeholder.svg';
 import { uploadAvatar } from '../operations';
 import styles from './AvatarUploader.module.css';
@@ -51,13 +52,8 @@ export const AvatarUploader = ({ avatar, name, editable }: AvatarUploaderProps) 
             disabled={busy}
             aria-label="Upload avatar"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M12 5v14M5 12h14"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
+            <svg width="18" height="18" aria-hidden="true">
+              <use href={`${sprite}#icon-plus`} />
             </svg>
           </button>
           <input

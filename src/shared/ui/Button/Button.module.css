@@ -29,14 +29,14 @@
 }
 
 .primary:hover:not(:disabled) {
-  background-color: #1a1a1a;
+  background-color: var(--secondary-black);
 }
 
 /* secondary */
 .secondary {
   background-color: transparent;
   color: var(--main-black);
-  border: 1px solid rgba(5, 5, 5, 0.9);
+  border: 1px solid var(--main-black-90);
 }
 
 .secondary:hover:not(:disabled) {

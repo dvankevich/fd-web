@@ -5,8 +5,7 @@ export const HTTP_STATUS = {
   serverErrorMin: 500,
 } as const;
 
-export const networkErrorMessage =
-  'No connection. Check your internet or try again later.';
+export const networkErrorMessage = 'No connection. Check your internet or try again later.';
 
 export const isNetworkError = (error: unknown): boolean => {
   if (!isAxiosError(error)) {

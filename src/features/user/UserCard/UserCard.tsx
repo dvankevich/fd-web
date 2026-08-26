@@ -7,6 +7,7 @@ import userPlaceholder from '@/assets/user-placeholder.svg';
 import { selectIsFollowing } from '../selectors';
 import type { UserCardData } from '../types';
 import styles from './UserCard.module.css';
+import sprite from '@/assets/icons.svg';
 
 interface UserCardProps {
   data: UserCardData;
@@ -65,7 +66,7 @@ export const UserCard = ({ data, busy, showRecipes, onToggleFollow }: UserCardPr
 
       <Link to={profilePath} className={styles.arrow} aria-label={`Open ${data.name}`}>
         <svg width="18" height="18" aria-hidden="true">
-          <use href="/icons.svg#icon-arrow-up-right" />
+          <use href={`${sprite}#icon-arrow-up-right`} />
         </svg>
       </Link>
     </article>

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Form, Formik, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import trashIcon from '../../../assets/trash.svg';
+import { FieldLabel, FormError } from '@shared/ui';
+import sprite from '@/assets/icons.svg';
 import { createRecipe, getIngredients, getAreas, getCategories } from '../../../services/recipes';
 
 import type { Ingredient, Option, RecipeFormValues } from '../../../types/recipe';
@@ -11,7 +13,7 @@ import CustomSelect from './CustomSelect';
 import ImageUploader from './ImageUploader';
 import IngredientItem from './IngredientItem';
 
-import css from '../../../pages/AddRecipePage/AddRecipePage.module.css';
+import css from './AddRecipeForm.module.css';
 
 const initialValues: RecipeFormValues = {
   image: null,
@@ -27,9 +29,13 @@ const initialValues: RecipeFormValues = {
 const validationSchema = Yup.object({
   image: Yup.mixed<File>().required('Upload a photo'),
 
-  title: Yup.string().trim().required('Enter recipe name'),
+  title: Yup.string().trim().required('Enter recipe name').min(5, 'Minimin 10 characters'),
 
-  description: Yup.string().trim().required('Enter description').max(200, 'Maximum 200 characters'),
+  description: Yup.string()
+    .trim()
+    .required('Enter description')
+    .min(10, 'Minimin 10 characters')
+    .max(200, 'Maximum 200 characters'),
 
   category: Yup.string().required('Select category'),
 
@@ -44,6 +50,7 @@ const validationSchema = Yup.object({
   instructions: Yup.string()
     .trim()
     .required('Enter recipe preparation')
+    .min(10, 'Minimin 10 characters')
     .max(1000, 'Maximum 1000 characters'),
 });
 
@@ -74,27 +81,13 @@ export default function AddRecipeForm() {
           getAreas(),
         ]);
 
-        const data = await getIngredients();
-
-        console.log('INGREDIENTS FROM API:', data);
-
         if (!isMounted) {
           return;
         }
         setIngredients(ingredientsData);
         setCategoryOptions(categoriesData);
         setAreaOptions(areasData);
-
-        if (!Array.isArray(data)) {
-          setIngredients([]);
-          setNotification('Could not load ingredients.');
-          return;
-        }
-
-        setIngredients(data);
-      } catch (error) {
-        console.error('FAILED TO LOAD INGREDIENTS:', error);
-
+      } catch {
         if (isMounted) {
           setIngredients([]);
           setNotification('Could not load ingredients.');
@@ -137,16 +130,10 @@ export default function AddRecipeForm() {
       );
 
       if (invalidIngredient) {
-        console.error('INVALID INGREDIENT PAYLOAD:', ingredientsPayload);
-
         setNotification('One or more ingredients have an invalid ID.');
-
         return;
       }
-      console.log('SELECTED VALUES:', {
-        category: values.category,
-        area: values.area,
-      });
+
       const formData = new FormData();
 
       if (values.image instanceof File) {
@@ -167,45 +154,22 @@ export default function AddRecipeForm() {
 
       formData.append('ingredients', JSON.stringify(ingredientsPayload));
 
-      console.log('========== FORM DATA ==========');
-
-      for (const [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
-
-      console.log('INGREDIENTS PAYLOAD:', ingredientsPayload);
-
-      console.log('VALUES INGREDIENTS:', values.ingredients);
-
-      console.log('===============================');
-
       const recipe = await createRecipe(formData);
-
-      console.log('RECIPE CREATED:', recipe);
-
       const recipeId = recipe?.id;
 
       if (!recipeId) {
-        console.error('API RESPONSE DOES NOT CONTAIN RECIPE ID:', recipe);
-
         throw new Error('Recipe ID was not returned by API');
       }
 
       navigate(`/recipe/${recipeId}`);
-    } catch (error: any) {
-      console.error('CREATE RECIPE FAILED:', error);
+    } catch (error: unknown) {
+      const apiError = isAxiosError<{ error?: unknown }>(error)
+        ? error.response?.data.error
+        : undefined;
 
-      const apiError = error?.response?.data?.error;
-
-      const apiDetails = error?.response?.data?.details;
-
-      console.error('API ERROR:', apiError);
-
-      console.error('API DETAILS:', apiDetails);
-
-      if (apiError) {
+      if (typeof apiError === 'string') {
         setNotification(apiError);
-      } else if (error?.message) {
+      } else if (error instanceof Error) {
         setNotification(error.message);
       } else {
         setNotification('Could not publish recipe. Please try again.');
@@ -226,7 +190,9 @@ export default function AddRecipeForm() {
           <span>{notification}</span>
 
           <button type="button" aria-label="Close notification" onClick={() => setNotification('')}>
-            ×
+            <svg width="20" height="20" aria-hidden="true">
+              <use href={`${sprite}#icon-close`} />
+            </svg>
           </button>
         </div>
       )}
@@ -240,6 +206,7 @@ export default function AddRecipeForm() {
           values,
           errors,
           touched,
+          submitCount,
           handleBlur,
           handleChange,
           setFieldTouched,
@@ -247,6 +214,8 @@ export default function AddRecipeForm() {
           resetForm,
           isSubmitting,
         }) => {
+          const hasError = (name: keyof RecipeFormValues) =>
+            Boolean(errors[name] && (touched[name] || submitCount > 0));
           /* 
              ADD INGREDIENT
            */
@@ -264,20 +233,11 @@ export default function AddRecipeForm() {
               return;
             }
 
-            console.log('SELECTED INGREDIENT ID:', ingredientId);
-
-            console.log('AVAILABLE INGREDIENTS:', ingredients);
-
             const ingredient = ingredients.find(
               (item) => String(item._id) === String(ingredientId),
             );
 
             if (!ingredient) {
-              console.error('INGREDIENT NOT FOUND:', {
-                ingredientId,
-                ingredients,
-              });
-
               setNotification('Selected ingredient was not found.');
 
               return;
@@ -285,8 +245,6 @@ export default function AddRecipeForm() {
             const ingredientDbId = String(ingredient._id);
 
             if (!ingredientDbId || ingredientDbId === 'undefined' || ingredientDbId === 'null') {
-              console.error('INVALID INGREDIENT ID:', ingredient);
-
               setNotification('Selected ingredient has an invalid ID.');
 
               return;
@@ -308,8 +266,6 @@ export default function AddRecipeForm() {
               image: ingredient.img ?? '',
               measure: measure.trim(),
             };
-
-            console.log('ADDING INGREDIENT:', newIngredient);
 
             setFieldValue('ingredients', [...values.ingredients, newIngredient], true);
 
@@ -378,10 +334,14 @@ export default function AddRecipeForm() {
                       placeholder="Enter recipe name"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className={touched.title && errors.title ? css.invalidLine : ''}
+                      aria-invalid={hasError('title')}
+                      aria-describedby="title-error"
+                      className={hasError('title') ? css.invalidLine : ''}
                     />
 
-                    {touched.title && errors.title && <p className={css.error}>{errors.title}</p>}
+                    <FormError id="title-error" as="span" variant="compact">
+                      {hasError('title') ? errors.title : undefined}
+                    </FormError>
                   </label>
 
                   {/* 
@@ -389,7 +349,11 @@ export default function AddRecipeForm() {
                    */}
 
                   <label className={css.textField}>
-                    <span className={css.inputLine}>
+                    <span
+                      className={`${css.inputLine} ${
+                        hasError('description') ? css.invalidLine : ''
+                      }`}
+                    >
                       <input
                         name="description"
                         value={values.description}
@@ -397,18 +361,16 @@ export default function AddRecipeForm() {
                         placeholder="Enter a description of the dish"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={touched.description && errors.description ? css.invalidLine : ''}
+                        aria-invalid={hasError('description')}
+                        aria-describedby="description-error"
                       />
 
-                      <em>
-                        {values.description.length}
-                        /200
-                      </em>
+                      <em>{values.description.length}/200</em>
                     </span>
 
-                    {touched.description && errors.description && (
-                      <p className={css.error}>{errors.description}</p>
-                    )}
+                    <FormError id="description-error" as="span" variant="compact">
+                      {hasError('description') ? errors.description : undefined}
+                    </FormError>
                   </label>
 
                   {/* 
@@ -431,23 +393,29 @@ export default function AddRecipeForm() {
                     />
 
                     <div>
-                      <p className={css.label}>COOKING TIME</p>
+                      <FieldLabel>COOKING TIME</FieldLabel>
 
                       <div className={css.time}>
                         <button
                           type="button"
+                          aria-label="Decrease cooking time"
                           onClick={() => setFieldValue('time', Math.max(1, values.time - 1))}
                         >
-                          −
+                          <svg width="24" height="24" aria-hidden="true">
+                            <use href={`${sprite}#icon-minus`} />
+                          </svg>
                         </button>
 
                         <span>{values.time} min</span>
 
                         <button
                           type="button"
+                          aria-label="Increase cooking time"
                           onClick={() => setFieldValue('time', values.time + 5)}
                         >
-                          +
+                          <svg width="24" height="24" aria-hidden="true">
+                            <use href={`${sprite}#icon-plus`} />
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -501,12 +469,17 @@ export default function AddRecipeForm() {
                       onClick={addIngredient}
                       disabled={isLoadingIngredients || !ingredientId || !measure.trim()}
                     >
-                      ADD INGREDIENT <span>＋</span>
+                      ADD INGREDIENT
+                      <svg width="20" height="20" aria-hidden="true">
+                        <use href={`${sprite}#icon-plus`} />
+                      </svg>
                     </button>
 
-                    {touched.ingredients && typeof errors.ingredients === 'string' && (
-                      <p className={css.error}>{errors.ingredients}</p>
-                    )}
+                    <FormError variant="compact">
+                      {touched.ingredients && typeof errors.ingredients === 'string'
+                        ? errors.ingredients
+                        : undefined}
+                    </FormError>
 
                     <ul className={css.ingredientList}>
                       {values.ingredients.map((item) => (
@@ -520,9 +493,13 @@ export default function AddRecipeForm() {
                    */}
 
                   <label className={css.textField}>
-                    <span className={css.label}>RECIPE PREPARATION</span>
+                    <FieldLabel as="span">RECIPE PREPARATION</FieldLabel>
 
-                    <span className={css.inputLine}>
+                    <span
+                      className={`${css.inputLine} ${
+                        hasError('instructions') ? css.invalidLine : ''
+                      }`}
+                    >
                       <textarea
                         name="instructions"
                         value={values.instructions}
@@ -530,20 +507,16 @@ export default function AddRecipeForm() {
                         placeholder="Enter recipe"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={
-                          touched.instructions && errors.instructions ? css.invalidLine : ''
-                        }
+                        aria-invalid={hasError('instructions')}
+                        aria-describedby="instructions-error"
                       />
 
-                      <em>
-                        {values.instructions.length}
-                        /1000
-                      </em>
+                      <em>{values.instructions.length}/1000</em>
                     </span>
 
-                    {touched.instructions && errors.instructions && (
-                      <p className={css.error}>{errors.instructions}</p>
-                    )}
+                    <FormError id="instructions-error" as="span" variant="compact">
+                      {hasError('instructions') ? errors.instructions : undefined}
+                    </FormError>
                   </label>
 
                   {/* 
@@ -557,7 +530,9 @@ export default function AddRecipeForm() {
                       aria-label="Reset form"
                       onClick={reset}
                     >
-                      <img className={css.resetIcon} src={trashIcon} alt="" />
+                      <svg className={css.resetIcon} aria-hidden="true">
+                        <use href={`${sprite}#icon-trash`} />
+                      </svg>
                     </button>
 
                     <button
