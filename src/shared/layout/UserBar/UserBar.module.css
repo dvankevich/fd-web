@@ -5,34 +5,70 @@
 .trigger {
   display: flex;
   align-items: center;
-  gap: 6px;
-  min-width: 122px;
-  padding: 4px 8px 4px 4px;
+
+  width: 148px;
+  height: 50px;
+  padding: 0;
+
+  border: none;
   border-radius: 30px;
-  background-color: var(--main-black);
+
+  background-color: #1a1a1a;
   color: var(--white);
+
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  flex: 0 0 50px;
+
+  width: 50px;
+  height: 50px;
+
+  border-radius: 30px;
   object-fit: cover;
 }
 
+.userInfo {
+  display: flex;
+  align-items: center;
+
+  width: 98px;
+  height: 50px;
+
+  padding: 16px 14px 16px 6px;
+  box-sizing: border-box;
+
+  gap: 4px;
+}
+
 .name {
+  width: 56px;
+  height: 18px;
+
+  font-family: var(--font-main);
   font-size: 12px;
   font-weight: 700;
+  line-height: 18px;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
-  max-width: 80px;
+
+  color: var(--white);
+
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .arrow {
-  font-size: 12px;
+  flex: 0 0 18px;
+
+  width: 18px;
+  height: 18px;
+
+  color: var(--white);
+
   transition: transform var(--transition);
 }
 
@@ -40,44 +76,192 @@
   transform: rotate(180deg);
 }
 
+/* Открытый UserBar */
+.trigger:has(+ .dropdown) {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* =========================
+   Dropdown
+   ========================= */
+
 .dropdown {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
   z-index: 20;
-  min-width: 100%;
-  padding: 16px;
+
+  width: 148px;
+  height: 74px;
+
+  padding: 0;
+  box-sizing: border-box;
+
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 15px;
+
   background-color: var(--main-black);
 }
 
 .item {
-  display: block;
-  width: 100%;
-  margin-bottom: 8px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0;
+
+  font-family: var(--font-main);
   font-size: 12px;
   font-weight: 700;
+  line-height: 18px;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
+
   color: var(--white);
-  text-align: left;
+
   background: none;
   border: none;
+
   cursor: pointer;
+  white-space: nowrap;
 }
 
-.item:last-child {
-  margin-bottom: 0;
+.profile {
+  width: 49px;
+  height: 18px;
+
+  margin-top: 16px;
+  margin-left: 16px;
 }
 
-@media (min-width: 576px) {
+.logout {
+  width: 73px;
+  height: 18px;
+
+  margin-top: 6px;
+  margin-left: 16px;
+
+  gap: 2px;
+}
+
+.logout span {
+  width: 53px;
+  height: 18px;
+
+  white-space: nowrap;
+}
+
+.logout svg {
+  flex: 0 0 18px;
+
+  width: 18px;
+  height: 18px;
+
+  color: var(--white);
+}
+
+/* =========================
+   Tablet
+   768px — 1439px
+   ========================= */
+
+@media (min-width: 768px) and (max-width: 1439px) {
+  .trigger:has(+ .dropdown) {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* =========================
+   Mobile
+   до 767px
+   ========================= */
+
+@media (max-width: 767px) {
   .trigger {
-    min-width: 148px;
-    padding: 6px 12px 6px 6px;
+    width: 122px;
+    height: 32px;
+
+    border-radius: 30px;
   }
 
   .avatar {
-    width: 40px;
-    height: 40px;
+    flex: 0 0 32px;
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 30px;
+  }
+
+  .userInfo {
+    width: 90px;
+    height: 32px;
+
+    padding: 7px 6px;
+
+    gap: 4px;
+  }
+
+  .name {
+    width: 56px;
+    height: 18px;
+
+    font-family: var(--font-main);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+
+    color: var(--white);
+  }
+
+  .arrow {
+    width: 18px;
+    height: 18px;
+  }
+
+  .trigger:has(+ .dropdown) {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dropdown {
+    top: calc(100% + 8px);
+
+    width: 122px;
+    height: 72px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+  }
+
+  .item {
+    font-family: var(--font-main);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+
+    color: var(--white);
+  }
+
+  .profile {
+    width: 49px;
+    height: 18px;
+
+    margin-top: 12px;
+    margin-left: 16px;
+  }
+
+  .logout {
+    width: 73px;
+    height: 18px;
+
+    margin-top: 6px;
+    margin-left: 16px;
+
+    gap: 2px;
   }
 }

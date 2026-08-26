@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { MODAL_NAME, ROUTE, buildPath, cn, modalObserver } from '@shared/lib';
 import { selectUser } from '@features/auth';
+import sprite from '@/assets/icons.svg';
 import styles from './UserBar.module.css';
 
 const defaultAvatar =
@@ -22,44 +23,68 @@ export function UserBar() {
         setOpen(false);
       }
     };
+
     document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+    };
   }, []);
 
   if (!user) return null;
 
   return (
     <div className={styles.wrap} ref={ref}>
-      <button type="button" className={styles.trigger} onClick={() => setOpen((v) => !v)}>
+      <button
+        type="button"
+        className={styles.trigger}
+        onClick={() => setOpen((value) => !value)}
+      >
         <img
           src={user.avatar || defaultAvatar}
           alt={user.name}
           className={styles.avatar}
-          width={32}
-          height={32}
+          width={50}
+          height={50}
         />
-        <span className={styles.name}>{user.name}</span>
-        <span className={cn(styles.arrow, open && styles.arrowOpen)}>▾</span>
+
+        <span className={styles.userInfo}>
+          <span className={styles.name}>{user.name}</span>
+
+          <svg
+            className={cn(styles.arrow, open && styles.arrowOpen)}
+            width="18"
+            height="18"
+            aria-hidden="true"
+          >
+            <use href={`${sprite}#icon-chevron-down`} />
+          </svg>
+        </span>
       </button>
 
       {open && (
         <div className={styles.dropdown}>
           <Link
             to={buildPath(ROUTE.user, { id: user.id })}
-            className={styles.item}
+            className={`${styles.item} ${styles.profile}`}
             onClick={() => setOpen(false)}
           >
             Profile
           </Link>
+
           <button
             type="button"
-            className={styles.item}
+            className={`${styles.item} ${styles.logout}`}
             onClick={() => {
               setOpen(false);
               modalObserver.open(MODAL_NAME.logOut);
             }}
           >
-            Log out
+            <span>Log out</span>
+
+            <svg width="18" height="18" aria-hidden="true">
+              <use href={`${sprite}#icon-arrow-up-right`} />
+            </svg>
           </button>
         </div>
       )}
