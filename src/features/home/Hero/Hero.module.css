@@ -50,16 +50,18 @@
 .imageSm,
 .imageLarge {
   display: block;
-  height: auto;
+  object-fit: cover;
   border-radius: 15px;
 }
 
 .imageSm {
   width: 77px;
+  height: 70px;
 }
 
 .imageLarge {
   width: 190px;
+  height: 172px;
 }
 
 @media (min-width: 768px) {
@@ -86,11 +88,13 @@
   }
 
   .imageSm {
-    width: 150px;
+    width: 128px;
+    height: 116px;
   }
 
   .imageLarge {
-    width: 350px;
+    width: 302px;
+    height: 273px;
   }
 }
 

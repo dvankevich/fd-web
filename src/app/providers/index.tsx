@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { store, persistor } from '@app/store/store';
 import { APP_MODALS } from '@app/modals';
 import { AuthProvider } from '@features/auth';
-import { Loader, ModalRoot } from '@shared/ui';
+import { ModalRoot } from '@shared/ui';
 import InitialDataLoader from '@shared/lib/InitialDataLoader';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,7 +18,7 @@ interface AppProvidersProps {
 export function AppProviders({ children }: AppProvidersProps) {
   return (
     <Provider store={store}>
-      <PersistGate loading={<Loader />} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
         <InitialDataLoader>
           <BrowserRouter>
             <AuthProvider>{children}</AuthProvider>
