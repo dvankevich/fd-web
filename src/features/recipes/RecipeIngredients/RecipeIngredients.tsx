@@ -1,4 +1,5 @@
 import type { RecipeIngredient } from '@shared/types';
+import { SectionTitle } from '@shared/ui';
 import ingredientPlaceholder from '@/assets/recipe-placeholder.svg';
 import styles from './RecipeIngredients.module.css';
 
@@ -9,7 +10,7 @@ interface RecipeIngredientsProps {
 export const RecipeIngredients = ({ ingredients }: RecipeIngredientsProps) => {
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>Ingredients</h2>
+      <SectionTitle className={styles.title}>Ingredients</SectionTitle>
 
       {ingredients.length ? (
         <ul className={styles.list}>

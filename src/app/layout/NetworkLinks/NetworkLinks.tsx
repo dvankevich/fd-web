@@ -22,7 +22,7 @@ const links = [
 export function NetworkLinks() {
   return (
     <ul className={styles.list}>
-      {links.map(link => (
+      {links.map((link) => (
         <li key={link.href}>
           <a
             href={link.href}

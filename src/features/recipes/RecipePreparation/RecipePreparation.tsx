@@ -1,5 +1,5 @@
 import { cn } from '@shared/lib';
-import { Button } from '@shared/ui';
+import { Button, SectionTitle } from '@shared/ui';
 import { useRecipeFavorite } from '../useRecipeFavorite';
 import styles from './RecipePreparation.module.css';
 
@@ -14,7 +14,7 @@ export const RecipePreparation = ({ recipeId, instructions }: RecipePreparationP
   return (
     <section className={styles.section}>
       <div className={styles.copy}>
-        <h2 className={styles.title}>Recipe preparation</h2>
+        <SectionTitle>Recipe preparation</SectionTitle>
         <p className={styles.instructions}>
           {instructions || 'Preparation instructions are not specified.'}
         </p>

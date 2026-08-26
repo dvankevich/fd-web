@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Logo } from '@shared/layout/Logo';
-import { Nav } from '@shared/layout/Nav';
-import { AuthBar } from '@shared/layout/AuthBar';
-import { UserBar } from '@shared/layout/UserBar';
+import { Logo } from '@app/layout/Logo';
+import { Nav } from '@app/layout/Nav';
+import { AuthBar } from '@app/layout/AuthBar';
+import { UserBar } from '@app/layout/UserBar';
 import { selectIsLoggedIn } from '@features/auth/selectors';
 import styles from './Header.module.css';
 

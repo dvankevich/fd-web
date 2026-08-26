@@ -1,5 +1,5 @@
 import type { RecipeIngredient } from '../../../types/recipe';
-import css from '../../../pages/AddRecipePage/AddRecipePage.module.css';
+import css from './IngredientItem.module.css';
 
 type Props = {
   item: RecipeIngredient;
