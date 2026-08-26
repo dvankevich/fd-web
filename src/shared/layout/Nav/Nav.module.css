@@ -48,17 +48,26 @@
   width: 99px;
 }
 
-/* Hover */
+/* =========================
+   Hover
+   ========================= */
+
 .link:hover {
   border-color: var(--header-border-color, rgba(255, 255, 255, 0.2));
 }
 
-/* Авторизованный пользователь */
+/* =========================
+   Authenticated
+   ========================= */
+
 .authenticated .link:hover {
   border-color: var(--header-border-color, #ffffff);
 }
 
-/* Active */
+/* =========================
+   Active
+   ========================= */
+
 .active {
   border-color: var(--header-border-color, #ffffff);
 }
@@ -71,6 +80,7 @@
   .nav {
     width: 151px;
     height: 46px;
+
     gap: 16px;
   }
 
@@ -89,11 +99,61 @@
 
 @media (max-width: 767px) {
   .nav {
-    width: auto;
-    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 111px;
+    height: 120px;
+
+    gap: 24px;
   }
 
-  .link {
-    width: auto !important;
+  .link,
+  .link:first-child,
+  .link:last-child {
+    width: 111px !important;
+    height: 48px;
+
+    padding: 14px;
+
+    border-radius: 30px;
+
+    font-family: Mulish, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+
+    text-transform: uppercase;
+
+    color: var(--white);
+  }
+
+  /*
+    Active item:
+    1px #BFBEBE border
+  */
+
+  .active {
+    border: 1px solid #bfbebe;
+  }
+
+  /*
+    Inactive item:
+    no visible border
+  */
+
+  .link:not(.active) {
+    border: 1px solid transparent;
+  }
+
+  /*
+    Mobile menu is dark,
+    so hover does not make the text dark.
+  */
+
+  .link:hover {
+    color: var(--white);
   }
 }
