@@ -7,14 +7,14 @@
   height: 28px;
   margin-bottom: 16px;
   border-radius: 8px;
-  background: #eee;
+  background: var(--skeleton-grey);
 }
 
 .text {
   height: 40px;
   margin-bottom: 24px;
   border-radius: 8px;
-  background: #eee;
+  background: var(--skeleton-grey);
 }
 
 .grid {
@@ -26,7 +26,7 @@
 .card {
   aspect-ratio: 1;
   border-radius: 20px;
-  background: #eee;
+  background: var(--skeleton-grey);
 }
 
 @media (min-width: 768px) {

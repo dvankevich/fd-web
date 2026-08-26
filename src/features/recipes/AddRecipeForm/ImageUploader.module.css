@@ -21,7 +21,7 @@
   align-items: center;
   width: 64px;
   height: 64px;
-  color: #bfbebe;
+  color: var(--light-grey);
   opacity: 0.55;
 }
 
@@ -30,5 +30,5 @@
 }
 
 .invalid {
-  border-color: #d83d3d !important;
+  border-color: var(--invalid-border-color) !important;
 }

@@ -30,6 +30,6 @@
 .ingredientItem button {
   border: 0;
   background: transparent;
-  color: #111;
+  color: var(--form-text-color);
   cursor: pointer;
 }

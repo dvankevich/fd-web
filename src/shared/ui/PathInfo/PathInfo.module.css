@@ -36,7 +36,7 @@
 }
 
 .compact .current {
-  color: #111;
+  color: var(--form-text-color);
   font-weight: 700;
 }
 
