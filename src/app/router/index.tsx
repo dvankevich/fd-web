@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { useRoutes, type RouteObject } from 'react-router-dom';
 import { SharedLayout } from '@shared/layout/SharedLayout';
 import { ROUTE } from '@shared/lib';
-import { ErrorBoundary, Loader } from '@shared/ui';
+import { ErrorBoundary } from '@shared/ui';
 import { PrivateRoute } from '@features/auth';
 import { ACCESS, routesWithAccess } from './routes';
 
@@ -22,7 +22,8 @@ export function AppRouter() {
 
   return (
     <ErrorBoundary fallback={<p role="alert">This page did not load. Reload to try again.</p>}>
-      <Suspense fallback={<Loader />}>{element}</Suspense>
+      <Suspense fallback={null}>{element}</Suspense>
     </ErrorBoundary>
   );
 }
+
