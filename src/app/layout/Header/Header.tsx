@@ -3,12 +3,22 @@ import { useState } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
+
 import { Logo } from '@app/layout/Logo';
+
 import { Nav } from '@app/layout/Nav';
+
 import { AuthBar } from '@app/layout/AuthBar';
+
 import { UserBar } from '@app/layout/UserBar';
+
 import { selectIsLoggedIn } from '@features/auth/selectors';
+
 import sprite from '@/assets/icons.svg';
+
+import heroLarge1x from '@/assets/hero-large-1x.webp';
+import heroSmall1x from '@/assets/hero-small-1x.webp';
+
 import styles from './Header.module.css';
 
 export function Header() {
@@ -63,7 +73,7 @@ export function Header() {
           }`}
         >
           <div className={styles.mobileTop}>
-            <Logo />
+            <Logo onClick={closeMenu} />
 
             <button
               type="button"
@@ -81,6 +91,24 @@ export function Header() {
             className={styles.mobileNav}
             onNavigate={closeMenu}
           />
+
+          <div className={styles.mobileImages}>
+            <img
+              className={styles.mobileImageSmall}
+              src={heroSmall1x}
+              width={77}
+              height={70}
+              alt=""
+            />
+
+            <img
+              className={styles.mobileImageLarge}
+              src={heroLarge1x}
+              width={190}
+              height={172}
+              alt=""
+            />
+          </div>
         </div>
       )}
     </header>
