@@ -23,7 +23,7 @@
   place-items: center;
   border-radius: 20px;
   color: var(--text-grey);
-  background: rgba(5, 5, 5, 0.04);
+  background: var(--surface-grey-4);
 }
 
 @media (min-width: 768px) {

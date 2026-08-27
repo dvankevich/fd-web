@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-
+import { cn } from '@shared/lib';
+import { FieldLabel, FormError } from '@shared/ui';
+import sprite from '@/assets/icons.svg';
 import type { Option } from '../../../types/recipe';
-
-import css from '../../../pages/AddRecipePage/AddRecipePage.module.css';
+import css from './CustomSelect.module.css';
 
 type Props = {
   label?: string;
@@ -45,25 +46,25 @@ export default function CustomSelect({
 
   const handleSelect = (option: Option) => {
     const id = String(option._id);
-
     onChange(id);
-
     setIsOpen(false);
   };
 
   return (
     <div className={css.selectWrap} ref={wrapperRef}>
-      {label && <p className={css.label}>{label}</p>}
+      {label && <FieldLabel>{label}</FieldLabel>}
 
       <button
         type="button"
-        className={`${css.select} ${error ? css.invalid : ''}`}
+        className={cn(css.select, error && css.invalid)}
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
       >
         <span className={!selected ? css.placeholder : ''}>{selected?.name ?? placeholder}</span>
 
-        <span>{isOpen ? '⌃' : '⌄'}</span>
+        <svg className={cn(css.chevron, isOpen && css.chevronOpen)} aria-hidden="true">
+          <use href={`${sprite}#icon-chevron-down`} />
+        </svg>
       </button>
 
       {isOpen && (
@@ -84,7 +85,7 @@ export default function CustomSelect({
         </ul>
       )}
 
-      {error && <p className={css.error}>{error}</p>}
+      <FormError variant="compact">{error}</FormError>
     </div>
   );
 }

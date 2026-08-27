@@ -9,7 +9,7 @@
   height: 318px;
   border-radius: 30px;
   object-fit: cover;
-  background: rgba(5, 5, 5, 0.05);
+  background: var(--surface-grey-5);
 }
 
 .details {
@@ -78,7 +78,7 @@
   flex-shrink: 0;
   border-radius: 50%;
   object-fit: cover;
-  background: rgba(5, 5, 5, 0.05);
+  background: var(--surface-grey-5);
 }
 
 .authorInfo {

@@ -7,6 +7,15 @@
   color: var(--text-grey);
 }
 
+.subtitle.plain {
+  max-width: 490px;
+  margin: 0;
+  color: inherit;
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: normal;
+}
+
 @media (min-width: 768px) {
   .subtitle {
     margin-bottom: 40px;

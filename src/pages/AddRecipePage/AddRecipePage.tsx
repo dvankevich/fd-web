@@ -1,20 +1,18 @@
-import PathInfo from '../../components/PathInfo/PathInfo';
-import MainTitle from '../../components/MainTitle/MainTitle';
-import Subtitle from '../../components/Subtitle/Subtitle';
-import AddRecipeForm from '../../features/recipes/AddRecipeForm/AddRecipeForm';
+import AddRecipeForm from '@features/recipes/AddRecipeForm/AddRecipeForm';
+import { MainTitle, PathInfo, Subtitle } from '@shared/ui';
 import css from './AddRecipePage.module.css';
 
 export default function AddRecipePage() {
   return (
     <main className={css.page}>
-      <PathInfo pageName="ADD RECIPE" />
+      <PathInfo pageName="ADD RECIPE" variant="compact" />
 
-      <MainTitle>ADD RECIPE</MainTitle>
+      <MainTitle as="h1" text="ADD RECIPE" variant="large" />
 
-      <Subtitle>
-        Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces
-        with us.
-      </Subtitle>
+      <Subtitle
+        text="Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces with us."
+        variant="plain"
+      />
 
       <AddRecipeForm />
     </main>

@@ -4,38 +4,14 @@
 @font-face {
   font-family: 'Mulish';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 400 800;
   font-display: swap;
-  src: url('/fonts/mulish-v18-latin-regular.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/mulish-v18-latin-500.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/fonts/mulish-v18-latin-700.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url('/fonts/mulish-v18-latin-800.woff2') format('woff2');
+  src: url('/fonts/Mulish-VariableFont_wght.woff2') format('woff2');
 }
 
 /* ===== Base Styles ===== */
 body {
-  font-family: var(--font-main);
+  font-family: var(--font-main), system-ui, sans-serif;
   color: var(--main-black);
   background-color: var(--white);
 }

@@ -41,7 +41,7 @@
 .testimonial-quote-icon {
   width: 59px;
   height: 48px;
-  color: #BFBEBE;
+  color: var(--light-grey);
   align-self: flex-start;
   margin-left: 40px;
   margin-bottom: 32px;
@@ -76,7 +76,7 @@
 .testimonials-slider .swiper-pagination-bullet {
   width: 16px;
   height: 16px;
-  background-color: #BFBEBE;
+  background-color: var(--light-grey);
   opacity: 1;
   margin: 0 !important;
   transition: all 0.3s ease;

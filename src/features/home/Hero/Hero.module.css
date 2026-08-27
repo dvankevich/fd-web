@@ -11,7 +11,6 @@
   align-items: center;
   text-align: center;
   background-color: var(--main-black);
-  color: #fff;
   color: var(--white);
   border-radius: 0 0 30px 30px;
   overflow: hidden;
@@ -50,16 +49,18 @@
 .imageSm,
 .imageLarge {
   display: block;
-  height: auto;
+  object-fit: cover;
   border-radius: 15px;
 }
 
 .imageSm {
   width: 77px;
+  height: 70px;
 }
 
 .imageLarge {
   width: 190px;
+  height: 172px;
 }
 
 @media (min-width: 768px) {
@@ -86,17 +87,19 @@
   }
 
   .imageSm {
-    width: 150px;
+    width: 128px;
+    height: 116px;
   }
 
   .imageLarge {
-    width: 350px;
+    width: 302px;
+    height: 273px;
   }
 }
 
 @media (min-width: 1440px) {
   .hero {
-    padding-top: 20px;
+    padding-top: 0px;
   }
 
   .panel {

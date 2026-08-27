@@ -61,11 +61,7 @@ export function toApiError({ error, fallback }: ApiErrorArgs): ApiError {
   const status = responseStatus(error);
   const data: unknown = isAxiosError(error) ? error.response?.data : undefined;
 
-  if (
-    status === undefined ||
-    status >= HTTP_STATUS.serverErrorMin ||
-    !isApiErrorBody(data)
-  ) {
+  if (status === undefined || status >= HTTP_STATUS.serverErrorMin || !isApiErrorBody(data)) {
     return { message: fallback, fields: NO_FIELDS, status };
   }
 

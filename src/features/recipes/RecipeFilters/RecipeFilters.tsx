@@ -52,7 +52,6 @@ export function RecipeFilters({
   return (
     <div className={styles.filters}>
       <Select
-        className={styles.select}
         options={ingredientOptions}
         value={selectedIngredient}
         placeholder="Ingredients"
@@ -61,7 +60,6 @@ export function RecipeFilters({
         onChange={(option) => onIngredientChange(option?.value ?? '')}
       />
       <Select
-        className={styles.select}
         options={areaOptions}
         value={selectedArea}
         placeholder="Area"

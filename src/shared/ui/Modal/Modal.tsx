@@ -1,5 +1,6 @@
 import { useEffect, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import sprite from '@/assets/icons.svg';
 import styles from './Modal.module.css';
 
 interface ModalProps {
@@ -41,13 +42,8 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
           onClick={onClose}
           aria-label="Close modal"
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path
-              d="M15 5L5 15M5 5l10 10"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
+          <svg width="20" height="20" aria-hidden="true">
+            <use href={`${sprite}#icon-close`} />
           </svg>
         </button>
         <div className={styles.content}>{children}</div>

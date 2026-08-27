@@ -1,0 +1,63 @@
+.select {
+  min-width: 0;
+  color: var(--secondary-black);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+}
+
+.select :global(.foodies-select__control) {
+  height: 48px;
+  padding: 0 14px;
+  border-color: var(--light-grey);
+  transition:
+    border-color var(--transition),
+    background-color var(--transition);
+}
+
+.select :global(.foodies-select__control:hover),
+.select :global(.foodies-select__control--is-focused) {
+  border-color: var(--main-black);
+  background-color: rgba(5, 5, 5, 0.02);
+}
+
+.select :global(.foodies-select__clear-indicator),
+.select :global(.foodies-select__dropdown-indicator) {
+  padding: 0;
+}
+
+.select :global(.foodies-select__dropdown-indicator) {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--transition);
+}
+
+.select :global(.foodies-select__control:hover) :global(.foodies-select__dropdown-indicator) {
+  transform: translateY(2px);
+}
+
+.select :global(.foodies-select__dropdown-indicator svg) {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+@media (min-width: 768px) {
+  .select {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .select :global(.foodies-select__control) {
+    height: 56px;
+    padding-inline: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .select :global(.foodies-select__control),
+  .select :global(.foodies-select__dropdown-indicator) {
+    transition: none;
+  }
+}

@@ -12,15 +12,6 @@
   gap: 20px;
 }
 
-.title {
-  color: var(--main-black);
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 1.33;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-}
-
 .instructions {
   color: var(--secondary-black);
   font-size: 14px;
@@ -52,11 +43,6 @@
 @media (min-width: 768px) {
   .section {
     gap: 40px;
-  }
-
-  .title {
-    font-size: 20px;
-    line-height: 1.2;
   }
 
   .instructions {

@@ -12,12 +12,6 @@
   color: var(--main-black);
 }
 
-.note {
-  margin-bottom: 24px;
-  color: var(--text-grey);
-  font-size: 14px;
-}
-
 .footer {
   margin-top: 20px;
   font-size: 14px;

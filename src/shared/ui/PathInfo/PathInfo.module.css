@@ -21,6 +21,25 @@
   color: var(--light-grey);
 }
 
+.path.compact {
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  color: #b6b6b6;
+}
+
+.compact .text {
+  color: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+.compact .current {
+  color: var(--form-text-color);
+  font-weight: 700;
+}
+
 @media (min-width: 768px) {
   .path {
     margin-bottom: 40px;

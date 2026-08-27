@@ -1,5 +1,6 @@
 import type { RecipeIngredient } from '../../../types/recipe';
-import css from '../../../pages/AddRecipePage/AddRecipePage.module.css';
+import sprite from '@/assets/icons.svg';
+import css from './IngredientItem.module.css';
 
 type Props = {
   item: RecipeIngredient;
@@ -12,14 +13,20 @@ export default function IngredientItem({ item, onDelete }: Props) {
       {item.image ? (
         <img src={item.image} alt={item.name} />
       ) : (
-        <span className={css.imagePlaceholder}>?</span>
+        <span className={css.imagePlaceholder}>
+          <svg width="24" height="24" aria-hidden="true">
+            <use href={`${sprite}#icon-image-placeholder`} />
+          </svg>
+        </span>
       )}
 
       <b>{item.name}</b>
       <span>{item.measure}</span>
 
       <button type="button" aria-label={`Delete ${item.name}`} onClick={() => onDelete(item.id)}>
-        ×
+        <svg width="20" height="20" aria-hidden="true">
+          <use href={`${sprite}#icon-close`} />
+        </svg>
       </button>
     </li>
   );
