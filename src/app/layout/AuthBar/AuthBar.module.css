@@ -1,49 +1,86 @@
 .bar {
   display: flex;
   align-items: center;
-  background-color: var(--white);
+  width: 208px;
+  height: 46px;
   border-radius: 30px;
+  background-color: var(--white);
   overflow: hidden;
 }
 
 .signIn,
 .signUp {
-  padding: 10px 16px;
+  box-sizing: border-box;
+  height: 46px;
+  padding: 14px 28px;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: var(--font-main);
   font-size: 12px;
   font-weight: 700;
-  line-height: 1.5;
+  line-height: 18px;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  border: none;
-  cursor: pointer;
+  color: var(--main-black);
+  background-color: var(--white);
   transition:
     background-color var(--transition),
-    color var(--transition);
+    color var(--transition),
+    border-color var(--transition);
 }
 
 .signIn {
-  color: var(--main-black);
-  background: transparent;
-}
-
-.signIn:hover {
-  background-color: var(--main-black);
-  color: var(--white);
+  width: 104px;
 }
 
 .signUp {
+  width: 104px;
+}
+
+.active {
   color: var(--white);
-  background-color: var(--main-black-90);
-  border-radius: 30px;
+  background-color: var(--secondary-black);
+  border-color: var(--light-grey);
 }
 
-.signUp:hover {
+.signIn.hovered:not(.active),
+.signUp.hovered:not(.active) {
+  color: var(--white);
   background-color: var(--main-black);
+  border-color: var(--light-grey);
 }
 
-@media (min-width: 576px) {
+.bar:has(.signIn.hovered) .signUp.active {
+  color: var(--main-black);
+  background-color: var(--white);
+  border-color: transparent;
+}
+
+.bar:has(.signUp.hovered) .signIn.active {
+  color: var(--main-black);
+  background-color: var(--white);
+  border-color: transparent;
+}
+
+@media (max-width: 767px) {
+  .bar {
+    width: 156px;
+    height: 38px;
+  }
+
   .signIn,
   .signUp {
-    padding: 14px 28px;
+    height: 38px;
+    padding: 10px 16px;
+  }
+
+  .signIn {
+    width: 76px;
+  }
+
+  .signUp {
+    width: 80px;
   }
 }
