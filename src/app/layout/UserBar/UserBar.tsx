@@ -30,15 +30,12 @@ export function UserBar() {
 
   return (
     <div className={styles.wrap} ref={ref}>
-<<<<<<< HEAD
-      <button type="button" className={styles.trigger} data-testid="user-bar" onClick={() => setOpen((v) => !v)}>
-=======
       <button
         type="button"
+        data-testid="user-bar"
         className={styles.trigger}
         onClick={() => setOpen((value) => !value)}
       >
->>>>>>> main
         <img
           src={user.avatar || userPlaceholder}
           alt={user.name}
@@ -64,12 +61,8 @@ export function UserBar() {
 
           <button
             type="button"
-<<<<<<< HEAD
-            className={styles.item}
             data-testid="auth-log-out"
-=======
             className={`${styles.item} ${styles.logout}`}
->>>>>>> main
             onClick={() => {
               setOpen(false);
               modalObserver.open(MODAL_NAME.logOut);
