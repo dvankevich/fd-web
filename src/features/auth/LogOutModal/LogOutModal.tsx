@@ -38,7 +38,7 @@ export function LogOutModal({ onClose }: ModalContentProps) {
       <p className={styles.text}>You can always log back in at any time.</p>
 
       <div className={styles.actions}>
-        <Button fullWidth onClick={handleLogout} disabled={isPending}>
+        <Button fullWidth data-testid="log-out-confirm" onClick={handleLogout} disabled={isPending}>
           {isPending ? 'Logging out...' : 'Log out'}
         </Button>
         <Button fullWidth variant="secondary" onClick={onClose} disabled={isPending}>

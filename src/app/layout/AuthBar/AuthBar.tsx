@@ -34,6 +34,7 @@ export function AuthBar() {
 
       <button
         type="button"
+        data-testid="auth-sign-up"
         className={`${styles.signUp} ${
           active === 'signUp' ? styles.active : ''
         } ${hovered === 'signUp' ? styles.hovered : ''}`}

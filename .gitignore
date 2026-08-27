@@ -24,3 +24,13 @@ dist-ssr
 *.sw?
 .env
 *.tsbuildinfo
+
+# Playwright Test Outputs
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+auth.json
+playwright/.auth/
+e2e/.auth/
+.env.e2e

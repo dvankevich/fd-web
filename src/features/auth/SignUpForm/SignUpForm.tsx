@@ -69,10 +69,11 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
     <Formik initialValues={initialValues} validationSchema={schema} onSubmit={handleSubmit}>
       {({ isSubmitting }) => (
         <Form className={styles.form} noValidate>
-          <FormField name="name" type="text" placeholder="Name*" autoComplete="name" />
-          <FormField name="email" type="email" placeholder="Email*" autoComplete="email" />
+          <FormField name="name" data-testid="auth-name" type="text" placeholder="Name*" autoComplete="name" />
+          <FormField name="email" data-testid="auth-email" type="email" placeholder="Email*" autoComplete="email" />
           <FormField
             name="password"
+            data-testid="auth-password"
             type="password"
             placeholder="Password*"
             autoComplete="new-password"
@@ -80,7 +81,7 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
 
           <FormError>{error}</FormError>
 
-          <Button type="submit" fullWidth disabled={isLoading || isSubmitting}>
+          <Button type="submit" fullWidth data-testid="sign-up-submit" disabled={isLoading || isSubmitting}>
             {isLoading ? 'Creating...' : 'Create'}
           </Button>
         </Form>

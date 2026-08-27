@@ -32,6 +32,7 @@ export function UserBar() {
     <div className={styles.wrap} ref={ref}>
       <button
         type="button"
+        data-testid="user-bar"
         className={styles.trigger}
         onClick={() => setOpen((value) => !value)}
       >
@@ -60,6 +61,7 @@ export function UserBar() {
 
           <button
             type="button"
+            data-testid="auth-log-out"
             className={`${styles.item} ${styles.logout}`}
             onClick={() => {
               setOpen(false);
