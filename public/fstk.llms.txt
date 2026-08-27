@@ -1,0 +1,13 @@
+# Foodies
+
+Foodies is a web app for browsing recipes by category, saving favorites, and publishing your own dishes.
+
+## Pages
+
+- [Home](https://fd-web.fstk.run.place/): hero, categories, and featured recipes
+- [Recipes](https://fd-web.fstk.run.place/recipes): recipe catalog with filters
+
+## Notes
+
+- Sign in is required to add a recipe or manage a profile.
+- Do not list private URLs such as /recipe/add or /user/:id.
