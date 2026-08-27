@@ -4,8 +4,8 @@ Foodies is a web app for browsing recipes by category, saving favorites, and pub
 
 ## Pages
 
-- [Home](https://fd-web-iota.vercel.app/): hero, categories, and featured recipes
-- [Recipes](https://fd-web-iota.vercel.app/recipes): recipe catalog with filters
+- [Home](https://fd-web.fstk.run.place/): hero, categories, and featured recipes
+- [Recipes](https://fd-web.fstk.run.place/recipes): recipe catalog with filters
 
 ## Notes
 
