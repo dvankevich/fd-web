@@ -14,6 +14,14 @@ export default defineConfig({
     baseURL: 'http://127.0.0.1:5173',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    launchOptions: {
+      slowMo: Number(process.env.SLOW_MO ?? 0),
+      args: [
+        '--window-position=1290,80',
+        '--window-size=1280,800',
+      ],
+    },
+
   },
 
   webServer: {

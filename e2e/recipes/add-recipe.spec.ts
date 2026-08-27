@@ -59,7 +59,7 @@ test.describe('add recipe', () => {
     await chooseFromSelect(page, 'Select an area', 'Italian');
 
     // time: стартове 1, можна + кілька разів
-    await page.getByRole('button', { name: '+' }).click();
+    await page.getByRole('button', { name: 'Increase cooking time' }).click();
 
     // ingredient: перша доступна опція з відкритого списку
     await page.getByRole('button', { name: 'Add the ingredient' }).click();
