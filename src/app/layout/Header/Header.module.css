@@ -6,7 +6,7 @@
   z-index: 50;
 
   width: calc(100% - 40px);
-  max-width: 1280px;
+  max-width: 1400px;
 
   margin: 20px auto 0;
   padding-top: 20px;
@@ -151,10 +151,10 @@
 
 @media (min-width: 768px) and (max-width: 1439px) {
   .header {
-    width: calc(100% - 64px);
-    max-width: 704px;
+    width: calc(100% - 32px);
+    max-width: 736px;
 
-    margin-top: 20px;
+    margin-top: 16px;
     padding-top: 20px;
   }
 
@@ -189,9 +189,9 @@
 
 @media (max-width: 767px) {
   .header {
-    width: calc(100% - 32px);
+    width: calc(100% - 16px);
 
-    margin: 16px auto 0;
+    margin: 8px auto 0;
     padding-top: 0;
 
     border-radius: 20px 20px 0 0;
