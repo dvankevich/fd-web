@@ -21,7 +21,7 @@
   display: grid;
   min-height: 180px;
   place-items: center;
-  border-radius: 20px;
+  border-radius: var(--radius-20);
   color: var(--text-grey);
   background: var(--surface-grey-4);
 }

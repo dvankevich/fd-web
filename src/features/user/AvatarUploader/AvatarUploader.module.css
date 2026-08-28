@@ -8,7 +8,7 @@
 .avatar {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   object-fit: cover;
   background-color: var(--light-grey);
 }
@@ -23,7 +23,7 @@
   width: 30px;
   height: 30px;
   border: 2px solid var(--white);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   background-color: var(--main-black);
   color: var(--white);
   transition: background-color var(--transition);

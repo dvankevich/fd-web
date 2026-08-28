@@ -19,14 +19,23 @@
   --divider-grey: #e8e8e8;
   --skeleton-grey: #eeeeee;
   --text-grey: rgba(5, 5, 5, 0.6);
+  --main-black-10: rgba(5, 5, 5, 0.1);
+  --main-black-20: rgba(5, 5, 5, 0.2);
   --main-black-90: rgba(5, 5, 5, 0.9);
   --border-grey-12: rgba(5, 5, 5, 0.12);
   --surface-grey-4: rgba(5, 5, 5, 0.04);
   --surface-grey-5: rgba(5, 5, 5, 0.05);
+  --white-20: rgba(255, 255, 255, 0.2);
   --white-40: rgba(255, 255, 255, 0.4);
   --error-color: #db0000;
   --form-error-color: #dc0000;
   --invalid-border-color: #d83d3d;
+
+  /* ===== Frequently reused radii ===== */
+  --radius-15: 15px;
+  --radius-20: 20px;
+  --radius-pill: 30px;
+  --radius-circle: 50%;
 
   /* ===== Transitions ===== */
   --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);

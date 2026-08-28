@@ -3,7 +3,7 @@
   align-items: center;
   width: 208px;
   height: 46px;
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
   background-color: var(--white);
   overflow: hidden;
 }
@@ -14,7 +14,7 @@
   height: 46px;
   padding: 14px 28px;
   border: 1px solid transparent;
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
   white-space: nowrap;
   font-family: var(--font-main);
   font-size: 12px;

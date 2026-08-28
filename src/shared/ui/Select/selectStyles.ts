@@ -9,14 +9,14 @@ export const selectStyles: StylesConfig<SelectOption, false, GroupBase<SelectOpt
   control: (base, state) => ({
     ...base,
     padding: '11px 14px',
-    borderRadius: '30px',
+    borderRadius: 'var(--radius-pill)',
     background: 'transparent',
-    border: state.isFocused ? '1px solid rgba(5, 5, 5, 0.2)' : '1px solid rgba(5, 5, 5, 0.12)',
+    border: state.isFocused ? '1px solid var(--main-black-20)' : '1px solid var(--border-grey-12)',
     boxShadow: 'none',
     minHeight: 'auto',
     cursor: 'pointer',
     '&:hover': {
-      borderColor: 'rgba(5, 5, 5, 0.2)',
+      borderColor: 'var(--main-black-20)',
     },
     '@media (min-width: 768px)': {
       padding: '11px 18px',
@@ -24,7 +24,7 @@ export const selectStyles: StylesConfig<SelectOption, false, GroupBase<SelectOpt
   }),
   placeholder: (base) => ({
     ...base,
-    color: 'rgba(5, 5, 5, 0.6)',
+    color: 'var(--text-grey)',
     margin: 0,
   }),
   singleValue: (base) => ({
@@ -61,8 +61,8 @@ export const selectStyles: StylesConfig<SelectOption, false, GroupBase<SelectOpt
     ...base,
     marginTop: 4,
     padding: '13px 0',
-    border: '1px solid rgba(5, 5, 5, 0.2)',
-    borderRadius: '15px',
+    border: '1px solid var(--main-black-20)',
+    borderRadius: 'var(--radius-15)',
     boxShadow: 'none',
     overflow: 'hidden',
   }),
@@ -75,10 +75,10 @@ export const selectStyles: StylesConfig<SelectOption, false, GroupBase<SelectOpt
     padding: '6px 18px',
     fontSize: '14px',
     color: 'var(--main-black)',
-    backgroundColor: state.isSelected || state.isFocused ? 'rgba(5, 5, 5, 0.1)' : 'transparent',
+    backgroundColor: state.isSelected || state.isFocused ? 'var(--main-black-10)' : 'transparent',
     cursor: 'pointer',
     '&:active': {
-      backgroundColor: 'rgba(5, 5, 5, 0.1)',
+      backgroundColor: 'var(--main-black-10)',
     },
     '@media (min-width: 768px)': {
       fontSize: '16px',

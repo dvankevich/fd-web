@@ -6,7 +6,7 @@
   width: 203px;
   height: 46px;
 
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
 }
 
 .link {
@@ -20,7 +20,7 @@
   padding: 14px;
 
   border: 1px solid transparent;
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
 
   font-family: Mulish, sans-serif;
   font-size: 12px;
@@ -53,7 +53,7 @@
    ========================= */
 
 .link:hover {
-  border-color: var(--header-border-color, rgba(255, 255, 255, 0.2));
+  border-color: var(--header-border-color, var(--white-20));
 }
 
 /* =========================
@@ -61,7 +61,7 @@
    ========================= */
 
 .authenticated .link:hover {
-  border-color: var(--header-border-color, #ffffff);
+  border-color: var(--header-border-color, var(--white));
 }
 
 /* =========================
@@ -69,7 +69,7 @@
    ========================= */
 
 .active {
-  border-color: var(--header-border-color, #ffffff);
+  border-color: var(--header-border-color, var(--white));
 }
 
 /* =========================
@@ -117,7 +117,7 @@
 
     padding: 14px;
 
-    border-radius: 30px;
+    border-radius: var(--radius-pill);
 
     font-family: Mulish, sans-serif;
     font-size: 14px;
@@ -132,11 +132,11 @@
 
   /*
     Active item:
-    1px #BFBEBE border
+    1px var(--light-grey) border
   */
 
   .active {
-    border: 1px solid #bfbebe;
+    border: 1px solid var(--light-grey);
   }
 
   /*

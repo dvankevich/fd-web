@@ -1,6 +1,6 @@
 .header {
   --header-text-color: var(--white);
-  --header-border-color: rgba(255, 255, 255, 0.2);
+  --header-border-color: var(--white-20);
 
   position: relative;
   z-index: 50;
@@ -15,7 +15,7 @@
 
   background-color: var(--main-black);
 
-  border-radius: 30px 30px 0 0;
+  border-radius: var(--radius-pill) var(--radius-pill) 0 0;
 }
 
 /* =========================
@@ -23,8 +23,8 @@
    ========================= */
 
 .light {
-  --header-text-color: #050505;
-  --header-border-color: #bfbebe;
+  --header-text-color: var(--main-black);
+  --header-border-color: var(--light-grey);
 
   background-color: var(--white);
 }
@@ -190,7 +190,7 @@
     margin: 8px auto 0;
     padding-top: 0;
 
-    border-radius: 20px 20px 0 0;
+    border-radius: var(--radius-20) var(--radius-20) 0 0;
   }
 
   .inner {
@@ -257,7 +257,7 @@
     color: var(--white);
 
     --header-text-color: var(--white);
-    --header-border-color: #bfbebe;
+    --header-border-color: var(--light-grey);
 
     transform: translateX(100%);
 
@@ -379,13 +379,13 @@
     width: 77px;
     height: 70px;
 
-    border-radius: 15px;
+    border-radius: var(--radius-15);
   }
 
   .mobileImageLarge {
     width: 190px;
     height: 172px;
 
-    border-radius: 30px;
+    border-radius: var(--radius-pill);
   }
 }

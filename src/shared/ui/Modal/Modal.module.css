@@ -16,7 +16,7 @@
   max-height: 90vh;
   overflow-y: auto;
   padding: 60px 30px;
-  border-radius: 20px;
+  border-radius: var(--radius-20);
   background-color: var(--white);
 }
 

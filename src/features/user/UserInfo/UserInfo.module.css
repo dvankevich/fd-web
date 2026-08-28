@@ -5,7 +5,7 @@
   gap: 16px;
   padding: 40px;
   border: 1px solid var(--border-grey-12);
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
 }
 
 .name {
