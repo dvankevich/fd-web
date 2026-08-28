@@ -19,7 +19,6 @@
   line-height: 1.25;
   text-transform: uppercase;
   color: var(--text-grey);
-  cursor: pointer;
   transition: color var(--transition);
 }
 

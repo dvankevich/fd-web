@@ -35,14 +35,16 @@ export function AuthModalShell({
     <div className={styles.wrapper}>
       <h3 className={styles.title}>{title}</h3>
 
-      {children}
+      <div className={styles.body}>
+        {children}
 
-      <p className={styles.footer}>
-        {question}{' '}
-        <button type="button" className={styles.link} onClick={handleSwitch}>
-          {actionLabel}
-        </button>
-      </p>
+        <p className={styles.footer}>
+          <span>{question}</span>
+          <button type="button" className={styles.link} onClick={handleSwitch}>
+            {actionLabel}
+          </button>
+        </p>
+      </div>
     </div>
   );
 }

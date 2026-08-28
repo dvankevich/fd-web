@@ -16,7 +16,6 @@
   background-color: #1a1a1a;
   color: var(--white);
 
-  cursor: pointer;
   box-sizing: border-box;
 }
 
@@ -114,7 +113,6 @@
   background: none;
   border: none;
 
-  cursor: pointer;
   white-space: nowrap;
 }
 

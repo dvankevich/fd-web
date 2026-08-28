@@ -16,7 +16,6 @@
   color: var(--form-text-color);
   font: inherit;
   text-align: left;
-  cursor: pointer;
 }
 
 .placeholder {
@@ -57,7 +56,6 @@
   background: var(--white);
   text-align: left;
   font: inherit;
-  cursor: pointer;
 }
 
 .options button:hover {

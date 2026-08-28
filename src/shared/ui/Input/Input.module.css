@@ -9,26 +9,43 @@
 
 .input {
   width: 100%;
-  padding: 16px 18px;
-  border: 1px solid var(--main-black);
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--light-grey);
   border-radius: 30px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
   color: var(--main-black);
   background: transparent;
   transition: border-color var(--transition);
 }
 
 .input::placeholder {
-  color: var(--text-grey);
+  color: var(--light-grey);
+}
+
+.input:not(.invalid):hover:not(:disabled),
+.input:not(.invalid):focus-visible {
+  border-color: var(--main-black);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--main-black);
+  outline-offset: 2px;
 }
 
 .withToggle {
-  padding-right: 48px;
+  padding-right: 46px;
 }
 
 .invalid {
   border-color: var(--error-color);
+}
+
+.invalid:focus-visible {
+  outline-color: var(--error-color);
 }
 
 .error {
@@ -42,17 +59,54 @@
 .toggle {
   position: absolute;
   top: 50%;
-  right: 18px;
+  right: 14px;
   display: flex;
+  width: 18px;
+  height: 18px;
   padding: 0;
   color: var(--main-black);
   background: transparent;
   border: none;
   transform: translateY(-50%);
-  cursor: pointer;
   transition: color var(--transition);
 }
 
-.toggle:hover {
+.toggle:hover,
+.toggle:focus-visible {
   color: var(--text-grey);
+}
+
+.toggle:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--main-black);
+  outline-offset: 3px;
+}
+
+.toggleIcon {
+  width: 18px;
+  height: 18px;
+}
+
+@media (min-width: 768px) {
+  .input {
+    height: 56px;
+    padding: 0 18px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .withToggle {
+    padding-right: 56px;
+  }
+
+  .toggle {
+    right: 18px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .toggleIcon {
+    width: 20px;
+    height: 20px;
+  }
 }

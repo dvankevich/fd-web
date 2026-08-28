@@ -49,7 +49,6 @@
   font-weight: 500;
   line-height: 1;
   color: var(--main-black);
-  cursor: pointer;
   transition:
     background-color var(--transition),
     color var(--transition);

@@ -34,14 +34,31 @@ export function LogOutModal({ onClose }: ModalContentProps) {
 
   return (
     <div className={styles.wrapper}>
-      <h3 className={styles.title}>Are you logging out?</h3>
-      <p className={styles.text}>You can always log back in at any time.</p>
+      <div className={styles.intro}>
+        <h3 className={styles.title}>
+          <span className={styles.mobileTitle}>Log out</span>
+          <span className={styles.desktopTitle}>Are you logging out?</span>
+        </h3>
+        <p className={styles.text}>You can always log back in at any time.</p>
+      </div>
 
       <div className={styles.actions}>
-        <Button fullWidth data-testid="log-out-confirm" onClick={handleLogout} disabled={isPending}>
+        <Button
+          fullWidth
+          className={styles.action}
+          data-testid="log-out-confirm"
+          onClick={handleLogout}
+          disabled={isPending}
+        >
           {isPending ? 'Logging out...' : 'Log out'}
         </Button>
-        <Button fullWidth variant="secondary" onClick={onClose} disabled={isPending}>
+        <Button
+          fullWidth
+          variant="secondary"
+          className={`${styles.action} ${styles.cancel}`}
+          onClick={onClose}
+          disabled={isPending}
+        >
           Cancel
         </Button>
       </div>
