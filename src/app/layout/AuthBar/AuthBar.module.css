@@ -38,6 +38,12 @@
   width: 104px;
 }
 
+.signIn:focus-visible,
+.signUp:focus-visible {
+  outline: none;
+  border-color: var(--light-grey);
+}
+
 .active {
   color: var(--white);
   background-color: var(--secondary-black);

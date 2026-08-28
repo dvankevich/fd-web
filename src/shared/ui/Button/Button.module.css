@@ -21,8 +21,7 @@
 }
 
 .button:focus-visible:not(:disabled) {
-  outline: 2px solid var(--main-black);
-  outline-offset: 3px;
+  outline: none;
 }
 
 /* primary */
@@ -74,10 +73,6 @@
 .onDark:focus-visible:not(:disabled) {
   background-color: var(--white);
   color: var(--main-black);
-}
-
-.onDark:focus-visible:not(:disabled) {
-  outline-color: var(--white);
 }
 
 .button:disabled {

@@ -97,6 +97,12 @@
   color: #aaa;
 }
 
+.time button:focus-visible,
+.resetButton:focus-visible {
+  outline: none;
+  border-color: var(--form-text-color);
+}
+
 .ingredients {
   display: grid;
   gap: 16px;
@@ -132,6 +138,11 @@
   background: var(--white);
   font: inherit;
   font-weight: 600;
+}
+
+.addButton:focus-visible {
+  outline: none;
+  background: var(--surface-grey-5);
 }
 
 .ingredientList {

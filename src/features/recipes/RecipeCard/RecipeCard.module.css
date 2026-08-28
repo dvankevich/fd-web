@@ -121,6 +121,10 @@
   background: var(--main-black);
 }
 
+.actionButton:focus-visible {
+  outline: none;
+}
+
 .favoriteActive svg {
   fill: currentColor;
 }

@@ -52,7 +52,9 @@
    Hover
    ========================= */
 
-.link:hover {
+.link:hover,
+.link:focus-visible {
+  outline: none;
   border-color: var(--header-border-color, var(--white-20));
 }
 
@@ -60,7 +62,8 @@
    Authenticated
    ========================= */
 
-.authenticated .link:hover {
+.authenticated .link:hover,
+.authenticated .link:focus-visible {
   border-color: var(--header-border-color, var(--white));
 }
 

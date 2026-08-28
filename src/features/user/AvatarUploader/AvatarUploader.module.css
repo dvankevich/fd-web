@@ -31,6 +31,7 @@
 
 .plus:hover:not(:disabled),
 .plus:focus-visible:not(:disabled) {
+  outline: none;
   background-color: var(--secondary-black);
 }
 
