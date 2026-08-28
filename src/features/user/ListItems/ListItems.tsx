@@ -1,4 +1,4 @@
-import { Loader } from '@shared/ui';
+import { ListLoader } from '@shared/ui/ListLoader';
 import type { RecipeListItem } from '@shared/types';
 import { RecipePreview } from '../RecipePreview';
 import { UserCard } from '../UserCard';
@@ -34,7 +34,7 @@ export const ListItems = ({
   togglingId,
   onToggleFollow,
 }: ListItemsProps) => {
-  if (loading) return <Loader />;
+  if (loading) return <ListLoader />;
   if (error) return <p className={styles.message}>{error}</p>;
 
   if (kind === 'users') {
