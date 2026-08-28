@@ -43,10 +43,12 @@ export function UserBar() {
           width={50}
           height={50}
         />
-        <span className={styles.name}>{user.name}</span>
-        <svg className={cn(styles.arrow, open && styles.arrowOpen)} aria-hidden="true">
-          <use href={`${sprite}#icon-chevron-down`} />
-        </svg>
+        <span className={styles.userInfo}>
+          <span className={styles.name}>{user.name}</span>
+          <svg className={cn(styles.arrow, open && styles.arrowOpen)} aria-hidden="true">
+            <use href={`${sprite}#icon-chevron-down`} />
+          </svg>
+        </span>
       </button>
 
       {open && (
