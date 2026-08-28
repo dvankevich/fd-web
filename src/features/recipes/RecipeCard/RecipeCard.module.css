@@ -6,7 +6,7 @@
   display: block;
   margin-bottom: 16px;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: var(--radius-20);
   background: var(--surface-grey-5);
 }
 
@@ -62,7 +62,7 @@
   min-width: 0;
   align-items: center;
   gap: 8px;
-  border-radius: 20px;
+  border-radius: var(--radius-20);
   color: var(--secondary-black);
   font-size: 14px;
   font-weight: 700;
@@ -80,7 +80,7 @@
   width: 32px;
   height: 32px;
   flex-shrink: 0;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   object-fit: cover;
   background: var(--surface-grey-5);
 }
@@ -98,7 +98,7 @@
   flex-shrink: 0;
   place-items: center;
   border: 1px solid var(--light-grey);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--main-black);
   transition:
     color var(--transition),
@@ -131,7 +131,7 @@
 
 @media (min-width: 768px) {
   .imageLink {
-    border-radius: 30px;
+    border-radius: var(--radius-pill);
   }
 
   .image {

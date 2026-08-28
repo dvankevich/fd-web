@@ -12,7 +12,7 @@
   text-align: center;
   background-color: var(--main-black);
   color: var(--white);
-  border-radius: 0 0 30px 30px;
+  border-radius: 0 0 var(--radius-pill) var(--radius-pill);
   overflow: hidden;
   padding: 40px 16px 80px;
 }
@@ -50,7 +50,7 @@
 .imageLarge {
   display: block;
   object-fit: cover;
-  border-radius: 15px;
+  border-radius: var(--radius-15);
 }
 
 .imageSm {

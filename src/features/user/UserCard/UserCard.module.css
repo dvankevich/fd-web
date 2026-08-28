@@ -13,7 +13,7 @@
 .avatar {
   width: 60px;
   height: 60px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   object-fit: cover;
   background-color: var(--light-grey);
 }
@@ -44,7 +44,7 @@
   margin-top: 2px;
   padding: 8px 18px;
   border: 1px solid var(--border-grey-12);
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
@@ -84,7 +84,7 @@
   width: 40px;
   height: 40px;
   border: 1px solid var(--border-grey-12);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--main-black);
   transition:
     background-color var(--transition),

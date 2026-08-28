@@ -11,9 +11,9 @@
   padding: 0;
 
   border: none;
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
 
-  background-color: #1a1a1a;
+  background-color: var(--secondary-black);
   color: var(--white);
 
   box-sizing: border-box;
@@ -25,7 +25,7 @@
   width: 50px;
   height: 50px;
 
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
   object-fit: cover;
 }
 
@@ -88,7 +88,7 @@
   box-sizing: border-box;
 
   border: 1px solid var(--white);
-  border-radius: 15px;
+  border-radius: var(--radius-15);
 
   background-color: var(--main-black);
 }
@@ -157,7 +157,7 @@
 
 @media (min-width: 768px) and (max-width: 1439px) {
   .dropdown {
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--white-20);
   }
 }
 
@@ -171,7 +171,7 @@
     width: 122px;
     height: 32px;
 
-    border-radius: 30px;
+    border-radius: var(--radius-pill);
   }
 
   .avatar {
@@ -180,7 +180,7 @@
     width: 32px;
     height: 32px;
 
-    border-radius: 30px;
+    border-radius: var(--radius-pill);
   }
 
   .userInfo {
@@ -217,8 +217,8 @@
     width: 122px;
     height: 72px;
 
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
+    border: 1px solid var(--white-20);
+    border-radius: var(--radius-15);
   }
 
   .item {

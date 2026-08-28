@@ -26,7 +26,7 @@
   height: 48px;
   padding: 0;
   border-color: var(--light-grey);
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
   color: var(--secondary-black);
   font-size: 14px;
   font-weight: 700;

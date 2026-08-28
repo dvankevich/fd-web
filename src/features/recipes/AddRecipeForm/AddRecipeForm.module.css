@@ -86,7 +86,7 @@
   height: 56px;
   place-items: center;
   border: 1px solid var(--input-border-grey);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   background: var(--white);
   color: var(--form-text-color);
   font-size: 30px;

@@ -15,7 +15,7 @@
   height: 40px;
   flex: 0 0 40px;
   place-items: center;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--secondary-black);
   font-size: 14px;
   font-weight: 400;
