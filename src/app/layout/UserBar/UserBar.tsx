@@ -72,7 +72,7 @@ export function UserBar() {
           >
             <span>Log out</span>
 
-            <svg width="18" height="18" aria-hidden="true">
+            <svg width="18" height="18" aria-hidden="true" style={{ transform: 'rotate(0deg)' }}>
               <use href={`${sprite}#icon-arrow-up-right`} />
             </svg>
           </button>
