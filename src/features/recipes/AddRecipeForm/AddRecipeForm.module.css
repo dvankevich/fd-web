@@ -90,7 +90,6 @@
   background: var(--white);
   color: var(--form-text-color);
   font-size: 30px;
-  cursor: pointer;
 }
 
 .time span {
@@ -133,7 +132,6 @@
   background: var(--white);
   font: inherit;
   font-weight: 600;
-  cursor: pointer;
 }
 
 .ingredientList {
@@ -168,7 +166,6 @@
   color: var(--white);
   font: inherit;
   font-weight: 600;
-  cursor: pointer;
 }
 
 .publishButton:disabled {
@@ -208,7 +205,6 @@
   border: 0;
   background: transparent;
   color: var(--white);
-  cursor: pointer;
 }
 
 @media (max-width: 900px) {

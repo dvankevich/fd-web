@@ -40,8 +40,8 @@ export function Input({ type = 'text', error, className, ...rest }: InputProps) 
             aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
             aria-pressed={isPasswordVisible}
           >
-            <svg width="20" height="20" aria-hidden="true">
-              <use href={`${sprite}#icon-${isPasswordVisible ? 'eye' : 'eye-off'}`} />
+            <svg className={styles.toggleIcon} aria-hidden="true">
+              <use href={`${sprite}#icon-${isPasswordVisible ? 'eye-off' : 'eye'}`} />
             </svg>
           </button>
         )}

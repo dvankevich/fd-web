@@ -87,8 +87,6 @@
   background: transparent;
 
   color: var(--header-text-color);
-
-  cursor: pointer;
 }
 
 .burger svg {
@@ -127,8 +125,6 @@
   background: transparent;
 
   color: var(--white);
-
-  cursor: pointer;
 }
 
 .close svg {
@@ -227,8 +223,6 @@
     background: transparent;
 
     color: var(--header-text-color);
-
-    cursor: pointer;
   }
 
   .burger svg {
@@ -328,8 +322,6 @@
     background: transparent;
 
     color: var(--white);
-
-    cursor: pointer;
   }
 
   .close svg {

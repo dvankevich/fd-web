@@ -62,21 +62,40 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
   };
 
   return (
-    <Formik initialValues={initialValues} validationSchema={schema} onSubmit={handleSubmit}>
-      {({ isSubmitting }) => (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={schema}
+      validateOnMount
+      onSubmit={handleSubmit}
+    >
+      {({ isSubmitting, isValid }) => (
         <Form className={styles.form} noValidate>
-          <FormField name="email" data-testid="auth-email" type="email" placeholder="Email*" autoComplete="email" />
-          <FormField
-            name="password"
-            data-testid="auth-password"
-            type="password"
-            placeholder="Password*"
-            autoComplete="current-password"
-          />
+          <div className={styles.fields}>
+            <FormField
+              name="email"
+              data-testid="auth-email"
+              type="email"
+              placeholder="Email*"
+              autoComplete="email"
+            />
+            <FormField
+              name="password"
+              data-testid="auth-password"
+              type="password"
+              placeholder="Password"
+              autoComplete="current-password"
+            />
 
-          <FormError>{error}</FormError>
+            <FormError>{error}</FormError>
+          </div>
 
-          <Button type="submit" fullWidth data-testid="sign-in-submit" disabled={isLoading || isSubmitting}>
+          <Button
+            type="submit"
+            fullWidth
+            className={styles.submit}
+            data-testid="sign-in-submit"
+            disabled={isLoading || isSubmitting || !isValid}
+          >
             {isLoading ? 'Signing in...' : 'Sign in'}
           </Button>
         </Form>

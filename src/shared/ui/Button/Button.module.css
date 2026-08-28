@@ -14,11 +14,15 @@
     background-color var(--transition),
     color var(--transition),
     border-color var(--transition);
-  cursor: pointer;
 }
 
 .fullWidth {
   width: 100%;
+}
+
+.button:focus-visible:not(:disabled) {
+  outline: 2px solid var(--main-black);
+  outline-offset: 3px;
 }
 
 /* primary */
@@ -28,7 +32,8 @@
   border: 1px solid var(--main-black);
 }
 
-.primary:hover:not(:disabled) {
+.primary:hover:not(:disabled),
+.primary:focus-visible:not(:disabled) {
   background-color: var(--secondary-black);
 }
 
@@ -39,7 +44,8 @@
   border: 1px solid var(--main-black-90);
 }
 
-.secondary:hover:not(:disabled) {
+.secondary:hover:not(:disabled),
+.secondary:focus-visible:not(:disabled) {
   background-color: var(--main-black);
   color: var(--white);
 }
@@ -51,7 +57,8 @@
   border: 1px solid var(--border-grey-12);
 }
 
-.ghost:hover:not(:disabled) {
+.ghost:hover:not(:disabled),
+.ghost:focus-visible:not(:disabled) {
   border-color: var(--main-black);
   background-color: var(--main-black);
   color: var(--white);
@@ -63,9 +70,14 @@
   border: 1px solid rgba(255, 255, 255, 0.9);
 }
 
-.onDark:hover:not(:disabled) {
+.onDark:hover:not(:disabled),
+.onDark:focus-visible:not(:disabled) {
   background-color: var(--white);
   color: var(--main-black);
+}
+
+.onDark:focus-visible:not(:disabled) {
+  outline-color: var(--white);
 }
 
 .button:disabled {

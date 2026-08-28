@@ -16,7 +16,7 @@
   max-height: 90vh;
   overflow-y: auto;
   padding: 60px 30px;
-  border-radius: 30px;
+  border-radius: 20px;
   background-color: var(--white);
 }
 
@@ -33,14 +33,22 @@
   transition: transform var(--transition);
 }
 
-.closeButton:hover {
+.closeButton:hover,
+.closeButton:focus-visible {
   transform: scale(1.15);
+}
+
+.closeButton:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--main-black);
+  outline-offset: 3px;
 }
 
 @media (min-width: 768px) {
   .modal {
     max-width: 561px;
     padding: 80px;
+    border-radius: 30px;
   }
 
   .closeButton {

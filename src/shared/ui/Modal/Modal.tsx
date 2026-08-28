@@ -42,7 +42,7 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
           onClick={onClose}
           aria-label="Close modal"
         >
-          <svg width="20" height="20" aria-hidden="true">
+          <svg width="24" height="24" aria-hidden="true">
             <use href={`${sprite}#icon-close`} />
           </svg>
         </button>
