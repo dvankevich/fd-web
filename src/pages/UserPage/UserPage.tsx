@@ -90,7 +90,7 @@ export default function UserPage() {
       <MainTitle text="Profile" />
       <Subtitle text={PROFILE_SUBTITLE} />
 
-      {status === 'loading' && <Loader />}
+      {!profile && status === 'loading' && <Loader />}
       {status === 'failed' && <p className={styles.error}>{error}</p>}
 
       {profile && (
