@@ -12,7 +12,6 @@
 .list {
   display: grid;
   width: 100%;
-  max-width: 343px;
   gap: 32px;
   margin-inline: auto;
 }
@@ -44,7 +43,6 @@
 
 @media (min-width: 768px) {
   .list {
-    max-width: none;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 40px 20px;
   }

@@ -4,7 +4,7 @@ import css from './AddRecipePage.module.css';
 
 export default function AddRecipePage() {
   return (
-    <main className={css.page}>
+    <main className={`container ${css.page}`}>
       <PathInfo pageName="ADD RECIPE" variant="compact" />
 
       <MainTitle as="h1" text="ADD RECIPE" variant="large" />

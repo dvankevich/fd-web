@@ -6,10 +6,12 @@ import styles from './Footer.module.css';
 export function Footer() {
   return (
     <footer className={styles.footer}>
-      <div className={`container ${styles.inner}`}>
-        <div className={styles.top}>
-          <Logo />
-          <NetworkLinks />
+      <div className={styles.inner}>
+        <div className="container">
+          <div className={styles.top}>
+            <Logo />
+            <NetworkLinks />
+          </div>
         </div>
 
         <div className={styles.divider} />

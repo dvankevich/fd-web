@@ -1,12 +1,16 @@
 .page {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 74px 32px 110px;
+  padding-block: 48px 80px;
   color: var(--form-text-color);
 }
 
-@media (max-width: 900px) {
+@media (min-width: 768px) {
   .page {
-    padding: 48px 20px 80px;
+    padding-block: 64px 100px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .page {
+    padding-block: 74px 110px;
   }
 }

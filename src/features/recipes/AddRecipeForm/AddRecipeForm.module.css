@@ -4,21 +4,21 @@
 
 .grid {
   display: grid;
-  grid-template-columns: minmax(350px, 560px) minmax(450px, 1fr);
-  gap: 80px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px;
 }
 
 .fields {
   display: grid;
   align-content: start;
-  gap: 42px;
+  gap: 30px;
 }
 
 .nameLabel {
   display: block;
   margin: 0 0 14px;
   color: #b7b7b7;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
 }
 
@@ -69,7 +69,7 @@
 
 .categoryRow {
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   gap: 22px;
 }
 
@@ -109,7 +109,7 @@
 
 .ingredientControls {
   display: grid;
-  grid-template-columns: minmax(200px, 1fr) minmax(160px, 0.85fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 20px;
 }
 
@@ -207,24 +207,28 @@
   color: var(--white);
 }
 
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-}
-
-@media (max-width: 600px) {
+@media (min-width: 768px) {
   .fields {
-    gap: 30px;
+    gap: 42px;
   }
 
   .categoryRow,
   .ingredientControls {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .ingredientControls {
+    grid-template-columns: minmax(200px, 1fr) minmax(160px, 0.85fr);
   }
 
   .nameLabel {
-    font-size: 20px;
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .grid {
+    grid-template-columns: minmax(350px, 560px) minmax(450px, 1fr);
+    gap: 80px;
   }
 }
