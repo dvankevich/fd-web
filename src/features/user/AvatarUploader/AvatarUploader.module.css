@@ -39,3 +39,16 @@
   opacity: 0.6;
   cursor: default;
 }
+
+@media (min-width: 768px) {
+  .wrap,
+  .avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+  .plus {
+    width: 38px;
+    height: 38px;
+  }
+}

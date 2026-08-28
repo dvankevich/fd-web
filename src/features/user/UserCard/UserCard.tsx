@@ -22,27 +22,31 @@ export const UserCard = ({ data, busy, showRecipes, onToggleFollow }: UserCardPr
 
   return (
     <article className={styles.card}>
-      <Link to={profilePath} className={styles.avatarLink}>
-        <img
-          className={styles.avatar}
-          src={data.avatar ?? userPlaceholder}
-          alt={data.name}
-          width="80"
-          height="80"
-        />
-      </Link>
+      <div className={styles.identity}>
+        <Link to={profilePath} className={styles.avatarLink}>
+          <img
+            className={styles.avatar}
+            src={data.avatar ?? userPlaceholder}
+            alt={data.name}
+            width="85"
+            height="85"
+          />
+        </Link>
 
-      <div className={styles.info}>
-        <p className={styles.name}>{data.name}</p>
-        <p className={styles.count}>Own recipes: {data.ownRecipesCount}</p>
-        <button
-          className={styles.followBtn}
-          type="button"
-          disabled={busy}
-          onClick={() => onToggleFollow(data.id)}
-        >
-          {isFollowing ? 'Unfollow' : 'Follow'}
-        </button>
+        <div className={styles.info}>
+          <div className={styles.text}>
+            <p className={styles.name}>{data.name}</p>
+            <p className={styles.count}>Own recipes: {data.ownRecipesCount}</p>
+          </div>
+          <button
+            className={styles.followBtn}
+            type="button"
+            disabled={busy}
+            onClick={() => onToggleFollow(data.id)}
+          >
+            {isFollowing ? 'Unfollow' : 'Follow'}
+          </button>
+        </div>
       </div>
 
       {showRecipes && (

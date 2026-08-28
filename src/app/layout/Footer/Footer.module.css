@@ -22,12 +22,20 @@
 }
 
 .divider {
+  position: relative;
   width: 100%;
   max-width: var(--bp-desktop);
-  height: 1px;
+  height: 0;
   margin: 24px auto 0;
+}
 
-  background-color: var(--divider-grey);
+.divider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-top: 1px solid var(--light-grey);
 }
 
 .bottom {
@@ -39,6 +47,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .top {
+    margin-top: 0;
+  }
+
+  .divider {
+    margin-top: 40px;
+  }
+
+  .bottom {
+    margin: 40px auto 16px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -53,6 +75,12 @@
 
   .bottom {
     height: 24px;
-    margin-block: 40px;
+    margin: 40px auto 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .bottom {
+    margin-bottom: 40px;
   }
 }

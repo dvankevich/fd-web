@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { buildPath, ROUTE } from '@shared/lib';
+import { buildPath, cn, ROUTE } from '@shared/lib';
 import type { RecipeListItem } from '@shared/types';
 import recipePlaceholder from '@/assets/recipe-placeholder.svg';
 import sprite from '@/assets/icons.svg';
@@ -33,7 +33,7 @@ export const RecipePreview = ({ recipe, deletable, deleting, onDelete }: RecipeP
         {recipe.description && <p className={styles.description}>{recipe.description}</p>}
       </div>
 
-      <div className={styles.actions}>
+      <div className={cn(styles.actions, !deletable && styles.singleAction)}>
         <Link className={styles.iconBtn} to={path} aria-label={`Open ${recipe.title}`}>
           <svg width="18" height="18" aria-hidden="true">
             <use href={`${sprite}#icon-arrow-up-right`} />

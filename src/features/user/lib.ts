@@ -2,7 +2,7 @@ import type { CurrentUser } from '@shared/types';
 import type { TabKey, UserProfile } from './types';
 
 export const RECIPES_LIMIT = 9;
-export const USERS_PAGE_SIZE = 4;
+export const USERS_PAGE_SIZE = 5;
 
 const OWNER_TABS: { key: TabKey; label: string }[] = [
   { key: 'recipes', label: 'My recipes' },

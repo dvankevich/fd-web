@@ -4,12 +4,13 @@ import styles from './PathInfo.module.css';
 
 interface PathInfoProps {
   pageName: string;
+  className?: string;
   variant?: 'default' | 'compact';
 }
 
-export function PathInfo({ pageName, variant = 'default' }: PathInfoProps) {
+export function PathInfo({ pageName, className, variant = 'default' }: PathInfoProps) {
   return (
-    <div className={cn(styles.path, styles[variant])}>
+    <div className={cn(styles.path, styles[variant], className)}>
       <Link to="/" className={`${styles.text} ${styles.grey}`}>
         Home
       </Link>
