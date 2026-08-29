@@ -110,6 +110,8 @@ export default function AddRecipeForm() {
   const [categoryOptions, setCategoryOptions] = useState<Option[]>([]);
   const [areaOptions, setAreaOptions] = useState<Option[]>([]);
   const [isLoadingOptions, setIsLoadingOptions] = useState(true);
+  const increaseTime = (time: number) => (time < 5 ? 5 : time + 5);
+  const decreaseTime = (time: number) => (time <= 5 ? 1 : time - 1);
 
   useEffect(() => {
     let isMounted = true;
@@ -399,7 +401,7 @@ export default function AddRecipeForm() {
                         <button
                           type="button"
                           aria-label="Decrease cooking time"
-                          onClick={() => setFieldValue('time', Math.max(1, values.time - 1))}
+                          onClick={() => setFieldValue('time', decreaseTime(values.time))}
                         >
                           <svg width="24" height="24" aria-hidden="true">
                             <use href={`${sprite}#icon-minus`} />
@@ -411,7 +413,7 @@ export default function AddRecipeForm() {
                         <button
                           type="button"
                           aria-label="Increase cooking time"
-                          onClick={() => setFieldValue('time', values.time + 5)}
+                          onClick={() => setFieldValue('time', increaseTime(values.time))}
                         >
                           <svg width="24" height="24" aria-hidden="true">
                             <use href={`${sprite}#icon-plus`} />
