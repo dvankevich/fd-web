@@ -18,7 +18,7 @@
   display: block;
   margin: 0 0 14px;
   color: #b7b7b7;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
 }
 
@@ -71,6 +71,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 22px;
+
 }
 
 .time {
@@ -200,7 +201,7 @@
 }
 
 .invalidLine {
-  border-color: var(--form-error-color) !important;
+  border-color: var(--form-error-color);
 }
 
 .invalidLine input,
@@ -256,10 +257,6 @@
 
 @media (min-width: 1440px) {
 
-  /* .grid {
-    grid-template-columns: minmax(350px, 560px) minmax(450px, 1fr);
-    gap: 80px;
-  } */
   .grid {
     grid-template-columns: minmax(350px, 560px) minmax(450px, 640px);
     justify-content: space-between;
