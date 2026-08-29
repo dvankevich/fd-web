@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react';
-import { Form, Formik, type FormikHelpers } from 'formik';
+import { Form, Formik, useFormikContext, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FieldLabel, FormError } from '@shared/ui';
 import sprite from '@/assets/icons.svg';
 import { createRecipe, getIngredients, getAreas, getCategories } from '../../../services/recipes';
-
 import type { Ingredient, Option, RecipeFormValues } from '../../../types/recipe';
-
 import CustomSelect from './CustomSelect';
 import ImageUploader from './ImageUploader';
 import IngredientItem from './IngredientItem';
-
 import css from './AddRecipeForm.module.css';
+import { notify } from '@shared/lib';
 
-const initialValues: RecipeFormValues = {
-  image: null,
+const DRAFT_KEY = 'foodies:add-recipe-draft';
+
+type RecipeDraft = Omit<RecipeFormValues, 'image'>;
+
+const emptyDraft: RecipeDraft = {
   title: '',
   description: '',
   category: '',
@@ -26,31 +27,75 @@ const initialValues: RecipeFormValues = {
   instructions: '',
 };
 
+const loadRecipeDraft = (): RecipeDraft => {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return emptyDraft;
+    const parsed = JSON.parse(raw) as Partial<RecipeDraft>;
+    return {
+      ...emptyDraft,
+      ...parsed,
+      time: Number(parsed.time) > 0 ? Number(parsed.time) : 1,
+      ingredients: Array.isArray(parsed.ingredients) ? parsed.ingredients : [],
+    };
+  } catch {
+    return emptyDraft;
+  }
+};
+
+const saveRecipeDraft = (values: RecipeFormValues) => {
+  const draft: RecipeDraft = {
+    title: values.title,
+    description: values.description,
+    category: values.category,
+    area: values.area,
+    time: values.time,
+    ingredients: values.ingredients,
+    instructions: values.instructions,
+  };
+  localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+};
+
+const clearRecipeDraft = () => {
+  localStorage.removeItem(DRAFT_KEY);
+};
+
+function PersistRecipeDraft() {
+  const { values, isSubmitting } = useFormikContext<RecipeFormValues>();
+
+  useEffect(() => {
+    if (isSubmitting) return;
+
+    const timer = window.setTimeout(() => saveRecipeDraft(values), 300);
+    return () => window.clearTimeout(timer);
+  }, [values, isSubmitting]);
+
+  return null;
+}
+
+const initialValues: RecipeFormValues = {
+  image: null,
+  ...loadRecipeDraft(),
+};
+
 const validationSchema = Yup.object({
   image: Yup.mixed<File>().required('Upload a photo'),
-
-  title: Yup.string().trim().required('Enter recipe name').min(5, 'Minimin 10 characters'),
-
+  title: Yup.string().trim().required('Enter recipe name').min(5, 'Minimum 5 characters'),
   description: Yup.string()
     .trim()
     .required('Enter description')
-    .min(10, 'Minimin 10 characters')
+    .min(10, 'Minimum 10 characters')
     .max(200, 'Maximum 200 characters'),
-
   category: Yup.string().required('Select category'),
-
   area: Yup.string().required('Select area'),
-
   time: Yup.number().required('Enter cooking time').min(1, 'Minimum 1 minute'),
-
   ingredients: Yup.array()
     .min(1, 'Add at least one ingredient')
     .required('Add at least one ingredient'),
-
   instructions: Yup.string()
     .trim()
     .required('Enter recipe preparation')
-    .min(10, 'Minimin 10 characters')
+    .min(10, 'Minimum 10 characters')
     .max(1000, 'Maximum 1000 characters'),
 });
 
@@ -62,10 +107,11 @@ export default function AddRecipeForm() {
   const [measure, setMeasure] = useState('');
   const [notification, setNotification] = useState('');
   const [isLoadingIngredients, setIsLoadingIngredients] = useState(true);
-
   const [categoryOptions, setCategoryOptions] = useState<Option[]>([]);
   const [areaOptions, setAreaOptions] = useState<Option[]>([]);
   const [isLoadingOptions, setIsLoadingOptions] = useState(true);
+  const increaseTime = (time: number) => (time < 5 ? 5 : time + 5);
+  const decreaseTime = (time: number) => (time <= 5 ? 1 : time - 1);
 
   useEffect(() => {
     let isMounted = true;
@@ -81,9 +127,8 @@ export default function AddRecipeForm() {
           getAreas(),
         ]);
 
-        if (!isMounted) {
-          return;
-        }
+        if (!isMounted) return;
+
         setIngredients(ingredientsData);
         setCategoryOptions(categoriesData);
         setAreaOptions(areasData);
@@ -100,7 +145,7 @@ export default function AddRecipeForm() {
       }
     };
 
-    loadIngredients();
+    void loadIngredients();
 
     return () => {
       isMounted = false;
@@ -109,14 +154,16 @@ export default function AddRecipeForm() {
 
   const handleSubmit = async (
     values: RecipeFormValues,
-    { setSubmitting, setFieldTouched }: FormikHelpers<RecipeFormValues>,
+    { setSubmitting, setFieldTouched, resetForm }: FormikHelpers<RecipeFormValues>,
   ) => {
     try {
       setNotification('');
 
       if (!values.ingredients.length) {
         setFieldTouched('ingredients', true);
+        notify.error('Add at least one ingredient.');
         setNotification('Add at least one ingredient.');
+        setSubmitting(false);
         return;
       }
 
@@ -131,6 +178,8 @@ export default function AddRecipeForm() {
 
       if (invalidIngredient) {
         setNotification('One or more ingredients have an invalid ID.');
+        notify.error('One or more ingredients have an invalid ID.');
+        setSubmitting(false);
         return;
       }
 
@@ -141,17 +190,11 @@ export default function AddRecipeForm() {
       }
 
       formData.append('title', values.title.trim());
-
       formData.append('description', values.description.trim());
-
       formData.append('category', values.category);
-
       formData.append('area', values.area);
-
       formData.append('time', String(values.time));
-
       formData.append('instructions', values.instructions.trim());
-
       formData.append('ingredients', JSON.stringify(ingredientsPayload));
 
       const recipe = await createRecipe(formData);
@@ -161,34 +204,33 @@ export default function AddRecipeForm() {
         throw new Error('Recipe ID was not returned by API');
       }
 
+      resetForm({ values: { ...emptyDraft, image: null } });
+      clearRecipeDraft();
+      notify.success('Recipe published');
       navigate(`/recipe/${recipeId}`);
     } catch (error: unknown) {
       const apiError = isAxiosError<{ error?: unknown }>(error)
         ? error.response?.data.error
         : undefined;
 
-      if (typeof apiError === 'string') {
-        setNotification(apiError);
-      } else if (error instanceof Error) {
-        setNotification(error.message);
-      } else {
-        setNotification('Could not publish recipe. Please try again.');
-      }
-    } finally {
+      const message =
+        typeof apiError === 'string'
+          ? apiError
+          : error instanceof Error
+            ? error.message
+            : 'Could not publish recipe. Please try again.';
+
+      setNotification(message);
+      notify.error(message);
       setSubmitting(false);
     }
   };
 
   return (
     <>
-      {/* 
-          NOTIFICATION
-       */}
-
       {notification && (
         <div className={css.notification} role="alert">
           <span>{notification}</span>
-
           <button type="button" aria-label="Close notification" onClick={() => setNotification('')}>
             <svg width="20" height="20" aria-hidden="true">
               <use href={`${sprite}#icon-close`} />
@@ -216,37 +258,29 @@ export default function AddRecipeForm() {
         }) => {
           const hasError = (name: keyof RecipeFormValues) =>
             Boolean(errors[name] && (touched[name] || submitCount > 0));
-          /* 
-             ADD INGREDIENT
-           */
 
           const addIngredient = () => {
             if (!ingredientId) {
               setNotification('Select an ingredient.');
-
               return;
             }
 
             if (!measure.trim()) {
               setNotification('Enter ingredient quantity.');
-
               return;
             }
 
-            const ingredient = ingredients.find(
-              (item) => String(item._id) === String(ingredientId),
-            );
+            const ingredient = ingredients.find((item) => String(item._id) === String(ingredientId));
 
             if (!ingredient) {
               setNotification('Selected ingredient was not found.');
-
               return;
             }
+
             const ingredientDbId = String(ingredient._id);
 
             if (!ingredientDbId || ingredientDbId === 'undefined' || ingredientDbId === 'null') {
               setNotification('Selected ingredient has an invalid ID.');
-
               return;
             }
 
@@ -256,29 +290,28 @@ export default function AddRecipeForm() {
 
             if (alreadyAdded) {
               setNotification('This ingredient has already been added.');
-
               return;
             }
 
-            const newIngredient = {
-              id: ingredientDbId,
-              name: ingredient.name,
-              image: ingredient.img ?? '',
-              measure: measure.trim(),
-            };
-
-            setFieldValue('ingredients', [...values.ingredients, newIngredient], true);
+            setFieldValue(
+              'ingredients',
+              [
+                ...values.ingredients,
+                {
+                  id: ingredientDbId,
+                  name: ingredient.name,
+                  image: ingredient.img ?? '',
+                  measure: measure.trim(),
+                },
+              ],
+              true,
+            );
 
             setIngredientId('');
             setMeasure('');
             setNotification('');
-
             setFieldTouched('ingredients', true, false);
           };
-
-          /* 
-             DELETE INGREDIENT
-           */
 
           const deleteIngredient = (id: string) => {
             setFieldValue(
@@ -287,47 +320,31 @@ export default function AddRecipeForm() {
             );
           };
 
-          /* 
-             RESET
-        */
-
           const reset = () => {
-            resetForm();
-
+            resetForm({ values: { ...emptyDraft, image: null } });
+            clearRecipeDraft();
             setIngredientId('');
             setMeasure('');
             setNotification('');
           };
 
-          /*
-             RETURN
-          */
-
           return (
             <Form className={css.form} noValidate>
-              <div className={css.grid}>
-                {/* 
-                    IMAGE
-                */}
+              <PersistRecipeDraft />
 
+              <div className={css.grid}>
                 <ImageUploader
                   file={values.image}
                   onChange={(file) => {
                     setFieldValue('image', file);
-
                     setFieldTouched('image', true);
                   }}
                   error={touched.image ? errors.image : undefined}
                 />
 
                 <div className={css.fields}>
-                  {/* 
-                      TITLE
-                   */}
-
                   <label className={css.textField}>
                     <span className={css.nameLabel}>THE NAME OF THE RECIPE</span>
-
                     <input
                       name="title"
                       value={values.title}
@@ -338,21 +355,14 @@ export default function AddRecipeForm() {
                       aria-describedby="title-error"
                       className={hasError('title') ? css.invalidLine : ''}
                     />
-
                     <FormError id="title-error" as="span" variant="compact">
                       {hasError('title') ? errors.title : undefined}
                     </FormError>
                   </label>
 
-                  {/* 
-                      DESCRIPTION
-                   */}
-
                   <label className={css.textField}>
                     <span
-                      className={`${css.inputLine} ${
-                        hasError('description') ? css.invalidLine : ''
-                      }`}
+                      className={`${css.inputLine} ${hasError('description') ? css.invalidLine : ''}`}
                     >
                       <input
                         name="description"
@@ -364,18 +374,12 @@ export default function AddRecipeForm() {
                         aria-invalid={hasError('description')}
                         aria-describedby="description-error"
                       />
-
                       <em>{values.description.length}/200</em>
                     </span>
-
                     <FormError id="description-error" as="span" variant="compact">
                       {hasError('description') ? errors.description : undefined}
                     </FormError>
                   </label>
-
-                  {/* 
-                      CATEGORY + TIME
-                   */}
 
                   <div className={css.categoryRow}>
                     <CustomSelect
@@ -385,7 +389,6 @@ export default function AddRecipeForm() {
                       placeholder={isLoadingOptions ? 'Loading categories...' : 'Select a category'}
                       onChange={(id) => {
                         const selected = categoryOptions.find((item) => item._id === id);
-
                         setFieldValue('category', selected?.name ?? '');
                         setFieldTouched('category', true, false);
                       }}
@@ -394,24 +397,23 @@ export default function AddRecipeForm() {
 
                     <div>
                       <FieldLabel>COOKING TIME</FieldLabel>
-
                       <div className={css.time}>
                         <button
                           type="button"
                           aria-label="Decrease cooking time"
-                          onClick={() => setFieldValue('time', Math.max(1, values.time - 1))}
+                          onClick={() => setFieldValue('time', decreaseTime(values.time))}
                         >
                           <svg width="24" height="24" aria-hidden="true">
                             <use href={`${sprite}#icon-minus`} />
                           </svg>
                         </button>
-
-                        <span>{values.time} min</span>
-
+                        <span className={values.category ? css.filled : undefined}>
+                          {values.time} min
+                        </span>
                         <button
                           type="button"
                           aria-label="Increase cooking time"
-                          onClick={() => setFieldValue('time', values.time + 5)}
+                          onClick={() => setFieldValue('time', increaseTime(values.time))}
                         >
                           <svg width="24" height="24" aria-hidden="true">
                             <use href={`${sprite}#icon-plus`} />
@@ -421,10 +423,6 @@ export default function AddRecipeForm() {
                     </div>
                   </div>
 
-                  {/* 
-                      AREA
-                   */}
-
                   <CustomSelect
                     label="AREA"
                     value={values.area}
@@ -432,20 +430,14 @@ export default function AddRecipeForm() {
                     placeholder={isLoadingOptions ? 'Loading areas...' : 'Select an area'}
                     onChange={(id) => {
                       const selected = areaOptions.find((item) => item._id === id);
-
                       setFieldValue('area', selected?.name ?? '');
                       setFieldTouched('area', true, false);
                     }}
                     error={touched.area ? errors.area : undefined}
                   />
 
-                  {/* 
-                      INGREDIENTS
-                   */}
-
                   <section className={css.ingredients}>
                     <h2>INGREDIENTS</h2>
-
                     <div className={css.ingredientControls}>
                       <CustomSelect
                         value={ingredientId}
@@ -455,7 +447,6 @@ export default function AddRecipeForm() {
                         }
                         onChange={setIngredientId}
                       />
-
                       <input
                         value={measure}
                         placeholder="Enter quantity"
@@ -488,17 +479,10 @@ export default function AddRecipeForm() {
                     </ul>
                   </section>
 
-                  {/* 
-                      INSTRUCTIONS
-                   */}
-
                   <label className={css.textField}>
                     <FieldLabel as="span">RECIPE PREPARATION</FieldLabel>
-
                     <span
-                      className={`${css.inputLine} ${
-                        hasError('instructions') ? css.invalidLine : ''
-                      }`}
+                      className={`${css.inputLine} ${hasError('instructions') ? css.invalidLine : ''}`}
                     >
                       <textarea
                         name="instructions"
@@ -510,18 +494,12 @@ export default function AddRecipeForm() {
                         aria-invalid={hasError('instructions')}
                         aria-describedby="instructions-error"
                       />
-
                       <em>{values.instructions.length}/1000</em>
                     </span>
-
                     <FormError id="instructions-error" as="span" variant="compact">
                       {hasError('instructions') ? errors.instructions : undefined}
                     </FormError>
                   </label>
-
-                  {/* 
-                      ACTIONS
-                   */}
 
                   <div className={css.actions}>
                     <button
@@ -534,7 +512,6 @@ export default function AddRecipeForm() {
                         <use href={`${sprite}#icon-trash`} />
                       </svg>
                     </button>
-
                     <button
                       type="submit"
                       className={css.publishButton}
