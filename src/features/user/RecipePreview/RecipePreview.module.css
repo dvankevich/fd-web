@@ -1,9 +1,8 @@
 .card {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--border-grey-12);
+  align-items: flex-start;
+  gap: 10px;
+  height: 75px;
 }
 
 .imageLink {
@@ -11,30 +10,39 @@
 }
 
 .image {
-  width: 80px;
-  height: 80px;
-  border-radius: 16px;
+  width: 75px;
+  height: 75px;
+  border-radius: var(--radius-15);
   object-fit: cover;
   background-color: var(--light-grey);
 }
 
 .body {
   flex: 1;
+  height: 75px;
   min-width: 0;
+  overflow: hidden;
 }
 
 .title {
-  font-weight: 700;
+  overflow: hidden;
   font-size: 16px;
-  line-height: 1.25;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  text-overflow: ellipsis;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .description {
   margin-top: 8px;
+  max-height: 43px;
   font-size: 14px;
-  line-height: 1.28;
-  color: var(--text-grey);
+  font-weight: 500;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  color: var(--light-grey);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -44,21 +52,30 @@
 
 .actions {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   flex: none;
+}
+
+.singleAction {
+  margin-left: 6px;
 }
 
 .iconBtn {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--border-grey-12);
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--light-grey);
   border-radius: var(--radius-circle);
   color: var(--main-black);
   transition:
     background-color var(--transition),
     color var(--transition);
+}
+
+.iconBtn svg {
+  width: 16px;
+  height: 16px;
 }
 
 .iconBtn:hover:not(:disabled),
@@ -74,8 +91,62 @@
 }
 
 @media (min-width: 768px) {
+  .card {
+    align-items: flex-start;
+    gap: 16px;
+    height: 100px;
+    padding: 0;
+    border-bottom: 0;
+  }
+
   .image {
     width: 100px;
     height: 100px;
+    border-radius: var(--radius-15);
+  }
+
+  .body {
+    height: 100px;
+    overflow: hidden;
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .description {
+    margin-top: 10px;
+    color: var(--secondary-black);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .actions {
+    gap: 4px;
+    margin-left: 16px;
+  }
+
+  .iconBtn {
+    width: 42px;
+    height: 42px;
+    border-color: var(--light-grey);
+  }
+
+  .iconBtn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .singleAction {
+    margin-left: 62px;
   }
 }

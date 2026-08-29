@@ -2,16 +2,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   padding: 40px;
-  border: 1px solid var(--border-grey-12);
+  border: 1px solid var(--main-black);
   border-radius: var(--radius-pill);
+}
+
+.publicCard {
+  border-color: var(--light-grey);
 }
 
 .name {
   font-weight: 800;
   font-size: 20px;
   line-height: 1.2;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   text-align: center;
 }
@@ -19,20 +24,23 @@
 .stats {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
 }
 
 .row {
   display: flex;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
   justify-content: center;
   font-size: 14px;
-  line-height: 1.28;
+  font-weight: 500;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
 }
 
 .label {
-  color: var(--text-grey);
+  color: var(--light-grey);
 }
 
 .value {
@@ -40,16 +48,44 @@
   color: var(--main-black);
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767px) {
   .card {
-    align-items: flex-start;
+    gap: 16px;
+    padding: 30px 54px;
   }
 
   .name {
-    align-self: center;
+    font-size: 18px;
+    line-height: 1.33;
+  }
+
+  .row {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .value {
+    color: var(--secondary-black);
+    font-size: 14px;
+    line-height: 1.43;
+  }
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 39px 79px;
+  }
+
+  .stats {
+    align-self: stretch;
   }
 
   .row {
     justify-content: flex-start;
+  }
+
+  .value {
+    font-size: 16px;
+    line-height: 1.5;
   }
 }

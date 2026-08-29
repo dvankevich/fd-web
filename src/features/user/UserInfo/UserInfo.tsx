@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { cn } from '@shared/lib';
 import { AvatarUploader } from '../AvatarUploader';
 import { selectIsOwner, selectProfile } from '../selectors';
 import styles from './UserInfo.module.css';
@@ -10,7 +11,7 @@ export const UserInfo = () => {
   if (!profile) return null;
 
   return (
-    <div className={styles.card}>
+    <div className={cn(styles.card, !isOwner && styles.publicCard)}>
       <AvatarUploader avatar={profile.avatar} name={profile.name} editable={isOwner} />
       <p className={styles.name}>{profile.name}</p>
       <ul className={styles.stats}>

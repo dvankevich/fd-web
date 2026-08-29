@@ -40,7 +40,7 @@ export const ListItems = ({
   if (kind === 'users') {
     if (users.length === 0) return <p className={styles.message}>{emptyText}</p>;
     return (
-      <ul className={styles.list}>
+      <ul className={`${styles.list} ${styles.userList}`}>
         {users.map((user) => (
           <li key={user.id}>
             <UserCard
@@ -57,7 +57,7 @@ export const ListItems = ({
 
   if (recipes.length === 0) return <p className={styles.message}>{emptyText}</p>;
   return (
-    <ul className={styles.list}>
+    <ul className={`${styles.list} ${styles.recipeList}`}>
       {recipes.map((recipe) => (
         <li key={recipe.id}>
           <RecipePreview

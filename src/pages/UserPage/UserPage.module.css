@@ -2,7 +2,16 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  margin-top: 40px;
+}
+
+.title {
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  max-width: 443px;
+  color: var(--secondary-black);
+  font-weight: 500;
 }
 
 .side {
@@ -16,8 +25,22 @@
   min-width: 0;
 }
 
+.profileAction {
+  height: 56px;
+  padding: 0;
+  border-color: var(--secondary-black);
+  background-color: var(--secondary-black);
+  letter-spacing: -0.02em;
+}
+
+.profileAction:hover:not(:disabled),
+.profileAction:focus-visible:not(:disabled) {
+  border-color: var(--main-black);
+  background-color: var(--main-black);
+}
+
 .pagination {
-  margin-top: 40px;
+  margin-top: 32px;
 }
 
 .error {
@@ -25,25 +48,58 @@
   color: var(--error-color);
 }
 
+@media (max-width: 767px) {
+  .path {
+    padding-top: 64px;
+  }
+
+  .layout {
+    gap: 62px;
+  }
+
+  .profileAction {
+    height: 48px;
+  }
+}
+
 /* tablet: картка профілю центрована з обмеженою шириною */
 @media (min-width: 768px) and (max-width: 1439px) {
+  .path {
+    padding-top: 64px;
+  }
+
+  .layout {
+    gap: 80px;
+  }
+
   .side {
-    width: 100%;
-    max-width: 400px;
+    width: 394px;
     margin-inline: auto;
+  }
+
+  .pagination {
+    margin-top: 40px;
   }
 }
 
 /* desktop: дві колонки */
 @media (min-width: 1440px) {
+  .path {
+    padding-top: 80px;
+  }
+
   .layout {
     flex-direction: row;
     align-items: flex-start;
-    gap: 80px;
+    gap: 40px;
   }
 
   .side {
-    width: 360px;
+    width: 394px;
     flex: none;
+  }
+
+  .pagination {
+    margin-top: 40px;
   }
 }

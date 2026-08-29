@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
 
-  border: 1px solid var(--divider-grey);
+  border: 1px solid var(--light-grey);
   border-radius: 100px;
 
   color: var(--main-black);
@@ -44,8 +44,8 @@
   }
 
   .icon {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 
   .list {

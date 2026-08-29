@@ -1,10 +1,28 @@
 .list {
   display: flex;
   flex-direction: column;
+  margin-top: 32px;
+}
+
+.userList {
+  gap: 20px;
+}
+
+.recipeList {
+  gap: 32px;
 }
 
 .list li:last-child > * {
   border-bottom: none;
+}
+
+.userList li:last-child > * {
+  min-height: 90px;
+  padding-bottom: 0;
+}
+
+.userList li:last-child > *::after {
+  display: none;
 }
 
 .message {
@@ -12,4 +30,22 @@
   font-size: 16px;
   line-height: 1.25;
   color: var(--text-grey);
+}
+
+@media (min-width: 768px) {
+  .list {
+    margin-top: 40px;
+  }
+
+  .userList {
+    gap: 40px;
+  }
+
+  .recipeList {
+    gap: 40px;
+  }
+
+  .userList li:last-child > * {
+    min-height: 100px;
+  }
 }

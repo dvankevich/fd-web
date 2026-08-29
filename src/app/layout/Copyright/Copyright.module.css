@@ -1,9 +1,10 @@
 .text {
   font-size: 14px;
+  font-weight: 500;
   line-height: 1.43;
   letter-spacing: -0.02em;
   text-align: center;
-  color: var(--text-grey);
+  color: var(--secondary-black);
 }
 
 @media (min-width: 768px) {

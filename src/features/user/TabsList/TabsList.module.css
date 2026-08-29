@@ -1,7 +1,7 @@
 .tabs {
   display: flex;
-  gap: 28px;
-  border-bottom: 1px solid var(--border-grey-12);
+  gap: 30px;
+  border-bottom: 1px solid var(--light-grey);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -12,13 +12,14 @@
 
 .tab {
   position: relative;
-  padding: 0 0 16px;
+  padding: 0 0 13px;
   white-space: nowrap;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.25;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.33;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: var(--text-grey);
+  color: var(--light-grey);
   transition: color var(--transition);
 }
 
@@ -37,6 +38,17 @@
   left: 0;
   right: 0;
   bottom: -1px;
-  height: 2px;
+  height: 3px;
   background-color: var(--main-black);
+}
+
+@media (min-width: 768px) {
+  .tabs {
+    gap: 40px;
+  }
+
+  .tab {
+    font-size: 20px;
+    line-height: 1.2;
+  }
 }

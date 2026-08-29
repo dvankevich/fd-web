@@ -86,9 +86,9 @@ export default function UserPage() {
 
   return (
     <div className="container">
-      <PathInfo pageName="Profile" />
-      <MainTitle text="Profile" />
-      <Subtitle text={PROFILE_SUBTITLE} />
+      <PathInfo pageName="Profile" className={styles.path} />
+      <MainTitle text="Profile" className={styles.title} />
+      <Subtitle text={PROFILE_SUBTITLE} className={styles.subtitle} />
 
       {!profile && status === 'loading' && <Loader />}
       {status === 'failed' && <p className={styles.error}>{error}</p>}
@@ -98,11 +98,21 @@ export default function UserPage() {
           <div className={styles.side}>
             <UserInfo />
             {isOwner ? (
-              <Button type="button" fullWidth onClick={() => modalObserver.open(MODAL_NAME.logOut)}>
+              <Button
+                type="button"
+                fullWidth
+                className={styles.profileAction}
+                onClick={() => modalObserver.open(MODAL_NAME.logOut)}
+              >
                 Log out
               </Button>
             ) : (
-              <Button type="button" fullWidth onClick={onToggleFollow}>
+              <Button
+                type="button"
+                fullWidth
+                className={styles.profileAction}
+                onClick={onToggleFollow}
+              >
                 {isFollowing ? 'Unfollow' : 'Follow'}
               </Button>
             )}

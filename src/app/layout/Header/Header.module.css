@@ -37,13 +37,13 @@
   position: relative;
 
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
 
   gap: 16px;
 
   width: 100%;
-  height: 46px;
+  height: 50px;
 
   padding: 0 60px;
 
@@ -64,7 +64,7 @@
 
 .right {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 
   gap: 8px;
 }
@@ -147,8 +147,8 @@
 
 @media (min-width: 768px) and (max-width: 1439px) {
   .header {
-    width: calc(100% - 32px);
-    max-width: none;
+    width: 736px;
+    max-width: 768px;
 
     margin-top: 16px;
     padding-top: 20px;
@@ -157,9 +157,14 @@
   .inner {
     position: relative;
 
-    height: 46px;
+    height: 50px;
 
-    padding: 0 32px;
+    align-items: center;
+    padding: 0 16px;
+  }
+
+  .right {
+    align-items: center;
   }
 
   .desktopNav {
@@ -197,6 +202,16 @@
     height: 54px;
 
     padding: 0 16px;
+  }
+
+  .header.light {
+    width: calc(100% - 32px);
+    margin-top: 24px;
+  }
+
+  .light .inner {
+    height: 38px;
+    padding: 0;
   }
 
   .desktopNav {
