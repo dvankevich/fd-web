@@ -9,9 +9,9 @@
 }
 
 .title.large {
-  margin: 48px 0 16px;
+  margin: 32px 0 16px;
   color: inherit;
-  font-size: 52px;
+  font-size: 40px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: -1.5px;
@@ -25,14 +25,9 @@
     line-height: 1.1;
     letter-spacing: -0.05em;
   }
-}
 
-@media (max-width: 600px) {
   .title.large {
-    margin-top: 32px;
-    margin-bottom: 16px;
-    font-size: 40px;
-    line-height: 1;
-    letter-spacing: -1.5px;
+    margin-top: 48px;
+    font-size: 52px;
   }
 }

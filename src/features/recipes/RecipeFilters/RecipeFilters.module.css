@@ -1,14 +1,12 @@
 .filters {
   display: grid;
   width: 100%;
-  max-width: 343px;
   gap: 14px;
   margin-inline: auto;
 }
 
 @media (min-width: 768px) {
   .filters {
-    max-width: none;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

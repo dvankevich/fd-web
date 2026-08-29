@@ -27,7 +27,7 @@ export const Hero = () => {
 
   return (
     <section className={styles.hero}>
-      <div className="container">
+      <div className="container-wide">
         <div className={styles.panel}>
           <h1 className={styles.title}>Improve Your Culinary Talents</h1>
           <p className={styles.subtitle}>

@@ -41,9 +41,12 @@
   --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* ===== Container paddings ===== */
-  --container-padding-mobile: 8px;
-  --container-padding-tablet: 16px;
-  --container-padding-desktop: 20px;
+  --container-padding-mobile: 16px;
+  --container-padding-tablet: 32px;
+  --container-padding-desktop: 80px;
+  --wide-container-padding-mobile: 8px;
+  --wide-container-padding-tablet: 16px;
+  --wide-container-padding-desktop: 20px;
 
   /* ===== Toastify styles ===== */
   --toastify-font-family: var(--font-main);
