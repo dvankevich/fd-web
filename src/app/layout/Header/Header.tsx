@@ -39,7 +39,7 @@ export function Header() {
     <header
       className={`${styles.header} ${
         isLightHeader ? styles.light : ''
-      }`}
+      } ${!isLoggedIn ? styles.loggedOut : ''}`}
     >
       <div className={styles.inner}>
         <Logo />
@@ -67,11 +67,7 @@ export function Header() {
       </div>
 
       {isLoggedIn && (
-        <div
-          className={`${styles.mobileMenu} ${
-            menuOpen ? styles.mobileOpen : ''
-          }`}
-        >
+        <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileOpen : ''}`}>
           <div className={styles.mobileTop}>
             <Logo onClick={closeMenu} />
 
@@ -87,10 +83,7 @@ export function Header() {
             </button>
           </div>
 
-          <Nav
-            className={styles.mobileNav}
-            onNavigate={closeMenu}
-          />
+          <Nav className={styles.mobileNav} onNavigate={closeMenu} />
 
           <div className={styles.mobileImages}>
             <img

@@ -6,7 +6,7 @@
   width: 203px;
   height: 46px;
 
-  border-radius: var(--radius-pill);
+  border-radius: 30px;
 }
 
 .link {
@@ -17,10 +17,9 @@
   justify-content: center;
 
   height: 46px;
-  padding: 14px;
 
   border: 1px solid transparent;
-  border-radius: var(--radius-pill);
+  border-radius: 30px;
 
   font-family: Mulish, sans-serif;
   font-size: 12px;
@@ -52,19 +51,16 @@
    Hover
    ========================= */
 
-.link:hover,
-.link:focus-visible {
-  outline: none;
-  border-color: var(--header-border-color, var(--white-20));
+.link:hover {
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 /* =========================
    Authenticated
    ========================= */
 
-.authenticated .link:hover,
-.authenticated .link:focus-visible {
-  border-color: var(--header-border-color, var(--white));
+.authenticated .link:hover {
+  border-color: var(--white);
 }
 
 /* =========================
@@ -72,7 +68,7 @@
    ========================= */
 
 .active {
-  border-color: var(--header-border-color, var(--white));
+  border-color: transparent;
 }
 
 /* =========================
@@ -81,16 +77,22 @@
 
 @media (min-width: 768px) and (max-width: 1439px) {
   .nav {
-    width: 151px;
-    height: 46px;
-
+    width: auto;
     gap: 16px;
   }
 
-  .link:first-child {
-    width: auto;
+  .link {
+    padding: 0 14px;
   }
 
+  .link:hover,
+  .active,
+  .authenticated .link:hover,
+  .authenticated .active {
+    border-color: transparent;
+  }
+
+  .link:first-child,
   .link:last-child {
     width: auto;
   }
@@ -120,7 +122,7 @@
 
     padding: 14px;
 
-    border-radius: var(--radius-pill);
+    border-radius: 30px;
 
     font-family: Mulish, sans-serif;
     font-size: 14px;
@@ -135,11 +137,11 @@
 
   /*
     Active item:
-    1px var(--light-grey) border
+    1px #BFBEBE border
   */
 
   .active {
-    border: 1px solid var(--light-grey);
+    border: 1px solid #bfbebe;
   }
 
   /*
