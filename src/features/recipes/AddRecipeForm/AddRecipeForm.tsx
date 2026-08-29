@@ -60,12 +60,14 @@ const clearRecipeDraft = () => {
 };
 
 function PersistRecipeDraft() {
-  const { values } = useFormikContext<RecipeFormValues>();
+  const { values, isSubmitting } = useFormikContext<RecipeFormValues>();
 
   useEffect(() => {
+    if (isSubmitting) return;
+
     const timer = window.setTimeout(() => saveRecipeDraft(values), 300);
     return () => window.clearTimeout(timer);
-  }, [values]);
+  }, [values, isSubmitting]);
 
   return null;
 }
@@ -148,71 +150,74 @@ export default function AddRecipeForm() {
   }, []);
 
   const handleSubmit = async (
-    values: RecipeFormValues,
-    { setSubmitting, setFieldTouched }: FormikHelpers<RecipeFormValues>,
-  ) => {
-    try {
-      setNotification('');
+  values: RecipeFormValues,
+  { setSubmitting, setFieldTouched, resetForm }: FormikHelpers<RecipeFormValues>,
+) => {
+  try {
+    setNotification('');
 
-      if (!values.ingredients.length) {
-        setFieldTouched('ingredients', true);
-        setNotification('Add at least one ingredient.');
-        return;
-      }
-
-      const ingredientsPayload = values.ingredients.map((item) => ({
-        id: String(item.id),
-        measure: String(item.measure).trim(),
-      }));
-
-      const invalidIngredient = ingredientsPayload.some(
-        (item) => !item.id || item.id === 'undefined' || item.id === 'null' || !item.measure,
-      );
-
-      if (invalidIngredient) {
-        setNotification('One or more ingredients have an invalid ID.');
-        return;
-      }
-
-      const formData = new FormData();
-
-      if (values.image instanceof File) {
-        formData.append('thumb', values.image);
-      }
-
-      formData.append('title', values.title.trim());
-      formData.append('description', values.description.trim());
-      formData.append('category', values.category);
-      formData.append('area', values.area);
-      formData.append('time', String(values.time));
-      formData.append('instructions', values.instructions.trim());
-      formData.append('ingredients', JSON.stringify(ingredientsPayload));
-
-      const recipe = await createRecipe(formData);
-      const recipeId = recipe?.id;
-
-      if (!recipeId) {
-        throw new Error('Recipe ID was not returned by API');
-      }
-
-      clearRecipeDraft();
-      navigate(`/recipe/${recipeId}`);
-    } catch (error: unknown) {
-      const apiError = isAxiosError<{ error?: unknown }>(error)
-        ? error.response?.data.error
-        : undefined;
-
-      if (typeof apiError === 'string') {
-        setNotification(apiError);
-      } else if (error instanceof Error) {
-        setNotification(error.message);
-      } else {
-        setNotification('Could not publish recipe. Please try again.');
-      }
-    } finally {
+    if (!values.ingredients.length) {
+      setFieldTouched('ingredients', true);
+      setNotification('Add at least one ingredient.');
       setSubmitting(false);
+      return;
     }
-  };
+
+    const ingredientsPayload = values.ingredients.map((item) => ({
+      id: String(item.id),
+      measure: String(item.measure).trim(),
+    }));
+
+    const invalidIngredient = ingredientsPayload.some(
+      (item) => !item.id || item.id === 'undefined' || item.id === 'null' || !item.measure,
+    );
+
+    if (invalidIngredient) {
+      setNotification('One or more ingredients have an invalid ID.');
+      setSubmitting(false);
+      return;
+    }
+
+    const formData = new FormData();
+
+    if (values.image instanceof File) {
+      formData.append('thumb', values.image);
+    }
+
+    formData.append('title', values.title.trim());
+    formData.append('description', values.description.trim());
+    formData.append('category', values.category);
+    formData.append('area', values.area);
+    formData.append('time', String(values.time));
+    formData.append('instructions', values.instructions.trim());
+    formData.append('ingredients', JSON.stringify(ingredientsPayload));
+
+    const recipe = await createRecipe(formData);
+    const recipeId = recipe?.id;
+
+    if (!recipeId) {
+      throw new Error('Recipe ID was not returned by API');
+    }
+
+    resetForm({ values: { ...emptyDraft, image: null } });
+    clearRecipeDraft();
+    navigate(`/recipe/${recipeId}`);
+  } catch (error: unknown) {
+    const apiError = isAxiosError<{ error?: unknown }>(error)
+      ? error.response?.data.error
+      : undefined;
+
+    if (typeof apiError === 'string') {
+      setNotification(apiError);
+    } else if (error instanceof Error) {
+      setNotification(error.message);
+    } else {
+      setNotification('Could not publish recipe. Please try again.');
+    }
+
+    setSubmitting(false);
+  }
+};
 
   return (
     <>
