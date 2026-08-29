@@ -18,14 +18,13 @@ export function LogOutModal({ onClose }: ModalContentProps) {
   const handleLogout = async () => {
     setIsPending(true);
     try {
+      navigate(ROUTE.home, { replace: true });
       await dispatch(logout());
       await persistor.purge();
       notify.success('You have been logged out');
-      navigate(ROUTE.home);
     } catch {
-      // За ТЗ клієнт все одно виходить; можна м’який info замість error
       notify.info('Session cleared on this device');
-      navigate(ROUTE.home);
+      navigate(ROUTE.home, { replace: true });
     } finally {
       setIsPending(false);
       onClose();
