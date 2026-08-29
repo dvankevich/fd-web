@@ -29,7 +29,9 @@
   fill: currentColor;
 }
 
-.link:hover {
+.link:hover,
+.link:focus-visible {
+  outline: none;
   background-color: var(--main-black);
   color: var(--white);
 }

@@ -18,6 +18,11 @@
   text-align: left;
 }
 
+.select:focus-visible {
+  outline: none;
+  border-color: var(--form-text-color);
+}
+
 .placeholder {
   color: var(--placeholder-grey);
 }

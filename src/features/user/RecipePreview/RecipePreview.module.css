@@ -63,6 +63,7 @@
 
 .iconBtn:hover:not(:disabled),
 .iconBtn:focus-visible:not(:disabled) {
+  outline: none;
   background-color: var(--main-black);
   color: var(--white);
 }

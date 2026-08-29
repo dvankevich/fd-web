@@ -36,6 +36,7 @@
 .page:focus-visible,
 .control:hover:not(:disabled),
 .control:focus-visible {
+  outline: none;
   background: rgba(5, 5, 5, 0.06);
 }
 
