@@ -18,6 +18,7 @@ import { paginateClient, RECIPES_LIMIT, USERS_PAGE_SIZE } from './lib';
 import { selectMyFollowingIds } from './selectors';
 import { favoriteRemoved, followingAdded, followingRemoved, recipeRemoved } from './slice';
 import type { FollowUser, TabKey, UserCardData } from './types';
+import { removeRecipeFromFavorites } from '@features/recipes/api';
 
 type ListKind = 'recipes' | 'users';
 
@@ -152,12 +153,15 @@ export const useProfileList = ({
       setDeletingId(id);
       try {
         if (tab === 'favorites') {
-          if (me) await dispatch(toggleFavorite({ id, userId: me.id })).unwrap();
+          await removeRecipeFromFavorites(id);
           dispatch(favoriteRemoved());
-        } else {
+        } else if (tab === 'recipes') {
           await apiClient.delete(`/recipes/${encodeURIComponent(id)}`);
           dispatch(recipeRemoved());
+        } else {
+          return;
         }
+
         setRecipes((prev) => {
           const next = prev.filter((recipe) => recipe.id !== id);
           if (next.length === 0 && page > 1) onEmptyPage();
@@ -165,12 +169,16 @@ export const useProfileList = ({
         });
         setRecipeTotal((value) => Math.max(0, value - 1));
       } catch {
-        setError('Unable to delete this recipe.');
+        setError(
+          tab === 'favorites'
+            ? 'Unable to remove this recipe from favorites.'
+            : 'Unable to delete this recipe.',
+        );
       } finally {
         setDeletingId(null);
       }
     },
-    [dispatch, me, onEmptyPage, page, tab],
+    [dispatch, onEmptyPage, page, tab],
   );
 
   const toggleFollow = useCallback(
