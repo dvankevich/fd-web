@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '@app/store/store';
-import { selectUser } from '@features/auth';
-import { toggleFavorite } from '@features/recipes';
 import { apiClient } from '@shared/api/client';
 import type { RecipeListItem } from '@shared/types';
 import {
@@ -75,7 +73,6 @@ export const useProfileList = ({
   onEmptyPage,
 }: UseProfileListArgs): UseProfileListResult => {
   const dispatch = useDispatch<AppDispatch>();
-  const me = useSelector(selectUser);
   const myFollowingIds = useSelector(selectMyFollowingIds);
   const kind = kindOf(tab);
 
