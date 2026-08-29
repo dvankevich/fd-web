@@ -97,6 +97,18 @@
   color: #aaa;
 }
 
+.time span.filled {
+  color: var(--main-black);
+}
+
+.timeValue {
+  color: var(--text-grey);
+}
+
+.timeValueFilled {
+  color: var(--main-black);
+}
+
 .time button:focus-visible,
 .resetButton:focus-visible {
   outline: none;

@@ -405,7 +405,9 @@ export default function AddRecipeForm() {
                             <use href={`${sprite}#icon-minus`} />
                           </svg>
                         </button>
-                        <span>{values.time} min</span>
+                        <span className={values.category ? css.filled : undefined}>
+                          {values.time} min
+                        </span>
                         <button
                           type="button"
                           aria-label="Increase cooking time"
