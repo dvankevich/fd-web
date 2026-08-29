@@ -93,8 +93,11 @@
 }
 
 .time span {
-  min-width: 49px;
-  color: #aaa;
+  display: inline-block;
+  min-width: 7ch;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .time span.filled {
