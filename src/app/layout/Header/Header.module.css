@@ -147,8 +147,8 @@
 
 @media (min-width: 768px) and (max-width: 1439px) {
   .header {
-    width: calc(100% - 32px);
-    max-width: none;
+    width: 736px;
+    max-width: 768px;
 
     margin-top: 16px;
     padding-top: 20px;

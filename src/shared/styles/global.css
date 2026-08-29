@@ -33,10 +33,12 @@ body {
 @media (min-width: 768px) {
   .container {
     padding-inline: var(--container-padding-tablet);
+    max-width: 768px;
   }
 
   .container-wide {
     padding-inline: var(--wide-container-padding-tablet);
+    max-width: 768px;
   }
 }
 
