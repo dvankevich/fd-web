@@ -1,15 +1,11 @@
 import { useState } from 'react';
 
 import { matchPath, useLocation } from 'react-router-dom';
-
 import { useSelector } from 'react-redux';
 
 import { Logo } from '@app/layout/Logo';
-
 import { Nav } from '@app/layout/Nav';
-
 import { AuthBar } from '@app/layout/AuthBar';
-
 import { UserBar } from '@app/layout/UserBar';
 
 import { selectIsLoggedIn } from '@features/auth/selectors';
@@ -36,74 +32,85 @@ export function Header() {
     Boolean(matchPath('/user/:id', location.pathname));
 
   return (
-    <header
-      className={`${styles.header} ${
-        isLightHeader ? styles.light : ''
-      } ${!isLoggedIn ? styles.loggedOut : ''}`}
-    >
-      <div className={styles.inner}>
-        <Logo />
+    <div className="container-wide">
+      <header
+        className={`${styles.header} ${
+          isLightHeader ? styles.light : ''
+          } ${location.pathname === '/recipe/add' ? styles.addRecipeHeader : ''} ${
+          !isLoggedIn ? styles.loggedOut : ''
+        }`}
+      >
+        <div className={styles.inner}>
+          <Logo />
 
-        <div className={styles.desktopNav}>
-          <Nav />
-        </div>
-
-        <div className={styles.right}>
-          {isLoggedIn ? <UserBar /> : <AuthBar />}
-
-          {isLoggedIn && (
-            <button
-              type="button"
-              className={styles.burger}
-              onClick={() => setMenuOpen(true)}
-              aria-label="Open menu"
-            >
-              <svg width="28" height="28" aria-hidden="true">
-                <use href={`${sprite}#icon-burger`} />
-              </svg>
-            </button>
-          )}
-        </div>
-      </div>
-
-      {isLoggedIn && (
-        <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileOpen : ''}`}>
-          <div className={styles.mobileTop}>
-            <Logo onClick={closeMenu} />
-
-            <button
-              type="button"
-              className={styles.close}
-              onClick={closeMenu}
-              aria-label="Close menu"
-            >
-              <svg width="24" height="24" aria-hidden="true">
-                <use href={`${sprite}#icon-close`} />
-              </svg>
-            </button>
+          <div className={styles.desktopNav}>
+            <Nav />
           </div>
 
-          <Nav className={styles.mobileNav} onNavigate={closeMenu} />
+          <div className={styles.right}>
+            {isLoggedIn ? <UserBar /> : <AuthBar />}
 
-          <div className={styles.mobileImages}>
-            <img
-              className={styles.mobileImageSmall}
-              src={heroSmall1x}
-              width={77}
-              height={70}
-              alt=""
-            />
-
-            <img
-              className={styles.mobileImageLarge}
-              src={heroLarge1x}
-              width={190}
-              height={172}
-              alt=""
-            />
+            {isLoggedIn && (
+              <button
+                type="button"
+                className={styles.burger}
+                onClick={() => setMenuOpen(true)}
+                aria-label="Open menu"
+              >
+                <svg width="28" height="28" aria-hidden="true">
+                  <use href={`${sprite}#icon-burger`} />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
-      )}
-    </header>
+
+        {isLoggedIn && (
+          <div
+            className={`${styles.mobileMenu} ${
+              menuOpen ? styles.mobileOpen : ''
+            }`}
+          >
+            <div className={styles.mobileTop}>
+              <Logo onClick={closeMenu} />
+
+              <button
+                type="button"
+                className={styles.close}
+                onClick={closeMenu}
+                aria-label="Close menu"
+              >
+                <svg width="24" height="24" aria-hidden="true">
+                  <use href={`${sprite}#icon-close`} />
+                </svg>
+              </button>
+            </div>
+
+            <Nav
+              className={styles.mobileNav}
+              onNavigate={closeMenu}
+            />
+
+            <div className={styles.mobileImages}>
+              <img
+                className={styles.mobileImageSmall}
+                src={heroSmall1x}
+                width={77}
+                height={70}
+                alt=""
+              />
+
+              <img
+                className={styles.mobileImageLarge}
+                src={heroLarge1x}
+                width={190}
+                height={172}
+                alt=""
+              />
+            </div>
+          </div>
+        )}
+      </header>
+    </div>
   );
 }
