@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigationType } from 'react-router-dom';
 import { isAxiosError } from 'axios';
 import type { Category } from '@features/categories';
 import type { Paginated, RecipeListItem } from '@shared/types';
@@ -61,6 +62,7 @@ const getRecipesErrorMessage = (error: unknown): string => {
 };
 
 export function Recipes({ category, onBack }: RecipesProps) {
+  const navType = useNavigationType();
   const sectionRef = useRef<HTMLElement>(null);
   const shouldScrollAfterLoadRef = useRef(false);
   const limit = usePageLimit();
@@ -75,11 +77,11 @@ export function Recipes({ category, onBack }: RecipesProps) {
   useInitializeFavoriteIds();
 
   useEffect(() => {
-    if (sectionRef.current) {
+    if ((navType === 'PUSH' || navType === 'REPLACE') && sectionRef.current) {
       const topPosition = sectionRef.current.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({ top: topPosition, behavior: 'instant' });
     }
-  }, []);
+  }, [navType]);
 
   useEffect(() => {
     const controller = new AbortController();
