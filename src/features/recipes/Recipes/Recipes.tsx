@@ -75,6 +75,13 @@ export function Recipes({ category, onBack }: RecipesProps) {
   useInitializeFavoriteIds();
 
   useEffect(() => {
+    if (sectionRef.current) {
+      const topPosition = sectionRef.current.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: topPosition, behavior: 'instant' });
+    }
+  }, []);
+
+  useEffect(() => {
     const controller = new AbortController();
 
     const loadRecipes = async () => {
