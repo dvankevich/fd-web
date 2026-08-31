@@ -136,6 +136,7 @@ export default function AddRecipeForm() {
         if (isMounted) {
           setIngredients([]);
           setNotification('Could not load ingredients.');
+          notify.error('Could not load ingredients.');
         }
       } finally {
         if (isMounted) {
@@ -291,7 +292,8 @@ export default function AddRecipeForm() {
             );
 
             if (alreadyAdded) {
-              setNotification('This ingredient has already been added.');
+              // setNotification('This ingredient has already been added.');
+              notify.error('This ingredient has already been added.');
               return;
             }
 
