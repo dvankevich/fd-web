@@ -76,9 +76,8 @@ export const useProfileList = ({
   const myFollowingIds = useSelector(selectMyFollowingIds);
   const kind = kindOf(tab);
 
-  // Ключ поточного запиту. Поки завантажені дані (readyKey) не збігаються з ним —
-  // показуємо Loader, щоб уникнути застарілих даних чи передчасного порожнього стану.
-  const currentKey = `${kind}|${tab}|${page}|${profileId}`;
+  const [reloadKey, setReloadKey] = useState(0);
+  const currentKey = `${kind}|${tab}|${page}|${profileId}|${reloadKey}`;
 
   const [recipes, setRecipes] = useState<RecipeListItem[]>([]);
   const [recipeTotal, setRecipeTotal] = useState(0);
@@ -152,13 +151,16 @@ export const useProfileList = ({
         if (tab === 'favorites') {
           await removeRecipeFromFavorites(id);
           dispatch(favoriteRemoved());
-        } else if (tab === 'recipes') {
-          await apiClient.delete(`/recipes/${encodeURIComponent(id)}`);
-          dispatch(recipeRemoved());
-        } else {
+          if (recipes.length === 1 && page > 1) {
+            onEmptyPage();
+          } else {
+            setReloadKey((key) => key + 1);
+          }
           return;
         }
 
+        await apiClient.delete(`/recipes/${encodeURIComponent(id)}`);
+        dispatch(recipeRemoved());
         setRecipes((prev) => {
           const next = prev.filter((recipe) => recipe.id !== id);
           if (next.length === 0 && page > 1) onEmptyPage();
@@ -175,7 +177,7 @@ export const useProfileList = ({
         setDeletingId(null);
       }
     },
-    [dispatch, onEmptyPage, page, tab],
+    [dispatch, onEmptyPage, page, recipes.length, tab],
   );
 
   const toggleFollow = useCallback(
