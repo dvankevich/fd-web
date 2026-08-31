@@ -270,7 +270,9 @@ export default function AddRecipeForm() {
               return;
             }
 
-            const ingredient = ingredients.find((item) => String(item._id) === String(ingredientId));
+            const ingredient = ingredients.find(
+              (item) => String(item._id) === String(ingredientId),
+            );
 
             if (!ingredient) {
               setNotification('Selected ingredient was not found.');
@@ -337,7 +339,7 @@ export default function AddRecipeForm() {
                   file={values.image}
                   onChange={(file) => {
                     setFieldValue('image', file);
-                    setFieldTouched('image', true);
+                    setFieldTouched('image', false);
                   }}
                   error={touched.image ? errors.image : undefined}
                 />

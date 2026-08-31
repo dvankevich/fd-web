@@ -62,8 +62,8 @@ export default function ImageUploader({ file, error, onChange }: Props) {
       </label>
 
       {preview && (
-        <button type="button" onClick={handleRemove}>
-          Remove image
+        <button className={css.uploadPhoto} type="button" onClick={handleRemove}>
+          Remove a photo
         </button>
       )}
 
