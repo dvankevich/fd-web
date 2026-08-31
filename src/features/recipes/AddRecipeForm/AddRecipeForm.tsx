@@ -330,16 +330,16 @@ export default function AddRecipeForm() {
 
               <div className={css.fields}>
                 <label className={css.textField}>
-                  <span className={css.nameLabel}>THE NAME OF THE RECIPE</span>
+                  {/* <span className={css.nameLabel}>THE NAME OF THE RECIPE</span> */}
                   <input
                     name="title"
                     value={values.title}
-                    placeholder="Enter recipe name"
+                    placeholder="THE NAME OF THE RECIPE"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     aria-invalid={hasError('title')}
                     aria-describedby="title-error"
-                    className={hasError('title') ? css.invalidLine : ''}
+                    className={`${css.titleInput} ${hasError('title') ? css.invalidLine : ''}`}
                   />
                   <FormError id="title-error" as="span" variant="compact">
                     {hasError('title') ? errors.title : undefined}
