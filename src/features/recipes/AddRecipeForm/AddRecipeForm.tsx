@@ -270,7 +270,9 @@ export default function AddRecipeForm() {
               return;
             }
 
-            const ingredient = ingredients.find((item) => String(item._id) === String(ingredientId));
+            const ingredient = ingredients.find(
+              (item) => String(item._id) === String(ingredientId),
+            );
 
             if (!ingredient) {
               setNotification('Selected ingredient was not found.');
