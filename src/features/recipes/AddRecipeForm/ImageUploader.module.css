@@ -34,11 +34,6 @@
   border-color: var(--invalid-border-color) !important;
 }
 
-.wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 .uploadPhoto {
   display: block;
