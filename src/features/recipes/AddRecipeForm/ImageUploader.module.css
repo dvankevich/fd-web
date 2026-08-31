@@ -32,3 +32,8 @@
 .invalid {
   border-color: var(--invalid-border-color) !important;
 }
+
+.uploadPhoto {
+  text-decoration: underline;
+  margin-top: 20px
+}

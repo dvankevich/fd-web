@@ -339,7 +339,7 @@ export default function AddRecipeForm() {
                   file={values.image}
                   onChange={(file) => {
                     setFieldValue('image', file);
-                    setFieldTouched('image', true);
+                    setFieldTouched('image', false);
                   }}
                   error={touched.image ? errors.image : undefined}
                 />
