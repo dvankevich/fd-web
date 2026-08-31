@@ -49,7 +49,7 @@ test.describe('add recipe', () => {
     // photo (input hidden — setInputFiles все одно працює)
     await page.locator('input[type="file"]').setInputFiles(fixtureImage);
 
-    await page.getByPlaceholder('Enter recipe name').fill(`E2E Cake ${Date.now()}`);
+    await page.getByPlaceholder('THE NAME OF THE RECIPE').fill(`E2E Cake ${Date.now()}`);
     await page.getByPlaceholder('Enter a description of the dish').fill(
       'E2E test description for recipe form',
     );
