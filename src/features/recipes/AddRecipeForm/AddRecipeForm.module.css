@@ -37,7 +37,7 @@
   border-bottom: 1px solid var(--input-border-grey);
   outline: 0;
   color: var(--form-text-color);
-  font: inherit;
+  /* font: inherit; */
 }
 
 .textField textarea {
@@ -260,5 +260,47 @@
     grid-template-columns: minmax(350px, 560px) minmax(450px, 640px);
     justify-content: space-between;
     gap: 80px;
+  }
+}
+
+.titleInput {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0 0 15px;
+  border: 0;
+  border-bottom: 1px solid var(--input-border-grey);
+  outline: 0;
+  background: transparent;
+  color: var(--form-text-color);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.titleInput::placeholder {
+  color: var(--placeholder-grey);
+  opacity: 1;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.titleInput.invalidLine {
+  border-bottom-color: var(--form-error-color);
+  color: var(--form-error-color);
+}
+
+@media (min-width: 768px) {
+  .titleInput,
+  .titleInput::placeholder {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .titleInput,
+  .titleInput::placeholder {
+    font-size: 20px;
   }
 }
