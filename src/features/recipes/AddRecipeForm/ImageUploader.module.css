@@ -33,7 +33,14 @@
   border-color: var(--invalid-border-color) !important;
 }
 
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .uploadPhoto {
+  display: block;
+  margin: 20px auto 0;
   text-decoration: underline;
-  margin-top: 20px
 }
