@@ -17,7 +17,7 @@ const getItems = (data: unknown, key: string): unknown[] => {
 };
 
 export const getCategories = async (): Promise<Option[]> => {
-  const { data } = await apiClient.get('/categories1994');
+  const { data } = await apiClient.get('/categories');
 
   return toNameOptions(getItems(data, 'categories'));
 };
@@ -47,7 +47,7 @@ export const getIngredients = async (): Promise<Ingredient[]> => {
 };
 
 export const createRecipe = async (formData: FormData): Promise<{ id: string }> => {
-  const { data } = await apiClient.post<unknown>('/recipes1994', formData);
+  const { data } = await apiClient.post<unknown>('/recipes', formData);
 
   if (!isRecord(data) || (!isString(data.id) && typeof data.id !== 'number')) {
     throw new Error('Recipe ID was not returned by API');
