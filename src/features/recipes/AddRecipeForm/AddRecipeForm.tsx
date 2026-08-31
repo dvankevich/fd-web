@@ -409,7 +409,7 @@ export default function AddRecipeForm() {
                             <use href={`${sprite}#icon-minus`} />
                           </svg>
                         </button>
-                        <span className={values.category ? css.filled : undefined}>
+                        <span className={values.category ? css.filled : css.timeValue}>
                           {values.time} min
                         </span>
                         <button
