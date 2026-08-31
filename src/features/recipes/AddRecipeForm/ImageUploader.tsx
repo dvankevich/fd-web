@@ -40,7 +40,7 @@ export default function ImageUploader({ file, error, onChange }: Props) {
   };
 
   return (
-    <div>
+    <div className={css.wrap}>
       <label className={cn(css.photoBox, error && css.invalid)}>
         {preview ? (
           <img src={preview} alt="Recipe preview" />
@@ -63,7 +63,7 @@ export default function ImageUploader({ file, error, onChange }: Props) {
 
       {preview && (
         <button className={css.uploadPhoto} type="button" onClick={handleRemove}>
-          Remove a photo
+          Upload another photo
         </button>
       )}
 

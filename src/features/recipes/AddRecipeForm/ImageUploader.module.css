@@ -8,6 +8,7 @@
   border-radius: 24px;
   text-align: center;
   cursor: pointer;
+  margin-inline: auto;
 }
 
 .photoBox img:not(.cameraIcon) {
@@ -34,6 +35,12 @@
 }
 
 .uploadPhoto {
+  display: block;
   text-decoration: underline;
-  margin-top: 20px
+  margin-top: 20px;
+  margin-inline: auto;
+}
+
+.wrap {
+  width: 100%;
 }
